@@ -9,7 +9,7 @@ body {
 }
 
 a {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
   color: #fff;
   text-decoration: none;
@@ -186,4 +186,20 @@ input.input {
   width:100%;
   text-align:center;
   margin:5px 0px;
+}
+
+.divider {
+    position:absolute;
+    left:50%;
+    top:39%;
+    bottom:5%;
+    border-left:1px solid white;
+}
+
+.welcome-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 20px;
+  width:43%;
+  text-align: center;
 }

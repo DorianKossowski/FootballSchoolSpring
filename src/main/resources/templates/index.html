@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../resources/css/index.css">
@@ -12,24 +12,14 @@
             <div class="login-title-img" style="background-image: url(../resources/images/login-theme.png);">
                 <span class="login-title">Football School</span>
             </div>
-            <form class="login-form">
-                <div class="input-wrapper">
-                    <input class="input" type="text" name="username">
-                    <span class="input-label">Email</span>
-                </div>
-                <div class="input-wrapper">
-                    <input class="input" type="password" name="pass">
-                    <span class="input-label">Password</span>
-                </div>
-                <div class="info-text">
-                    <a>Wrong email or password! Try again</a>
-                </div>
-                <div class="login-btn-wrapper">
-                    <button class="login-btn">Login</button>
-                </div>
-                <div class="info-text">
-                    <a href="#">Forgot password?</a>
-                </div>
+            <div class="welcome-container">
+                You run your own football school and you want to manage it from one place<br/>
+                <a href="#">CONTACT US</a>
+            </div>
+            <div class="divider"></div>
+            <form class="welcome-container">
+                You are football coach or parent with account in our service<br/>
+                <a href="/login">GO TO LOG IN SITE</a>
             </form>
         </div>
     </div>
