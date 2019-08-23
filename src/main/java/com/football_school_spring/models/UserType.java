@@ -13,6 +13,13 @@ public class UserType {
 
     private String name;
 
+    public UserType() {
+    }
+
+    public UserType(String name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

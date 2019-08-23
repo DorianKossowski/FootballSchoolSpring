@@ -15,6 +15,14 @@ public class UserStatus {
     @Column
     private Date date;
 
+    public UserStatus() {
+    }
+
+    public UserStatus(String name, Date date) {
+        this.name = name;
+        this.date = date;
+    }
+
     public long getId() {
         return id;
     }

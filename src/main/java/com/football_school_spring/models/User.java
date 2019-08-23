@@ -9,11 +9,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userTypeId", referencedColumnName = "id")
     private UserType userType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userStatusId", referencedColumnName = "id")
     private UserStatus userStatus;
 
@@ -31,7 +31,6 @@ public class User {
 
     @Column
     private String phone;
-
 
     public long getId() {
         return id;
