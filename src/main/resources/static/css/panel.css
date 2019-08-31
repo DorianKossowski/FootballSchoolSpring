@@ -1,0 +1,132 @@
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('../fonts/Poppins-Regular.ttf');
+}
+
+body {
+  background: #f4f4f4;
+  font-family: Poppins-Regular;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:1200px;
+}
+
+i {
+  margin-left:5px!important;
+  margin-right:16px!important;
+}
+
+.header {
+  display:table;
+  width:100%;
+  font-size:18px!important;
+  padding: 0.01em 16px;
+  margin-top:16px;
+  border-bottom:1px solid #2d3447;
+}
+
+.sidebar {
+  height:100%;
+  width:250px;
+  background-color:#2d3447;
+  position:fixed!important;
+  z-index:3;
+  display:block!important;
+  position:fixed;
+  top:0;
+}
+
+.logo-container {
+  padding:0.1em 16px;
+  position:relative;
+  color: #ffffff;
+  font-size: 28px;
+  text-align: center;
+  border-bottom:1px solid #ffffff;
+}
+
+.sidebar-category {
+  padding-top:64px!important;
+  padding-bottom:64px!important;
+  font-size:18px!important;
+  color:#ffffff;
+}
+
+.button {
+  border:none;
+  display:block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+
+.button-header {
+  padding: 8px 30px;
+}
+
+.button-header:hover {
+    background-color: #d9d9d9;
+}
+
+.button-header:active {
+    background-color: #bfbfbf;
+}
+
+.button-sidebar-active {
+  background-color:#14171f;
+}
+
+.button-sidebar:hover {
+  background-color:#1e222f;
+}
+
+.button-sidebar:active {
+  background-color:#14171f;
+}
+
+.sidebar-category-title {
+  display:block;
+  width:100%;
+  text-align:left!important;
+  padding:8px 16px;
+}
+
+.sidebar-category-content {
+  width:90%;
+  padding:5px 10%!important;
+  font-size:16px!important;
+  text-align:center;
+}
+
+.main {
+  margin-left:250px;
+  margin-right:0!important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  position: relative;
+}
+
+#user-menu {
+  display:none;
+  position:absolute;
+  z-index:10;
+  right: 0;
+  background: #f4f4f4;
+  border:1px solid #2d3447;
+  border-top: 0;
+}
+
+.user-menu-content {
+  font-size:16px!important;
+  text-align:center;
+}
+
+.main-content {
+  margin-top: 16px;
+}
