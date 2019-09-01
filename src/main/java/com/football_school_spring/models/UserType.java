@@ -1,12 +1,15 @@
 package com.football_school_spring.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class UserType {
+public class UserType implements GrantedAuthority {
+    private static final long serialVersionUID = -1893406584416879879L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,5 +37,11 @@ public class UserType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    // GrantedAuthority implementation
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 }
