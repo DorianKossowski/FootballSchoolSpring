@@ -1,29 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms-style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 </head>
 <body>
 <div class="main-container">
-    <div class="login-container">
-        <div class="login-title-img" style="background-image: url(../images/login-theme.png);">
-            <span class="login-title">Football School</span>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Occurs problem during mail sending
+    </div>
+    <div class="alert alert-success" th:if="${param.sent}">
+        Thank you for interesting in Football School - our staff will contact you as soon as possible
+    </div>
+    <div class="index-container">
+        <div class="index-title-img" style="background-image: url(../images/login-theme.png);">
+            <span class="index-title">Football School</span>
+        </div>
+        <div id="contact-modal">
+            <span class="close">&times;</span>
+            <form action="#" style="margin-top: 30px;" th:action="@{/}" th:object="${contactModel}" method="post">
+                <fieldset>
+                    <legend>Contact us</legend>
+                    <div class="form-group">
+                        <div>
+                            <label class="input-label" for="name">Name</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <input id="name" type="text" placeholder="name" class="input" required=""
+                                       th:field="*{name}">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label" for="mail">Mail</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <input id="mail" type="email" placeholder="mail" class="input" required=""
+                                       th:field="*{mail}">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label" for="message">Message</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <textarea id="message" class="input-area" cols="20" rows="5" placeholder="message"
+                                          required="" th:field="*{message}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-btn-wrapper">
+                        <button id="send" name="send" class="form-btn">Send</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div class="welcome-container">
             You run your own football school and you want to manage it from one place<br/>
-            <a href="#">CONTACT US</a>
+            <button type="button" id="contact-button">CONTACT US</button>
         </div>
         <div class="divider"></div>
-        <form class="welcome-container">
+        <div class="welcome-container">
             You are football coach or parent with account in our service<br/>
             <a href="/login">GO TO LOG IN SITE</a>
-        </form>
+        </div>
     </div>
 </div>
+<script>
+// Get the modal
+var modal = document.getElementById("contact-modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("contact-button");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="../js/login-form.js"></script>
 </body>
 </html>

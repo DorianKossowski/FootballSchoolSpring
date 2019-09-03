@@ -1,29 +1,6 @@
-legend {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 20px;
-  font-size: 21px;
-  line-height: inherit;
-  color: #333;
-  border: 0;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 0;
-  border: 0;
-}
-
-fieldset {
-  border: none;
-}
-
-legend {
-  border-bottom:1px solid #ffff;
-}
-
-.input-label {
-  display: inline-block;
-  min-width: 80px;
-  margin-right: 20px;
+.login-form {
+  width: 400px;
+  margin: 20px auto auto auto;
 }
 
 .input-wrapper {
@@ -32,13 +9,33 @@ legend {
   display: -moz-box;
   display: -ms-flexbox;
 
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  width: 40%;
-  min-height: 50px;
+  width: 80%;
+  height: 75px;
   position: relative;
   background-color: #fff;
   margin: auto auto 10px auto;
+}
+
+.input-label {
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  padding-left: 20px;
+  margin-bottom: 5px;
+  left: 0;
+  top: 30px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 .input {
@@ -47,26 +44,33 @@ legend {
   line-height: 1.2;
   background: transparent;
   border-style: none;
-  width: 100%;
   text-indent: 20px;
-  border: 1px solid #2d3447;
+  margin-top: 5px;
   font-family: inherit;
 }
 
-.input-area {
-  font-size: 15px;
-  color: #555555;
-  line-height: 1.2;
-  background: transparent;
-  border-style: none;
+input.input {
+  height: 100%;
   width: 100%;
-  text-indent: 20px;
-  border: 1px solid #2d3447;
-  resize: none;
-  font-family: inherit;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
-.form-btn-wrapper {
+.input:focus + .input-label {
+  top: 10px;
+  font-size: 13px;
+}
+
+.has-val + .input-label {
+  top: 10px;
+  font-size: 13px;
+  color: #111111;
+}
+
+.login-btn-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -78,7 +82,7 @@ legend {
   justify-content: center;
 }
 
-.form-btn {
+.login-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -91,8 +95,8 @@ legend {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15%;
-  height: 40px;
+  width: 40%;
+  height: 50px;
   margin: auto;
   border-style:none;
   background: #555555;
