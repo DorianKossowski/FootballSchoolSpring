@@ -97,3 +97,7 @@ legend {
   border-style:none;
   background: #555555;
 }
+
+.form-group {
+  text-align: end;
+}

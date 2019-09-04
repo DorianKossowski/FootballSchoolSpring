@@ -9,6 +9,9 @@
 </head>
 <body>
 <div class="main-container">
+    <div class="alert alert-danger" th:if="${param.error}">
+        Wrong email or password! Try again
+    </div>
     <div class="index-container">
         <div class="index-title-img" style="background-image: url(../images/login-theme.png);">
             <span class="index-title">Football School</span>
@@ -21,9 +24,6 @@
             <div class="input-wrapper">
                 <input class="input" type="password" name="password">
                 <span class="input-label">Password</span>
-            </div>
-            <div class="info-text" th:if="${param.error}">
-                <a style="color:red;">Wrong email or password! Try again</a>
             </div>
             <div class="login-btn-wrapper">
                 <button class="login-btn">Login</button>

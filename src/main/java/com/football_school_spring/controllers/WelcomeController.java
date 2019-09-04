@@ -35,5 +35,10 @@ public class WelcomeController {
         }
         return "redirect:/?sent=true";
     }
+
+    @GetMapping(value = "/register")
+    public String register(Model model) {
+        return "register";
+    }
 }
 

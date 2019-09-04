@@ -10,61 +10,56 @@
 <body>
 <div class="main-container">
     <div class="alert alert-danger" th:if="${param.error}">
-        Problem occurred during mail sending
-    </div>
-    <div class="alert alert-success" th:if="${param.sent}">
-        Thank you for interesting in Football School - our staff will contact you as soon as possible
+        Invalid data! Please fill form correctly
     </div>
     <div class="index-container">
         <div class="index-title-img" style="background-image: url(../images/login-theme.png);">
             <span class="index-title">Football School</span>
         </div>
-        <div id="contact-modal">
-            <span class="close" onclick="modalOff()">&times;</span>
-            <form action="#" style="margin-top: 30px;" th:action="@{/}" th:object="${contactModel}" method="post">
+        <div class="welcome-container" style="margin: auto; width:450px;">
+            <form action="#" style="margin-top: 30px;" method="post">
                 <fieldset>
-                    <legend>Contact us</legend>
+                    <legend style="color:#ffffff;">Registration</legend>
                     <div class="form-group">
                         <div>
                             <label class="input-label" for="name">Name</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="name" type="text" placeholder="name" class="input" required=""
-                                       th:field="*{name}">
+                                <input id="name" type="text" placeholder="name" class="input" required="">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label" for="surname">Surname</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <input id="surname" type="text" placeholder="surname" class="input" required="">
                             </div>
                         </div>
                         <div>
                             <label class="input-label" for="mail">Mail</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="mail" type="email" placeholder="mail" class="input" required=""
-                                       th:field="*{mail}">
+                                <input id="mail" type="email" placeholder="mail" class="input" readonly>
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="message">Message</label>
+                            <label class="input-label" for="phone">Phone</label>
                             <div class="input-wrapper" style="width:70%">
-                                <textarea id="message" class="input-area" cols="20" rows="5" placeholder="message"
-                                          required="" th:field="*{message}"></textarea>
+                                <input id="phone" type="text" placeholder="phone" class="input">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label" for="password">Password</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <input id="password" type="password" placeholder="password" class="input">
                             </div>
                         </div>
                     </div>
                     <div class="form-btn-wrapper">
-                        <button id="send" name="send" class="form-btn">Send</button>
+                        <button id="send" name="send" class="form-btn" style="width:25%;">Register</button>
                     </div>
                 </fieldset>
             </form>
         </div>
-        <div class="welcome-container">
-            You run your own football school and you want to manage it from one place<br/>
-            <button type="button" onclick="modalOn()">CONTACT US</button>
-        </div>
-        <div class="divider"></div>
-        <div class="welcome-container">
-            You are football coach or parent with account in our service<br/>
-            <a href="/login">GO TO LOG IN SITE</a>
-        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="../js/index-contact-modal.js"></script>
 </body>
 </html>
