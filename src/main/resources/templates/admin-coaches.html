@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
     <link rel="stylesheet" type="text/css" href="../css/panel.css">
     <link rel="stylesheet" type="text/css" href="../css/forms-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,6 +27,12 @@
     </div>
 </nav>
 <div class="main">
+    <div class="alert alert-danger" th:if="${param.error}">
+        Problem occurred during sending invitation
+    </div>
+    <div class="alert alert-success" th:if="${param.sent}">
+        Invitation sent correctly
+    </div>
     <header class="header">
         <div style="float:right;margin-bottom:16px;">
             <p style="display:inline;" th:text="${userName}">...</p>
@@ -42,14 +49,14 @@
         </div>
     </div>
     <div class="main-content">
-        <form>
+        <form th:action="@{/admin/coaches}" th:object="${newCoach}" method="post">
             <fieldset>
                 <legend>Send invitation to new coach</legend>
                 <div class="form-group" style="text-align: center;">
                     <label class="input-label" for="newCoachMail">New coach's mail</label>
                     <div class="input-wrapper">
                         <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
-                               class="input" required="">
+                               class="input" required="" th:field="*{mail}">
                     </div>
                 </div>
                 <div class="form-btn-wrapper">
@@ -71,10 +78,11 @@
                 </tr>
                 </thead>
                 <th:block th:each="coach : ${coaches}">
-                    <tr style="text-align: left;">
+                    <tr>
                         <td th:text="${coach.mail}">...</td>
-                        <td th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
-                        <td th:text="${coach.status}">...</td>
+                        <td th:if="${coach.name}==null">-</td>
+                        <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
+                        <td th:text="${coach.userStatus.name}">...</td>
                     </tr>
                 </th:block>
             </table>

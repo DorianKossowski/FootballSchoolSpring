@@ -148,7 +148,8 @@ button {
   border-radius: 0px;
   z-index: 1;
   background-color: #f4f4f4;
-  margin: auto
+  margin: auto;
+  text-align:center;
 }
 
 .alert-danger {

@@ -7,19 +7,18 @@ import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @Import(SimpleJavaMailSpringSupport.class)
 public class EmailServiceImpl implements EmailService {
     @Autowired
     private Mailer mailer;
-    @Autowired
-    private Environment environment;
+
+    @Value("${simplejavamail.smtp.username}")
+    private String adminMail;
 
     @Override
     public void send(Email email) {
@@ -28,7 +27,6 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendContactMail(ContactModel contactModel) {
-        String adminMail = Objects.requireNonNull(environment.getProperty("simplejavamail.smtp.username"));
         Email email = EmailBuilder.startingBlank()
                 .from(adminMail)
                 .to(adminMail)
@@ -36,6 +34,17 @@ public class EmailServiceImpl implements EmailService {
                 .withPlainText("Name: " + contactModel.getName())
                 .appendText("\nMail: " + contactModel.getMail())
                 .appendText("\nMessage: " + contactModel.getMessage())
+                .buildEmail();
+        send(email);
+    }
+
+    @Override
+    public void sendRegistrationInviteMail(String mailTo, String registrationUrl) {
+        Email email = EmailBuilder.startingBlank()
+                .from(adminMail)
+                .to(mailTo)
+                .withSubject("Football School - registration")
+                .appendText("http://localhost:8080" + registrationUrl)
                 .buildEmail();
         send(email);
     }

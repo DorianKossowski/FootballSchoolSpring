@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "userStatusId", referencedColumnName = "id")
     private UserStatus userStatus;
 
-    @Column
+    @Column(unique = true)
     private String mail;
 
     @Column

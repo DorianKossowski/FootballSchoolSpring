@@ -7,4 +7,6 @@ public interface EmailService {
     void send(Email email);
 
     void sendContactMail(ContactModel contactModel);
+
+    void sendRegistrationInviteMail(String mailTo, String registrationUrl);
 }

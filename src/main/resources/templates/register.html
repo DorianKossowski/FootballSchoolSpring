@@ -17,38 +17,44 @@
             <span class="index-title">Football School</span>
         </div>
         <div class="welcome-container" style="margin: auto; width:450px;">
-            <form action="#" style="margin-top: 30px;" method="post">
+            <form action="#" style="margin-top: 30px;" th:action="@{/register?token=} + ${param.token}"
+                  th:object="${newUser}" method="post">
                 <fieldset>
                     <legend style="color:#ffffff;">Registration</legend>
                     <div class="form-group">
                         <div>
-                            <label class="input-label" for="name">Name</label>
+                            <label class="input-label">Name</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="name" type="text" placeholder="name" class="input" required="">
+                                <input type="text" placeholder="name" class="input" required="" th:field="*{name}">
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="surname">Surname</label>
+                            <label class="input-label">Surname</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="surname" type="text" placeholder="surname" class="input" required="">
+                                <input type="text" placeholder="surname" class="input" required=""
+                                       th:field="*{surname}">
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="mail">Mail</label>
+                            <label class="input-label">Mail</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="mail" type="email" placeholder="mail" class="input" readonly>
+                                <input type="email" placeholder="mail" class="input" readonly th:name="newUserMail"
+                                       th:value="${newUserMail}">
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="phone">Phone</label>
+                            <label class="input-label">Phone</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="phone" type="text" placeholder="phone" class="input">
+                                <input type="number" placeholder="phone" class="input" required="" th:field="*{phone}"
+                                       autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="password">Password</label>
+                            <label class="input-label">Password</label>
                             <div class="input-wrapper" style="width:70%">
-                                <input id="password" type="password" placeholder="password" class="input">
+                                <input type="password" placeholder="password" class="input" required=""
+                                       th:field="*{password}" autocomplete="off" readonly
+                                       onfocus="this.removeAttribute('readonly');">
                             </div>
                         </div>
                     </div>

@@ -11,6 +11,9 @@ public class CoachPrivilege {
     @Column
     private String name;
 
+    public CoachPrivilege() {
+    }
+
     public CoachPrivilege(String name) {
         this.name = name;
     }

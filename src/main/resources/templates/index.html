@@ -12,6 +12,9 @@
     <div class="alert alert-danger" th:if="${param.error}">
         Problem occurred during mail sending
     </div>
+    <div class="alert alert-danger" th:if="${param.badUser}" th:text="${badUser}">
+        ...
+    </div>
     <div class="alert alert-success" th:if="${param.sent}">
         Thank you for interesting in Football School - our staff will contact you as soon as possible
     </div>
