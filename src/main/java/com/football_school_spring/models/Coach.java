@@ -1,13 +1,13 @@
 package com.football_school_spring.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Coach extends User {
-    @OneToOne(cascade = CascadeType.ALL)
+    private static final long serialVersionUID = 4555279041584496593L;
+    @ManyToOne
     @JoinColumn(name = "coachPrivilegeId", referencedColumnName = "id")
     private CoachPrivilege coachPrivilege;
 

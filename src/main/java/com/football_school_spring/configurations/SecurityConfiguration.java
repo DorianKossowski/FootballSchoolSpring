@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     AuthenticationSuccessHandler getAuthenticationSuccessHandler() {
-        return new UserTypeBasedAuthenticationSuccessHandler("/home", "/admin/coaches", "admin");
+        return new UserTypeBasedAuthenticationSuccessHandler("/home", "/admin/coaches-list", "admin");
     }
 
     @Override

@@ -8,8 +8,16 @@ body {
   font-family: Poppins-Regular;
 }
 
+h1 {
+  border-bottom:1px solid #ffff;
+}
+
+.main-content h3 {
+  border-bottom:2px solid #ffff;
+}
+
 a {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.7;
   color: #cccccc;
   text-decoration: none;

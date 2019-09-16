@@ -26,7 +26,7 @@ public class IndexController {
     }
 
     @PostMapping(value = "/")
-    public String contact(@ModelAttribute ContactModel contactModel, Model model) {
+    public String contact(@ModelAttribute ContactModel contactModel) {
         try {
             emailService.sendContactMail(contactModel);
         } catch (Exception e) {

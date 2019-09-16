@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/panel.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>FS - admin site</title>
+</head>
+<body>
+<nav class="sidebar" id="sidebarId">
+    <div class="logo-container">
+        <h3>Football School</h3>
+    </div>
+    <div class="sidebar-category">
+        <a class="sidebar-category-title">Coaches</a>
+        <div class="sidebar-category-content">
+            <a href="/admin/coaches-list" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>List</a>
+            <a href="/admin/coaches-add" class="button button-sidebar"><em class="fa fa-caret-right"></em>Add</a>
+            <a href="#" class="button button-sidebar"><em class="fa fa-caret-right"></em>Service fees</a>
+        </div>
+        <a class="sidebar-category-title">Teams</a>
+        <div class="sidebar-category-content">
+            <a href="#" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <div class="alert alert-danger" th:if="${param.notExists}">
+        Can't edit coach - doesn't exist
+    </div>
+    <div class="alert alert-danger" th:if="${param.notActive}">
+        Can't edit coach - doesn't active
+    </div>
+    <div class="alert alert-success" th:if="${param.deleted}">
+        Coach correctly deleted
+    </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Can't delete coach
+    </div>
+    <header class="header">
+        <div style="float:right;margin-bottom:16px;">
+            <p style="display:inline;" th:text="${userName}">...</p>
+            <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
+                                          style="text-decoration:none;color:inherit; background-color:inherit;">
+                <em class="fa fa-caret-down"></em></a>
+            </p>
+        </div>
+    </header>
+    <div id="user-menu">
+        <div class="user-menu-content">
+            <a href="#" class="button button-header">Account</a>
+            <a href="/logout" class="button button-header">Log out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Coaches</h1>
+        <div th:if="${coachesSize}==0">
+            <div>Lack of coaches in database</div>
+        </div>
+        <div th:unless="${coachesSize}==0">
+            <table class="table table-hover" style="width:80%; margin:auto;">
+                <thead>
+                <tr>
+                    <th>Mail</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="coach : ${coaches}">
+                    <tr th:onclick="'javascript:rowClicked(\'' + ${coach.id} + '\');'">
+                        <td th:text="${coach.mail}">...</td>
+                        <td th:if="${coach.name}==null">-</td>
+                        <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
+                        <td th:text="${coach.userStatus.name}">...</td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="../js/user-menu.js"></script>
+<script>
+    function rowClicked(value) {
+        location.href = "/admin/coaches-edit/" + value;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
