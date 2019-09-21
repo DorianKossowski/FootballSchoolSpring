@@ -8,3 +8,7 @@ function user_menu_handler() {
     document.getElementById("user-menu").style.display = "none";
   }
 }
+function forward_to_admin_fees() {
+  var href = "/admin/coaches-fees/" + new Date().getFullYear();
+  window.location=href;
+}

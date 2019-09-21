@@ -132,7 +132,7 @@ em {
   text-align: center;
 }
 
-tbody tr:hover {
+.clickable-row tr:hover {
   background: #cccccc;
   cursor: pointer;
 }

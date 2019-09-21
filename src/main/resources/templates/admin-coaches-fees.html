@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../../css/panel.css">
+    <link rel="stylesheet" type="text/css" href="../../css/forms-style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/checkboxes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>FS - admin site</title>
+</head>
+<body>
+<nav class="sidebar" id="sidebarId">
+    <div class="logo-container">
+        <h3>Football School</h3>
+    </div>
+    <div class="sidebar-category">
+        <a class="sidebar-category-title">Coaches</a>
+        <div class="sidebar-category-content">
+            <a href="/admin/coaches-list" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
+            <a href="/admin/coaches-add" class="button button-sidebar"><em class="fa fa-caret-right"></em>Add</a>
+            <a href="javascript:forward_to_admin_fees()" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>Service fees</a>
+        </div>
+        <a class="sidebar-category-title">Teams</a>
+        <div class="sidebar-category-content">
+            <a href="#" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <div class="alert alert-success" th:if="${param.saved}">
+        Fees correctly edited
+    </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during fees update
+    </div>
+    <header class="header">
+        <div style="float:right;margin-bottom:16px;">
+            <p style="display:inline;" th:text="${userName}">...</p>
+            <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
+                                          style="text-decoration:none;color:inherit; background-color:inherit;">
+                <em class="fa fa-caret-down"></em></a>
+            </p>
+        </div>
+    </header>
+    <div id="user-menu">
+        <div class="user-menu-content">
+            <a href="#" class="button button-header">Account</a>
+            <a href="/logout" class="button button-header">Log out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Service fees</h1>
+        <div th:if="${#lists.isEmpty(wrapper.feesList)}">
+            <div>Lack of coaches in database</div>
+        </div>
+        <div th:unless="${#lists.isEmpty(wrapper.feesList)}">
+            <div id="feeYearsDiv" style="margin-bottom: 30px;"></div>
+            <form name="feesForm" action="#" method="POST" th:object="${wrapper}">
+                <table class="table table-hover" style="width:80%; margin:auto;">
+                    <thead>
+                    <tr>
+                        <th>Coach</th>
+                        <th>I</th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                        <th>VIII</th>
+                        <th>IX</th>
+                        <th>X</th>
+                        <th>XI</th>
+                        <th>XII</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="userFees, stat : *{feesList}">
+                        <tr>
+                            <td th:text="${userFees.user.name} + ' ' + ${userFees.user.surname}">...</td>
+                            <td class="container" th:each="entry: ${userFees.fees}">
+                                <input type="hidden" th:field="*{feesList[__${stat.index}__].user.id}"/>
+                                <input type="checkbox"
+                                       th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"/>
+                                <span class="checkmark"></span>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+                <div class="form-btn-wrapper">
+                    <button type="submit" id="save" class="form-btn" style="width:10%;margin-top:20px">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../../js/user-menu.js"></script>
+<script src="../../js/fee-years-chooser.js"></script>
+</body>
+</html>
