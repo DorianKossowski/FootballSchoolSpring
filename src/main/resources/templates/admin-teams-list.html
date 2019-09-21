@@ -18,24 +18,18 @@
         <a class="sidebar-category-title">Coaches</a>
         <div class="sidebar-category-content">
             <a href="/admin/coaches-list" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
-            <a href="/admin/coaches-add" class="button button-sidebar button-sidebar-active"><em
-                    class="fa fa-caret-right"></em>Add</a>
+            <a href="/admin/coaches-add" class="button button-sidebar"><em class="fa fa-caret-right"></em>Add</a>
             <a href="javascript:forward_to_admin_fees()" class="button button-sidebar"><em
                     class="fa fa-caret-right"></em>Service fees</a>
         </div>
         <a class="sidebar-category-title">Teams</a>
         <div class="sidebar-category-content">
-            <a href="/admin/teams-list" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
+            <a href="/admin/teams-list" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>List</a>
         </div>
     </div>
 </nav>
 <div class="main">
-    <div class="alert alert-danger" th:if="${param.error}">
-        Problem occurred during sending invitation
-    </div>
-    <div class="alert alert-success" th:if="${param.sent}">
-        Invitation sent correctly
-    </div>
     <header class="header">
         <div style="float:right;margin-bottom:16px;">
             <p style="display:inline;" th:text="${userName}">...</p>
@@ -52,23 +46,34 @@
         </div>
     </div>
     <div class="main-content">
-        <form th:action="@{/admin/coaches-add}" th:object="${newCoach}" method="post">
-            <fieldset>
-                <h1 style="margin-top:0px;">Send invitation to new coach</h1>
-                <div class="form-group" style="text-align: center;">
-                    <label class="input-label" for="newCoachMail">New coach's mail</label>
-                    <div class="input-wrapper">
-                        <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
-                               class="input" required="" th:field="*{mail}">
-                    </div>
-                </div>
-                <div class="form-btn-wrapper">
-                    <button id="send" name="send" class="form-btn">Send</button>
-                </div>
-            </fieldset>
-        </form>
+        <h1>Teams</h1>
+        <div th:if="${teamsSize}==0">
+            <div>Lack of teams in database</div>
+        </div>
+        <div th:unless="${teamsSize}==0">
+            <!--            <table class="table table-hover" style="width:80%; margin:auto;">-->
+            <!--                <thead>-->
+            <!--                <tr>-->
+            <!--                    <th>Mail</th>-->
+            <!--                    <th>Name</th>-->
+            <!--                    <th>Status</th>-->
+            <!--                </tr>-->
+            <!--                </thead>-->
+            <!--                <tbody class="clickable-row">-->
+            <!--                <th:block th:each="coach : ${coaches}">-->
+            <!--                    <tr th:onclick="'javascript:rowClicked(\'' + ${coach.id} + '\');'">-->
+            <!--                        <td th:text="${coach.mail}">...</td>-->
+            <!--                        <td th:if="${coach.name}==null">-</td>-->
+            <!--                        <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>-->
+            <!--                        <td th:text="${coach.userStatus.name}">...</td>-->
+            <!--                    </tr>-->
+            <!--                </th:block>-->
+            <!--                </tbody>-->
+            <!--            </table>-->
+        </div>
     </div>
 </div>
 <script src="../js/user-menu.js"></script>
+<script src="../js/clickable-row.js"></script>
 </body>
 </html>
