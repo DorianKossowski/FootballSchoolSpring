@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/index-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Football School</title>
 </head>
@@ -13,7 +13,7 @@
         Wrong email or password! Try again
     </div>
     <div class="index-container">
-        <div class="index-title-img" style="background-image: url(../images/login-theme.png);">
+        <div class="index-title-img" style="background-image: url(/images/login-theme.png);">
             <span class="index-title">Football School</span>
         </div>
         <form class="login-form" action="#" th:action="@{/login}" method="post">
@@ -37,6 +37,6 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="../js/login-form.js"></script>
+<script src="/js/login-form.js"></script>
 </body>
 </html>
