@@ -1,4 +1,4 @@
-package com.football_school_spring.controllers.admin;
+package com.football_school_spring.models;
 
 
 import java.util.List;

@@ -39,6 +39,7 @@ legend {
   position: relative;
   background-color: #fff;
   margin: auto auto 10px auto;
+  max-width: 300px;
 }
 
 .input {

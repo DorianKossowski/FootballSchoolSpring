@@ -1,6 +1,4 @@
-package com.football_school_spring.controllers.admin;
-
-import com.football_school_spring.models.User;
+package com.football_school_spring.models;
 
 import java.util.Map;
 import java.util.function.Function;

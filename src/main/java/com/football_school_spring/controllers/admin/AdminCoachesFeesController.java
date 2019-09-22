@@ -1,5 +1,6 @@
 package com.football_school_spring.controllers.admin;
 
+import com.football_school_spring.models.UserFeesListWrapper;
 import com.football_school_spring.services.FeesService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
