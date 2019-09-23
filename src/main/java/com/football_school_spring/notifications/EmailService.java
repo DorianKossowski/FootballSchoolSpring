@@ -9,4 +9,6 @@ public interface EmailService {
     void sendContactMail(ContactModel contactModel);
 
     void sendRegistrationInviteMail(String mailTo, String registrationUrl);
+
+    void sendMailWithResetLink(String mailTo, String resetLink);
 }

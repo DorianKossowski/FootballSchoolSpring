@@ -22,13 +22,15 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void send(Email email) {
-        mailer.sendMail(email);
+        mailer.sendMail(EmailBuilder.copying(email)
+                .from(adminMail)
+                .buildEmail()
+        );
     }
 
     @Override
     public void sendContactMail(ContactModel contactModel) {
         Email email = EmailBuilder.startingBlank()
-                .from(adminMail)
                 .to(adminMail)
                 .withSubject("New user interested in Football School")
                 .withPlainText("Name: " + contactModel.getName())
@@ -41,10 +43,19 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendRegistrationInviteMail(String mailTo, String registrationUrl) {
         Email email = EmailBuilder.startingBlank()
-                .from(adminMail)
                 .to(mailTo)
                 .withSubject("Football School - registration")
                 .appendText("http://localhost:8080" + registrationUrl)
+                .buildEmail();
+        send(email);
+    }
+
+    @Override
+    public void sendMailWithResetLink(String mailTo, String resetLink) {
+        Email email = EmailBuilder.startingBlank()
+                .to(mailTo)
+                .withSubject("Football School - reset password")
+                .appendText("To reset your password, use below link:\n" + resetLink)
                 .buildEmail();
         send(email);
     }

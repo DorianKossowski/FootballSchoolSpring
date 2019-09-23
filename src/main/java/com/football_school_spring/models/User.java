@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @Column
     private String phone;
 
+    @Column
+    private String resetToken;
+
     public long getId() {
         return id;
     }
@@ -96,6 +99,14 @@ public class User implements UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 
     //UserDetails implementation
