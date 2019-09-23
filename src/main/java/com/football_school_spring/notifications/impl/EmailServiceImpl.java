@@ -20,6 +20,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${simplejavamail.smtp.username}")
     private String adminMail;
 
+    @Value("${app.url}")
+    private String appUrl;
+
     @Override
     public void send(Email email) {
         mailer.sendMail(EmailBuilder.copying(email)
@@ -45,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
         Email email = EmailBuilder.startingBlank()
                 .to(mailTo)
                 .withSubject("Football School - registration")
-                .appendText("http://localhost:8080" + registrationUrl)
+                .appendText(appUrl + registrationUrl)
                 .buildEmail();
         send(email);
     }
