@@ -1,7 +1,6 @@
 package com.football_school_spring.controllers.admin;
 
 import com.football_school_spring.models.Coach;
-import com.football_school_spring.models.enums.CoachPrivilegeName;
 import com.football_school_spring.notifications.OnRegistrationInviteEvent;
 import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.services.CoachCreationService;
@@ -38,7 +37,7 @@ public class AdminCoachesAddController extends AdminController {
     @PostMapping("/coaches-add")
     public String inviteNewCoach(@ModelAttribute Coach newCoach, WebRequest request, Model model) {
         try {
-            coachCreationService.createCoach(newCoach, CoachPrivilegeName.MANAGER);
+            coachCreationService.createCoach(newCoach);
             eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach, request.getContextPath()));
             return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-add?sent=true");
         } catch (Exception e) {

@@ -29,7 +29,7 @@ public class AccountController extends AuthorizedUserController {
         model.addAttribute("user", user);
         model.addAttribute("editPasswordObj", new EditPasswordDTO(user.getId()));
         if (user instanceof Coach) {
-            return "";
+            return "coach-account-edit";
         }
         return "admin-account-edit";
     }

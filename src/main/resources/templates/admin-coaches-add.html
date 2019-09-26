@@ -52,21 +52,35 @@
         </div>
     </div>
     <div class="main-content">
-        <form th:action="@{/admin/coaches-add}" th:object="${newCoach}" method="post">
-            <fieldset>
-                <h1 style="margin-top:0px;">Send invitation to new coach</h1>
-                <div class="form-group" style="text-align: center;">
-                    <label class="input-label" for="newCoachMail">New coach's mail</label>
-                    <div class="input-wrapper">
-                        <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
-                               class="input" required="" th:field="*{mail}">
+        <h1 style="margin-top:0px;">Send invitation to new coach</h1>
+        <div style="margin: 20px auto;display: flex;width: 53%;">
+            <form th:action="@{/admin/coaches-add}" th:object="${newCoach}" method="post" style="width:100%">
+                <fieldset>
+                    <div class="form-group" style="text-align: end;">
+                        <div>
+                            <label class="input-label" for="newCoachMail">New coach's mail</label>
+                            <div class="input-wrapper" style="width:60%">
+                                <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
+                                       class="input" required="" th:field="*{mail}">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label" for="newCoachMail">Maximum number of teams</label>
+                            <div class="input-wrapper" style="width:43%">
+                                <input id="maxNumberOfTeams" name="maxNumberOfTeams" type="number"
+                                       placeholder="max. number of teams" class="input" required=""
+                                       th:field="*{maxNumberOfTeams}" autocomplete="off" readonly
+                                       onfocus="this.removeAttribute('readonly');">
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <div class="form-btn-wrapper">
-                    <button id="send" name="send" class="form-btn">Send</button>
-                </div>
-            </fieldset>
-        </form>
+                    <div class="form-btn-wrapper">
+                        <button id="send" name="send" class="form-btn">Send</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>

@@ -11,4 +11,6 @@ public interface EmailService {
     void sendRegistrationInviteMail(String mailTo, String registrationUrl);
 
     void sendMailWithResetLink(String mailTo, String resetLink);
+
+    void sendMailWithTeamInvitation(String mailTo, String teamName);
 }

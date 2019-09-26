@@ -62,4 +62,15 @@ public class EmailServiceImpl implements EmailService {
                 .buildEmail();
         send(email);
     }
+
+    @Override
+    public void sendMailWithTeamInvitation(String mailTo, String teamName) {
+        Email email = EmailBuilder.startingBlank()
+                .to(mailTo)
+                .withSubject("Football School - you have been added to new team")
+                .appendText(String.format("From now on, you are coach of %s. " +
+                        "Visit Football School to start manage your team.", teamName))
+                .buildEmail();
+        send(email);
+    }
 }

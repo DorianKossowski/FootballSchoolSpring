@@ -71,7 +71,7 @@ public class AdminCoachesEditController extends AdminController {
             return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notExists=true");
         }
 
-        // TO DO: handle coach as manager of team
+        // TO DO: handle coach as manager of team (delete team?)
 
         try {
             coachRepository.deleteById(Long.valueOf(coachId));

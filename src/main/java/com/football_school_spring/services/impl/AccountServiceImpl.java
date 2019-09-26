@@ -4,10 +4,8 @@ import com.football_school_spring.models.EditPasswordDTO;
 import com.football_school_spring.models.User;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.services.AccountService;
+import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +26,7 @@ public class AccountServiceImpl implements AccountService {
         userRepository.save(userInDB);
 
         // unnecessary to update panel with name of currently logged user
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userInDB, userInDB.getPassword(), userInDB.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolderAuthenticationSetter.set(userInDB);
     }
 
     @Override

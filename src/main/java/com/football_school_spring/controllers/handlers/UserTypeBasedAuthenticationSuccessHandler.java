@@ -1,5 +1,6 @@
 package com.football_school_spring.controllers.handlers;
 
+import com.football_school_spring.models.enums.UserTypeName;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -11,35 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserTypeBasedAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private String adminRoleTargetUrl;
-    private String adminRoleAuthority;
-
-    public UserTypeBasedAuthenticationSuccessHandler(String defaultTargetUrl, String adminRoleTargetUrl, String adminRoleAuthority) {
-        super(defaultTargetUrl);
-        this.adminRoleTargetUrl = adminRoleTargetUrl;
-        this.adminRoleAuthority = adminRoleAuthority;
-    }
+    private static final String ADMIN_URL = "/admin/coaches-list";
+    private static final String COACH_URL = "/coach/home";
+    private static final String PARENT_URL = "/parent/home";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        if (isAdmin(authentication)) {
-            this.getRedirectStrategy().sendRedirect(request, response, this.getAdminRoleTargetUrl());
+        if (isTypeOf(authentication, UserTypeName.ADMIN)) {
+            this.getRedirectStrategy().sendRedirect(request, response, ADMIN_URL);
+            return;
+        }
+        if (isTypeOf(authentication, UserTypeName.COACH)) {
+            this.getRedirectStrategy().sendRedirect(request, response, COACH_URL);
+            return;
+        }
+        if (isTypeOf(authentication, UserTypeName.PARENT)) {
+            this.getRedirectStrategy().sendRedirect(request, response, PARENT_URL);
             return;
         }
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
-    private boolean isAdmin(Authentication authentication) {
+    private boolean isTypeOf(Authentication authentication, UserTypeName typeName) {
         return authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(s -> s.equals(getAdminRoleAuthority()));
-    }
-
-    private String getAdminRoleTargetUrl() {
-        return adminRoleTargetUrl;
-    }
-
-    private String getAdminRoleAuthority() {
-        return adminRoleAuthority;
+                .anyMatch(s -> s.equals(typeName.getName()));
     }
 }

@@ -1,6 +1,7 @@
 package com.football_school_spring.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Team {
@@ -13,6 +14,17 @@ public class Team {
 
     @Column
     private String address;
+
+    @OneToMany(mappedBy = "team")
+    private Set<TeamCoach> teamCoaches;
+
+    public Team() {
+    }
+
+    public Team(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     public long getId() {
         return id;
@@ -36,5 +48,13 @@ public class Team {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Set<TeamCoach> getTeamCoaches() {
+        return teamCoaches;
+    }
+
+    public void setTeamCoaches(Set<TeamCoach> teamCoaches) {
+        this.teamCoaches = teamCoaches;
     }
 }

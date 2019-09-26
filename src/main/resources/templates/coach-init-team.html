@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <link rel="stylesheet" type="text/css" href="/css/index-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>FS - coach site</title>
+</head>
+<body>
+<nav class="sidebar" id="sidebarId">
+    <div class="logo-container">
+        <h3>Football School</h3>
+    </div>
+    <div class="sidebar-category">
+    </div>
+</nav>
+<div class="main">
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during team creation. Try again
+    </div>
+    <header class="header">
+        <div style="float:right;margin-bottom:16px;">
+            <p style="display:inline;" th:text="${userName}">...</p>
+            <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
+                                          style="text-decoration:none;color:inherit; background-color:inherit;">
+                <em class="fa fa-caret-down"></em></a>
+            </p>
+        </div>
+    </header>
+    <div id="user-menu">
+        <div class="user-menu-content">
+            <a href="/account" class="button button-header">Account</a>
+            <a href="/logout" class="button button-header">Log out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Create team</h1>
+        <div style="display:flex; width:53%; margin:auto;">
+            <form action="/coach/init-team" method="post" style="width: 100%;">
+                <div class="form-group">
+                    <div>
+                        <label class="input-label">Name</label>
+                        <div class="input-wrapper" style="width:70%">
+                            <input type="text" placeholder="name" class="input" required="" name="name">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="input-label">Address</label>
+                        <div class="input-wrapper" style="width:70%">
+                            <input type="text" placeholder="address" class="input" required="" name="address">
+                        </div>
+                    </div>
+                    <h3 style="text-align:center;">Assign additional coaches to team:</h3>
+                    <div id="coaches-container">
+                    </div>
+                </div>
+                <div class="form-btn-wrapper">
+                    <div style="width: inherit;">
+                        <button id="save" class="form-btn" style="width:30%;">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/user-menu.js"></script>
+<script src="/js/clickable-row.js"></script>
+<script src="/js/add-coaches-to-form.js"></script>
+</body>
+</html>
