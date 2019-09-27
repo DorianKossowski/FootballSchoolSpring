@@ -36,6 +36,9 @@ public class AdminCoachesAddController extends AdminController {
 
     @PostMapping("/coaches-add")
     public String inviteNewCoach(@ModelAttribute Coach newCoach, WebRequest request, Model model) {
+        if (newCoach.getMaxNumberOfTeams() <= 0) {
+            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-add?minNumber=true");
+        }
         try {
             coachCreationService.createCoach(newCoach);
             eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach, request.getContextPath()));

@@ -45,6 +45,14 @@ public class TeamCoach {
         this.coach = coach;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     public CoachPrivilege getCoachPrivilege() {
         return coachPrivilege;
     }

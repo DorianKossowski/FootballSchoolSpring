@@ -1,4 +1,4 @@
-package com.football_school_spring.models;
+package com.football_school_spring.models.DTO;
 
 public class EditPasswordDTO {
     private long id;

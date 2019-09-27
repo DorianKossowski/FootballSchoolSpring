@@ -51,25 +51,22 @@
             <div>Lack of teams in database</div>
         </div>
         <div th:unless="${teamsSize}==0">
-            <!--            <table class="table table-hover" style="width:80%; margin:auto;">-->
-            <!--                <thead>-->
-            <!--                <tr>-->
-            <!--                    <th>Mail</th>-->
-            <!--                    <th>Name</th>-->
-            <!--                    <th>Status</th>-->
-            <!--                </tr>-->
-            <!--                </thead>-->
-            <!--                <tbody class="clickable-row">-->
-            <!--                <th:block th:each="coach : ${coaches}">-->
-            <!--                    <tr th:onclick="'javascript:rowClicked(\'' + ${coach.id} + '\');'">-->
-            <!--                        <td th:text="${coach.mail}">...</td>-->
-            <!--                        <td th:if="${coach.name}==null">-</td>-->
-            <!--                        <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>-->
-            <!--                        <td th:text="${coach.userStatus.name}">...</td>-->
-            <!--                    </tr>-->
-            <!--                </th:block>-->
-            <!--                </tbody>-->
-            <!--            </table>-->
+            <table class="table table-hover" style="width:80%; margin:auto;">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Manager</th>
+                </tr>
+                </thead>
+                <tbody class="clickable-row">
+                <th:block th:each="teamListDTOS : ${teamsListDTOS}">
+                    <tr th:onclick="'javascript:rowClicked(\'' + ${teamListDTOS.id} + '\');'">
+                        <td th:text="${teamListDTOS.name}">...</td>
+                        <td th:text="${teamListDTOS.managerFullName}">...</td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

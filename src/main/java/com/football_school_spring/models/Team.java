@@ -15,7 +15,7 @@ public class Team {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private Set<TeamCoach> teamCoaches;
 
     public Team() {

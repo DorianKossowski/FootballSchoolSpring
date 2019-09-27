@@ -1,7 +1,7 @@
 package com.football_school_spring.services.impl;
 
+import com.football_school_spring.models.DTO.UserRegistrationDTO;
 import com.football_school_spring.models.User;
-import com.football_school_spring.models.UserRegistrationDTO;
 import com.football_school_spring.models.VerificationToken;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.repositories.VerificationTokenRepository;

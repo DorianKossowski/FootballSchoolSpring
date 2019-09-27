@@ -32,6 +32,9 @@
     <div class="alert alert-success" th:if="${param.edited}">
         Coach correctly edited
     </div>
+    <div class="alert alert-danger" th:if="${param.wrongNumber}">
+        Maximum number of teams is too small
+    </div>
     <header class="header">
         <div style="float:right;margin-bottom:16px;">
             <p style="display:inline;" th:text="${userName}">...</p>
@@ -54,9 +57,37 @@
             <p th:text="'Mail: ' + ${coach.mail}">...</p>
             <p th:text="'Phone: ' + ${coach.phone}">...</p>
             <h3>Teams</h3>
-            <h3>Payments</h3>
+            <form th:action="'/admin/coaches-edit-teams/' + ${coach.id}" method="post" style="width:100%">
+                <div class="form-group" style="text-align: left;">
+                    <label class="input-label">Maximum number of own teams</label>
+                    <div class="input-wrapper" style="width:10%; margin-right: 20px;">
+                        <input id="maxNumberOfTeams" type="number"
+                               placeholder="max. number of teams" class="input" required="" name="numOfTeams"
+                               th:value="${coach.maxNumberOfTeams}">
+                    </div>
+                    <div class="form-btn-wrapper" style="display: contents;">
+                        <button id="send" name="send" class="form-btn" style="display: table-row;">Edit</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover" style="width:80%; margin:auto; text-align:center;">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody class="clickable-row">
+                <th:block th:each="teamCoach : ${coach.teamCoaches}">
+                    <tr>
+                        <td th:text="${teamCoach.team.name}">...</td>
+                        <td th:text="${teamCoach.coachPrivilege.name}">...</td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
         </div>
-        <div style="display:flex; width:50%; margin:auto;">
+        <div style="display:flex; width:50%; margin:auto;margin-top: 50px;">
             <form th:action="'/admin/coaches-edit/' + ${coach.id}" method="post" style="width: 100%;">
                 <div class="form-btn-wrapper">
                     <div th:if="${coach.userStatus.name}=='active'" style="width: inherit;">

@@ -1,6 +1,9 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.models.*;
+import com.football_school_spring.models.Coach;
+import com.football_school_spring.models.Fee;
+import com.football_school_spring.models.UserFees;
+import com.football_school_spring.models.UserFeesListWrapper;
 import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.repositories.FeeRepository;
 import com.football_school_spring.services.FeesService;
@@ -30,7 +33,7 @@ public class FeesServiceImpl implements FeesService {
 
         List<UserFees> usersFees = new ArrayList<>();
         coaches = coaches.stream()
-                .filter(User::isEnabled)
+                .filter(coach -> coach.isEnabled() || !coach.isAccountNonLocked())
                 .collect(Collectors.toList());
         for (Coach coach : coaches) {
             Map<Integer, Boolean> paidMonths = allFees.stream()

@@ -33,6 +33,9 @@
     <div class="alert alert-danger" th:if="${param.error}">
         Problem occurred during sending invitation
     </div>
+    <div class="alert alert-danger" th:if="${param.minNumber}">
+        Minimum number of teams is 1
+    </div>
     <div class="alert alert-success" th:if="${param.sent}">
         Invitation sent correctly
     </div>
@@ -58,14 +61,14 @@
                 <fieldset>
                     <div class="form-group" style="text-align: end;">
                         <div>
-                            <label class="input-label" for="newCoachMail">New coach's mail</label>
+                            <label class="input-label">New coach's mail</label>
                             <div class="input-wrapper" style="width:60%">
                                 <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
                                        class="input" required="" th:field="*{mail}">
                             </div>
                         </div>
                         <div>
-                            <label class="input-label" for="newCoachMail">Maximum number of teams</label>
+                            <label class="input-label">Maximum number of teams</label>
                             <div class="input-wrapper" style="width:43%">
                                 <input id="maxNumberOfTeams" name="maxNumberOfTeams" type="number"
                                        placeholder="max. number of teams" class="input" required=""

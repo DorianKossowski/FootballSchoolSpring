@@ -1,6 +1,6 @@
 package com.football_school_spring.services;
 
-import com.football_school_spring.models.EditPasswordDTO;
+import com.football_school_spring.models.DTO.EditPasswordDTO;
 import com.football_school_spring.models.User;
 
 public interface AccountService {
