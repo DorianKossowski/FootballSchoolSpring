@@ -10,7 +10,6 @@ import com.football_school_spring.repositories.TeamCoachRepository;
 import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.CoachCreationService;
 import com.football_school_spring.services.TeamCreationService;
-import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,11 +46,6 @@ public class TeamCreationServiceImpl implements TeamCreationService {
         teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coach.getId(), coachPrivilegeRepository.getByName(CoachPrivilegeName.MANAGER.getName()).getId())));
 
         coachesMails.forEach(coachMail -> addCoachToTeam(request, newTeam, coachMail));
-
-        // unnecessary to update number of teams of currently logged user
-        SecurityContextHolderAuthenticationSetter.set(coachRepository.findById(coach.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Can't get coach from DB"))
-        );
 
         sendTeamInvitationMails(coach.getMail(), coachesMails, newTeam.getName());
     }
