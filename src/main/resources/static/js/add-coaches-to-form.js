@@ -1,6 +1,3 @@
-window.onload = function() {
-  addFields();
-};
 function addFields(){
     var container = document.getElementById("coaches-container");
     while (document.getElementById("add-new") !== null) {

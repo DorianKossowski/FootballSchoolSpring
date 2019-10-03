@@ -74,7 +74,6 @@ button {
   transform: translate(-50%, -55%);
   width: 650px;
   height: 600px;
-  max-height: 80%;
   background: #2d3447;
   border-radius: 10px;
   overflow: hidden;

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/index-style.css">
     <link rel="stylesheet" type="text/css" href="/css/panel.css">
     <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/options-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>FS - coach site</title>
 </head>
@@ -15,17 +16,18 @@
         <h3>Football School</h3>
     </div>
     <div class="sidebar-category">
-        <a class="sidebar-category-title">Coaches</a>
+        <a class="sidebar-category-title">Team</a>
         <div class="sidebar-category-content">
-            <a href="/admin/coaches-list" class="button button-sidebar button-sidebar-active"><em
-                    class="fa fa-caret-right"></em>List</a>
-            <a href="/admin/coaches-add" class="button button-sidebar"><em class="fa fa-caret-right"></em>Add</a>
+            <a href="/coach/home" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>Home</a>
+            <a href="/coach/players" class="button button-sidebar"><em class="fa fa-caret-right"></em>Players</a>
+            <a href="/coach/fixtures" class="button button-sidebar"><em class="fa fa-caret-right"></em>Fixtures</a>
+        </div>
+        <a class="sidebar-category-title">Manage</a>
+        <div class="sidebar-category-content">
+            <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
             <a href="javascript:forward_to_admin_fees()" class="button button-sidebar"><em
                     class="fa fa-caret-right"></em>Service fees</a>
-        </div>
-        <a class="sidebar-category-title">Teams</a>
-        <div class="sidebar-category-content">
-            <a href="/admin/teams-list" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
         </div>
     </div>
 </nav>
@@ -43,6 +45,14 @@
         Can't delete coach
     </div>
     <header class="header">
+        <div class="custom-select" style="width:200px; display:inline-table;">
+            <select>
+                <option th:text="${currentTeam}">...</option>
+                <th:block th:each="entry : ${teams}">
+                    <option th:value="${entry.key}" th:text="${entry.value}">...</option>
+                </th:block>
+            </select>
+        </div>
         <div style="float:right;margin-bottom:16px;">
             <p style="display:inline;" th:text="${userName}">...</p>
             <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
@@ -58,10 +68,11 @@
         </div>
     </div>
     <div class="main-content">
-        <h1>Elooo</h1>
+        <h1>Home</h1>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
 <script src="/js/clickable-row.js"></script>
+<script src="/js/options.js"></script>
 </body>
 </html>
