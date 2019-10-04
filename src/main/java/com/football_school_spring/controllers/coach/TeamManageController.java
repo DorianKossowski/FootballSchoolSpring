@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -75,10 +74,10 @@ public class TeamManageController extends CoachController {
     }
 
     @PostMapping("/manage-coaches")
-    public String assignCoaches(@RequestParam Map<String, String> requestParams, Model model, WebRequest request,
+    public String assignCoaches(@RequestParam Map<String, String> requestParams, Model model,
                                 @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
         try {
-            teamManageService.assignNewCoaches(requestParams, request, currentTeamDTO.getId());
+            teamManageService.assignNewCoaches(requestParams, currentTeamDTO.getId());
             logger.info("Added new staff to team");
 
             return UrlCleaner.redirectWithCleaning(model, "/coach/manage?updated=true");

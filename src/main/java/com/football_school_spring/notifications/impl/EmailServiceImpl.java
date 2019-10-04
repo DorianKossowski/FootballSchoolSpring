@@ -48,6 +48,7 @@ public class EmailServiceImpl implements EmailService {
         Email email = EmailBuilder.startingBlank()
                 .to(mailTo)
                 .withSubject("Football School - registration")
+                .appendText("Register to Football School using below link:\n")
                 .appendText(appUrl + registrationUrl)
                 .buildEmail();
         send(email);

@@ -8,7 +8,6 @@ import com.football_school_spring.services.TeamManageService;
 import com.football_school_spring.utils.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -43,11 +42,11 @@ public class TeamManageServiceImpl implements TeamManageService {
     }
 
     @Override
-    public void assignNewCoaches(Map<String, String> requestParams, WebRequest request, long teamId) {
+    public void assignNewCoaches(Map<String, String> requestParams, long teamId) {
         List<String> coachesMails = requestParams.values().stream()
                 .filter(coachMail -> !coachMail.isEmpty())
                 .collect(Collectors.toList());
         Team team = teamRepository.findById(teamId).orElseThrow(() -> new GettingFromDbException(Team.class, teamId));
-        coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(request, team, coachMail));
+        coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(team, coachMail));
     }
 }

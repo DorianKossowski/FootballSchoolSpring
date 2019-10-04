@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.context.request.WebRequest;
 
 import static org.apache.log4j.Logger.getLogger;
 
@@ -35,13 +34,13 @@ public class AdminCoachesAddController extends AdminController {
     }
 
     @PostMapping("/coaches-add")
-    public String inviteNewCoach(@ModelAttribute Coach newCoach, WebRequest request, Model model) {
+    public String inviteNewCoach(@ModelAttribute Coach newCoach, Model model) {
         if (newCoach.getMaxNumberOfTeams() <= 0) {
             return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-add?minNumber=true");
         }
         try {
             coachCreationService.createCoach(newCoach);
-            eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach, request.getContextPath()));
+            eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach));
             return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-add?sent=true");
         } catch (Exception e) {
             logger.error("Problem during coach invitation", e);

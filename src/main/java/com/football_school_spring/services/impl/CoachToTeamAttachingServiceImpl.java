@@ -11,7 +11,6 @@ import com.football_school_spring.services.CoachToTeamAttachingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class CoachToTeamAttachingServiceImpl implements CoachToTeamAttachingServ
     private ApplicationEventPublisher eventPublisher;
 
     @Override
-    public void attach(WebRequest request, Team team, String coachMail) {
+    public void attach(Team team, String coachMail) {
         CoachPrivilege coachPrivilege = coachPrivilegeRepository.getByName(CoachPrivilegeName.COACH.getName());
         Optional<Coach> coachOptional = coachRepository.findByMail(coachMail);
         if (coachOptional.isPresent()) {
@@ -39,7 +38,7 @@ public class CoachToTeamAttachingServiceImpl implements CoachToTeamAttachingServ
             Coach newCoach = new Coach(0);
             newCoach.setMail(coachMail);
             coachCreationService.createCoach(newCoach);
-            eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach, request.getContextPath()));
+            eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach));
             teamCoachRepository.save(new TeamCoach(new TeamCoachKey(team.getId(), newCoach.getId(), coachPrivilege.getId())));
         }
     }

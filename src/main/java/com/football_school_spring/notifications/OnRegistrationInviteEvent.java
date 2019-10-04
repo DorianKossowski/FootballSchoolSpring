@@ -6,21 +6,11 @@ import org.springframework.context.ApplicationEvent;
 public class OnRegistrationInviteEvent extends ApplicationEvent {
     private static final long serialVersionUID = 3605854568022505383L;
 
-    private String appUrl;
     private User user;
 
-    public OnRegistrationInviteEvent(User user, String appUrl) {
+    public OnRegistrationInviteEvent(User user) {
         super(user);
         this.user = user;
-        this.appUrl = appUrl;
-    }
-
-    public String getAppUrl() {
-        return appUrl;
-    }
-
-    public void setAppUrl(String appUrl) {
-        this.appUrl = appUrl;
     }
 
     public User getUser() {

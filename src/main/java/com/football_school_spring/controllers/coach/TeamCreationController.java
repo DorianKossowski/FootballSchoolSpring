@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -33,15 +32,14 @@ public class TeamCreationController extends CoachController {
     }
 
     @PostMapping("/create-team")
-    public String postCreateTeam(@RequestParam Map<String, String> requestParams, Model model, WebRequest request,
-                                 HttpSession session) {
+    public String postCreateTeam(@RequestParam Map<String, String> requestParams, Model model, HttpSession session) {
         Team newTeam = new Team(requestParams.remove("name"), requestParams.remove("address"));
         List<String> coachesMails = requestParams.values().stream()
                 .filter(coachMail -> !coachMail.isEmpty())
                 .collect(Collectors.toList());
 
         try {
-            teamCreationService.create(newTeam, coachesMails, request);
+            teamCreationService.create(newTeam, coachesMails);
             // unnecessary to update number of teams of currently logged user
             updateSecurityContextHolder();
             logger.info("Team correctly created");

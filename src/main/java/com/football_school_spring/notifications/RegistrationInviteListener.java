@@ -32,7 +32,7 @@ public class RegistrationInviteListener implements ApplicationListener<OnRegistr
         verificationToken.setDefaultExpiryDate();
 
         verificationTokenRepository.save(verificationToken);
-        String registrationUrl = event.getAppUrl() + "/register?token=" + token;
+        String registrationUrl = "/register?token=" + token;
         emailService.sendRegistrationInviteMail(user.getMail(), registrationUrl);
     }
 }
