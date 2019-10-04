@@ -1,10 +1,8 @@
 package com.football_school_spring.controllers.admin;
 
 import com.football_school_spring.models.Coach;
-import com.football_school_spring.models.enums.CoachPrivilegeName;
-import com.football_school_spring.models.enums.UserStatusName;
-import com.football_school_spring.repositories.CoachRepository;
-import com.football_school_spring.repositories.UserStatusRepository;
+import com.football_school_spring.services.CoachEditingService;
+import com.football_school_spring.utils.CoachEditingValidationResult;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,75 +14,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
-import java.util.Optional;
 
-import static com.football_school_spring.models.enums.UserStatusName.ACTIVE;
-import static com.football_school_spring.models.enums.UserStatusName.BLOCKED;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
 public class AdminCoachesEditController extends AdminController {
     private static final Logger logger = getLogger(AdminCoachesEditController.class);
+
     @Autowired
-    private CoachRepository coachRepository;
-    @Autowired
-    private UserStatusRepository userStatusRepository;
+    private CoachEditingService coachEditingService;
 
     @GetMapping("/coaches-edit/{coachId}")
     public String editCoach(Model model, @PathVariable("coachId") String coachId) {
-        Optional<Coach> coachOptional = coachRepository.findById(Long.valueOf(coachId));
-        if (!coachOptional.isPresent()) {
-            logger.error(String.format("Can't edit coach with id: %s - doesn't exist", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notExists=true");
+        CoachEditingValidationResult result = coachEditingService.isEditingValid(Long.parseLong(coachId));
+        if (result.isValid()) {
+            model.addAttribute("coach", result.getCoach());
+            return "admin-coaches-edit";
         }
-
-        Coach coach = coachOptional.get();
-        if (coach.getUserStatus().getName().equals(UserStatusName.WAITING_FOR_APPROVAL.getName())) {
-            logger.error(String.format("Can't edit coach with id: %s - doesn't active", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notActive=true");
-        }
-        model.addAttribute("coach", coach);
-        return "admin-coaches-edit";
+        logger.error(result.getErrorMessage());
+        return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?" + result.getErrorName().getUrlName());
     }
 
     @PostMapping("/coaches-edit-teams/{coachId}")
     public String editCoachNumberOfTeams(Model model, @PathVariable("coachId") String coachId, @RequestParam Map<String, String> attributes) {
-        Optional<Coach> coachOptional = coachRepository.findById(Long.valueOf(coachId));
-        if (!coachOptional.isPresent()) {
-            logger.error(String.format("Can't edit coach with id: %s - doesn't exist", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notExists=true");
+        CoachEditingValidationResult result = coachEditingService.isEditingValid(Long.parseLong(coachId));
+        if (!result.isValid()) {
+            logger.error(result.getErrorMessage());
+            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?" + result.getErrorName().getUrlName());
         }
 
-        Coach coach = coachOptional.get();
-        long numberOfTeamsAsManager = coach.getTeamCoaches().stream()
-                .filter(teamCoach -> teamCoach.getCoachPrivilege().getName().equals(CoachPrivilegeName.MANAGER.getName()))
-                .count();
+        Coach coach = result.getCoach();
         int newNumberOfTeams = Integer.parseInt(attributes.get("numOfTeams"));
-        if (numberOfTeamsAsManager > newNumberOfTeams) {
-            logger.error(String.format("Can't edit coach with id: %s - too small number of teams", coachId));
-            return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?wrongNumber=true", coachId));
+        CoachEditingValidationResult numberResult = coachEditingService.isTeamsNumberEditingValid(coach, newNumberOfTeams);
+        if (numberResult.isValid()) {
+            coachEditingService.setMaxNumberOfTeams(coach, newNumberOfTeams);
+            logger.info(String.format("Coach with id %s correctly edited", coachId));
+            return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?edited=true", coachId));
         }
-        coach.setMaxNumberOfTeams(newNumberOfTeams);
-        coachRepository.save(coach);
-        logger.info(String.format("Coach with id %s correctly edited", coachId));
-        return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?edited=true", coachId));
+        logger.error(numberResult.getErrorMessage());
+        return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?%s", coachId, numberResult.getErrorName().getUrlName()));
     }
 
     @PostMapping("/coaches-edit/{coachId}")
     public String editCoachStatus(Model model, @PathVariable("coachId") String coachId) {
-        Optional<Coach> coachOptional = coachRepository.findById(Long.valueOf(coachId));
-        if (!coachOptional.isPresent()) {
-            logger.error(String.format("Can't edit coach with id: %s - doesn't exist", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notExists=true");
+        CoachEditingValidationResult result = coachEditingService.isEditingValid(Long.parseLong(coachId));
+        if (!result.isValid()) {
+            logger.error(result.getErrorMessage());
+            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?" + result.getErrorName().getUrlName());
         }
-
-        Coach coach = coachOptional.get();
-        if (coach.getUserStatus().getName().equals(ACTIVE.getName())) {
-            coach.setUserStatus(userStatusRepository.getByName(BLOCKED.getName()));
-        } else {
-            coach.setUserStatus(userStatusRepository.getByName(ACTIVE.getName()));
-        }
-        coachRepository.save(coach);
+        coachEditingService.changeCoachStatus(result.getCoach());
         logger.info(String.format("Coach with id %s correctly edited", coachId));
         return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?edited=true", coachId));
     }

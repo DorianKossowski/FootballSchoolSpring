@@ -37,7 +37,8 @@ public class TeamCreationServiceImpl implements TeamCreationService {
     public void create(Team newTeam, List<String> coachesMails) {
         Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         teamRepository.save(newTeam);
-        teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coach.getId(), coachPrivilegeRepository.getByName(CoachPrivilegeName.MANAGER.getName()).getId())));
+        teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coach.getId(),
+                coachPrivilegeRepository.getByName(CoachPrivilegeName.MANAGER.getName()).getId())));
 
         coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(newTeam, coachMail));
 
