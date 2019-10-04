@@ -88,24 +88,4 @@ public class AdminCoachesEditController extends AdminController {
         logger.info(String.format("Coach with id %s correctly edited", coachId));
         return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?edited=true", coachId));
     }
-
-    @PostMapping("/coaches-edit/delete/{coachId}")
-    public String deleteCoach(Model model, @PathVariable("coachId") String coachId) {
-        Optional<Coach> coachOptional = coachRepository.findById(Long.valueOf(coachId));
-        if (!coachOptional.isPresent()) {
-            logger.error(String.format("Can't delete coach with id: %s - doesn't exist", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?notExists=true");
-        }
-
-        // TO DO: handle coach as manager of team (delete team?)
-
-        try {
-            coachRepository.deleteById(Long.valueOf(coachId));
-            logger.info(String.format("Coach with id %s correctly deleted", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?deleted=true");
-        } catch (Exception e) {
-            logger.error(String.format("Can't delete coach with id: %s", coachId));
-            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list?error=true");
-        }
-    }
 }
