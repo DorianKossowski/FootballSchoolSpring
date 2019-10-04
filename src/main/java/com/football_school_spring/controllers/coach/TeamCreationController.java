@@ -1,16 +1,11 @@
 package com.football_school_spring.controllers.coach;
 
-import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.dto.CurrentTeamDTO;
-import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.services.TeamCreationService;
-import com.football_school_spring.utils.GettingFromDbException;
-import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +26,6 @@ public class TeamCreationController extends CoachController {
 
     @Autowired
     private TeamCreationService teamCreationService;
-    @Autowired
-    private CoachRepository coachRepository;
 
     @GetMapping("/create-team")
     public String getCreateTeam() {
@@ -49,10 +42,9 @@ public class TeamCreationController extends CoachController {
 
         try {
             teamCreationService.create(newTeam, coachesMails, request);
-            logger.info("Team correctly created");
-
             // unnecessary to update number of teams of currently logged user
             updateSecurityContextHolder();
+            logger.info("Team correctly created");
 
             session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(newTeam.getId(), newTeam.getName()));
             return UrlCleaner.redirectWithCleaning(model, "/coach/home");
@@ -60,12 +52,5 @@ public class TeamCreationController extends CoachController {
             logger.error("Problems during team creation", e);
             return UrlCleaner.redirectWithCleaning(model, "/coach/home?error=true");
         }
-    }
-
-    private void updateSecurityContextHolder() {
-        Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        SecurityContextHolderAuthenticationSetter.set(coachRepository.findById(coach.getId())
-                .orElseThrow(() -> new GettingFromDbException(Coach.class))
-        );
     }
 }

@@ -38,7 +38,10 @@ public class AccountController extends AuthorizedUserController {
     public String editAccount(Model model, @ModelAttribute User user) {
         try {
             accountService.updateAccount(user);
+            // unnecessary to update panel with name of currently logged user
+            updateSecurityContextHolder();
             logger.info(String.format("User with id %d correctly updated", user.getId()));
+
             return UrlCleaner.redirectWithCleaning(model, "/account?edited=true");
         } catch (Exception e) {
             logger.error("Error during updating user", e);

@@ -18,25 +18,25 @@
     <div class="sidebar-category">
         <a class="sidebar-category-title">Team</a>
         <div class="sidebar-category-content">
-            <a href="/coach/home" class="button button-sidebar button-sidebar-active"><em
-                    class="fa fa-caret-right"></em>Home</a>
+            <a href="/coach/home" class="button button-sidebar"><em class="fa fa-caret-right"></em>Home</a>
             <a href="/coach/players" class="button button-sidebar"><em class="fa fa-caret-right"></em>Players</a>
             <a href="/coach/fixtures" class="button button-sidebar"><em class="fa fa-caret-right"></em>Fixtures</a>
         </div>
         <a class="sidebar-category-title">Manage</a>
         <div class="sidebar-category-content">
-            <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
+            <a href="/coach/manage" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>Your team</a>
             <a href="javascript:forward_to_admin_fees()" class="button button-sidebar"><em
                     class="fa fa-caret-right"></em>Service fees</a>
         </div>
     </div>
 </nav>
 <div class="main">
-    <div class="alert alert-success" th:if="${param.deleted}">
-        Coach correctly deleted
+    <div class="alert alert-success" th:if="${param.upadted}">
+        Team correctly updated
     </div>
     <div class="alert alert-danger" th:if="${param.error}">
-        Can't delete coach
+        Error during updating team
     </div>
     <header class="header">
         <div class="custom-select" style="width:200px; display:inline-table;">
@@ -63,6 +63,7 @@
     </div>
     <div class="main-content">
         <h1>Manage your team</h1>
+        <h3 style="text-align: left;margin-left: 30px;">Details</h3>
         <div style="display:flex; width:53%; margin:auto;">
             <form id="editForm" action="/coach/manage" method="post" style="width: 100%;" th:object="${team}">
                 <input type="hidden" th:field="*{id}"/>
@@ -82,15 +83,49 @@
                 </div>
                 <div class="form-btn-wrapper">
                     <div style="width: inherit;">
-                        <button id="save" class="form-btn" style="width:30%;">Edit</button>
+                        <button class="form-btn" style="width:150px;">Edit</button>
                     </div>
                 </div>
             </form>
         </div>
+        <h3 style="text-align: left;margin-left: 30px;">Coaches</h3>
+        <table class="table table-hover" style="width:80%; margin:auto; text-align:center;">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="coach : ${coaches}">
+                <tr>
+                    <td th:if="${coach.name}==null">-</td>
+                    <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
+                    <td th:text="${coach.mail}">...</td>
+                    <td>
+                        <form th:action="@{/coach/delete-coach/__${coach.id}__}" th:method="post">
+                            <button type="submit" class="form-btn" style="width:auto;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <h3 style="text-align: left;margin-left: 30px;">Assign additional coaches to team:</h3>
+        <form action="/coach/manage-coaches" method="post" style="width: 100%;" th:object="${user}">
+            <div id="coaches-container">
+                <a href="#" id="add-new" onclick="addFields()" style="color: #2d3447;font-size: 30px;">+</a>
+            </div>
+            <div class="form-btn-wrapper">
+                <div style="width: inherit;">
+                    <button class="form-btn" style="width:150px;">Assign</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
-<script src="/js/clickable-row.js"></script>
 <script src="/js/options.js"></script>
+<script src="/js/add-coaches-to-form.js"></script>
 </body>
 </html>

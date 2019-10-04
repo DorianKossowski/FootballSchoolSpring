@@ -5,7 +5,6 @@ import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.services.AccountService;
 import com.football_school_spring.utils.GettingFromDbException;
-import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,6 @@ public class AccountServiceImpl implements AccountService {
         userInDB.setSurname(user.getSurname());
         userInDB.setPhone(user.getPhone());
         userRepository.save(userInDB);
-
-        // unnecessary to update panel with name of currently logged user
-        SecurityContextHolderAuthenticationSetter.set(userInDB);
     }
 
     @Override

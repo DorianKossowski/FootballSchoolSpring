@@ -1,17 +1,17 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.models.*;
+import com.football_school_spring.models.Coach;
+import com.football_school_spring.models.Team;
+import com.football_school_spring.models.TeamCoach;
+import com.football_school_spring.models.TeamCoachKey;
 import com.football_school_spring.models.enums.CoachPrivilegeName;
 import com.football_school_spring.notifications.EmailService;
-import com.football_school_spring.notifications.OnRegistrationInviteEvent;
 import com.football_school_spring.repositories.CoachPrivilegeRepository;
-import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.repositories.TeamCoachRepository;
 import com.football_school_spring.repositories.TeamRepository;
-import com.football_school_spring.services.CoachCreationService;
+import com.football_school_spring.services.CoachToTeamAttachingService;
 import com.football_school_spring.services.TeamCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
@@ -19,7 +19,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeamCreationServiceImpl implements TeamCreationService {
@@ -30,13 +29,9 @@ public class TeamCreationServiceImpl implements TeamCreationService {
     @Autowired
     private TeamCoachRepository teamCoachRepository;
     @Autowired
-    private CoachRepository coachRepository;
-    @Autowired
     private EmailService emailService;
     @Autowired
-    private CoachCreationService coachCreationService;
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
+    private CoachToTeamAttachingService coachToTeamAttachingService;
 
     @Override
     @Transactional
@@ -45,24 +40,9 @@ public class TeamCreationServiceImpl implements TeamCreationService {
         teamRepository.save(newTeam);
         teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coach.getId(), coachPrivilegeRepository.getByName(CoachPrivilegeName.MANAGER.getName()).getId())));
 
-        coachesMails.forEach(coachMail -> addCoachToTeam(request, newTeam, coachMail));
+        coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(request, newTeam, coachMail));
 
         sendTeamInvitationMails(coach.getMail(), coachesMails, newTeam.getName());
-    }
-
-    private void addCoachToTeam(WebRequest request, Team newTeam, String coachMail) {
-        CoachPrivilege coachPrivilege = coachPrivilegeRepository.getByName(CoachPrivilegeName.COACH.getName());
-        Optional<Coach> coachOptional = coachRepository.findByMail(coachMail);
-        if (coachOptional.isPresent()) {
-            Coach coachWithAccount = coachOptional.get();
-            teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coachWithAccount.getId(), coachPrivilege.getId())));
-        } else {
-            Coach newCoach = new Coach(0);
-            newCoach.setMail(coachMail);
-            coachCreationService.createCoach(newCoach);
-            eventPublisher.publishEvent(new OnRegistrationInviteEvent(newCoach, request.getContextPath()));
-            teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), newCoach.getId(), coachPrivilege.getId())));
-        }
     }
 
     private void sendTeamInvitationMails(String managerMail, Collection<String> coachesMails, String teamName) {
