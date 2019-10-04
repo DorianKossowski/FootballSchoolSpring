@@ -1,4 +1,4 @@
-package com.football_school_spring.models.DTO;
+package com.football_school_spring.models.dto;
 
 public class TeamsListDTO {
     private long id;

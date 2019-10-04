@@ -1,7 +1,7 @@
 package com.football_school_spring.controllers.admin;
 
-import com.football_school_spring.models.DTO.TeamsListDTO;
 import com.football_school_spring.models.Team;
+import com.football_school_spring.models.dto.TeamsListDTO;
 import com.football_school_spring.models.enums.CoachPrivilegeName;
 import com.football_school_spring.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;

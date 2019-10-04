@@ -2,8 +2,10 @@ package com.football_school_spring.controllers.coach;
 
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
+import com.football_school_spring.models.dto.CurrentTeamDTO;
 import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.services.TeamCreationService;
+import com.football_school_spring.utils.GettingFromDbException;
 import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -52,8 +54,7 @@ public class TeamCreationController extends CoachController {
             // unnecessary to update number of teams of currently logged user
             updateSecurityContextHolder();
 
-            currentTeam = newTeam;
-            session.setAttribute("currentTeam", newTeam.getName());
+            session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(newTeam.getId(), newTeam.getName()));
             return UrlCleaner.redirectWithCleaning(model, "/coach/home");
         } catch (Exception e) {
             logger.error("Problems during team creation", e);
@@ -64,7 +65,7 @@ public class TeamCreationController extends CoachController {
     private void updateSecurityContextHolder() {
         Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SecurityContextHolderAuthenticationSetter.set(coachRepository.findById(coach.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Can't get coach from DB"))
+                .orElseThrow(() -> new GettingFromDbException(Coach.class))
         );
     }
 }

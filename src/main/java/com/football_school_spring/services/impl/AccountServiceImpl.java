@@ -1,9 +1,10 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.models.DTO.EditPasswordDTO;
 import com.football_school_spring.models.User;
+import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.services.AccountService;
+import com.football_school_spring.utils.GettingFromDbException;
 import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void updateAccount(User user) {
         User userInDB = userRepository.findById(user.getId())
-                .orElseThrow(() -> new IllegalArgumentException(String.format("There isn't user in database with id %d", user.getId())));
+                .orElseThrow(() -> new GettingFromDbException(User.class, user.getId()));
         userInDB.setName(user.getName());
         userInDB.setSurname(user.getSurname());
         userInDB.setPhone(user.getPhone());
@@ -35,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
             throw new IllegalArgumentException("New passwords aren't equal");
         }
         User userInDB = userRepository.findById(editPasswordDTO.getId())
-                .orElseThrow(() -> new IllegalArgumentException(String.format("There isn't user in database with id %d", editPasswordDTO.getId())));
+                .orElseThrow(() -> new GettingFromDbException(User.class, editPasswordDTO.getId()));
         if (bCryptPasswordEncoder.matches(editPasswordDTO.getOldPassword(), userInDB.getPassword())) {
             userInDB.setPassword(bCryptPasswordEncoder.encode(editPasswordDTO.getNewPassword()));
             userRepository.save(userInDB);

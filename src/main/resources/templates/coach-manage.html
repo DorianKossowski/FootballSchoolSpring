@@ -32,8 +32,11 @@
     </div>
 </nav>
 <div class="main">
-    <div class="alert alert-danger" th:if="${param.notManager}">
-        Can't manage team - you are not manager
+    <div class="alert alert-success" th:if="${param.deleted}">
+        Coach correctly deleted
+    </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Can't delete coach
     </div>
     <header class="header">
         <div class="custom-select" style="width:200px; display:inline-table;">
@@ -59,7 +62,31 @@
         </div>
     </div>
     <div class="main-content">
-        <h1>Home</h1>
+        <h1>Manage your team</h1>
+        <div style="display:flex; width:53%; margin:auto;">
+            <form id="editForm" action="/coach/manage" method="post" style="width: 100%;" th:object="${team}">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="form-group">
+                    <div>
+                        <label class="input-label">Name</label>
+                        <div class="input-wrapper" style="width:70%">
+                            <input type="text" placeholder="name" class="input" required="" th:field="*{name}">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="input-label">Address</label>
+                        <div class="input-wrapper" style="width:70%">
+                            <input type="text" placeholder="address" class="input" required="" th:field="*{address}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-btn-wrapper">
+                    <div style="width: inherit;">
+                        <button id="save" class="form-btn" style="width:30%;">Edit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>

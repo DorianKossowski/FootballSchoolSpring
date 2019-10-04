@@ -2,6 +2,7 @@ package com.football_school_spring.controllers.coach;
 
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
+import com.football_school_spring.models.dto.CurrentTeamDTO;
 import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -34,26 +35,14 @@ public class HomeController extends CoachController {
             return "coach-init-team";
         }
 
-        setInitCurrentTeam(model, session, coach);
         return "coach-home";
     }
-
 
     @GetMapping("/set-team/{teamId}")
     public String setCurrentTeam(Model model, HttpSession session, @PathVariable("teamId") String teamId) {
         Optional<Team> teamOptional = teamRepository.findById(Long.valueOf(teamId));
-        teamOptional.ifPresent(team -> {
-            currentTeam = team;
-            session.setAttribute("currentTeam", team.getName());
-        });
+        teamOptional.ifPresent(team -> session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(team.getId(), team.getName())));
+        logger.info(String.format("%s is new team in session", session.getAttribute(CURRENT_TEAM)));
         return UrlCleaner.redirectWithCleaning(model, "/coach/home");
-    }
-
-    private void setInitCurrentTeam(Model model, HttpSession session, Coach coach) {
-        if (session.getAttribute("currentTeam") == null) {
-            currentTeam = coach.getTeamCoaches().iterator().next().getTeam();
-            session.setAttribute("currentTeam", currentTeam.getName());
-        }
-        model.addAttribute("currentTeam", session.getAttribute("currentTeam"));
     }
 }

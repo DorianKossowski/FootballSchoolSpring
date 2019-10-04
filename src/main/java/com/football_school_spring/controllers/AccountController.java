@@ -1,8 +1,8 @@
 package com.football_school_spring.controllers;
 
 import com.football_school_spring.models.Coach;
-import com.football_school_spring.models.DTO.EditPasswordDTO;
 import com.football_school_spring.models.User;
+import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.services.AccountService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
