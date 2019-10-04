@@ -11,7 +11,7 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 

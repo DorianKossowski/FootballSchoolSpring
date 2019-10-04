@@ -1,20 +1,22 @@
-package com.football_school_spring.models;
+package com.football_school_spring.models.dto;
+
+import com.football_school_spring.models.User;
 
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class UserFees {
+public class UserFeesDTO {
     private User user;
     private Map<Integer, Boolean> fees;
 
-    public UserFees() {
+    public UserFeesDTO() {
         fees = IntStream.rangeClosed(1, 12).boxed()
                 .collect(Collectors.toMap(Function.identity(), i -> false));
     }
 
-    public UserFees(User user, Map<Integer, Boolean> paidMonths) {
+    public UserFeesDTO(User user, Map<Integer, Boolean> paidMonths) {
         this.user = user;
         fees = IntStream.rangeClosed(1, 12).boxed()
                 .collect(Collectors.toMap(Function.identity(), i -> false));

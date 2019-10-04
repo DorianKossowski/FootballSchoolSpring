@@ -1,6 +1,6 @@
 package com.football_school_spring.controllers.admin;
 
-import com.football_school_spring.models.UserFeesListWrapper;
+import com.football_school_spring.models.dto.UserFeesDTOListWrapper;
 import com.football_school_spring.services.FeesService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -22,14 +22,14 @@ public class AdminCoachesFeesController extends AdminController {
 
     @GetMapping("/coaches-fees/{year}")
     public String coachesFees(Model model, @PathVariable("year") String year) {
-        UserFeesListWrapper wrapper = new UserFeesListWrapper();
+        UserFeesDTOListWrapper wrapper = new UserFeesDTOListWrapper();
         wrapper.setFeesList(feesService.getCoachesFees(Integer.parseInt(year)));
         model.addAttribute("wrapper", wrapper);
         return "admin-coaches-fees";
     }
 
     @PostMapping("/coaches-fees/{year}")
-    public String saveCoachesFees(Model model, @PathVariable("year") String year, @ModelAttribute UserFeesListWrapper wrapper) {
+    public String saveCoachesFees(Model model, @PathVariable("year") String year, @ModelAttribute UserFeesDTOListWrapper wrapper) {
         try {
             feesService.setUpdatedFees(Integer.parseInt(year), wrapper);
             logger.info("Coaches fees updated correctly");

@@ -78,10 +78,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="userFees, stat : *{feesList}">
+                    <th:block th:each="userFeesDTO, stat : *{feesList}">
                         <tr>
-                            <td th:text="${userFees.user.name} + ' ' + ${userFees.user.surname}">...</td>
-                            <td class="container" th:each="entry: ${userFees.fees}">
+                            <td th:text="${userFeesDTO.user.name} + ' ' + ${userFeesDTO.user.surname}">...</td>
+                            <td class="container" th:each="entry: ${userFeesDTO.fees}">
                                 <input type="hidden" th:field="*{feesList[__${stat.index}__].user.id}"/>
                                 <input type="checkbox"
                                        th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"/>

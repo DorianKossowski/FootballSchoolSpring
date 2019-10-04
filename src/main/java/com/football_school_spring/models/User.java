@@ -11,15 +11,16 @@ import java.util.Collections;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
     private static final long serialVersionUID = -6595712794411343878L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "userTypeId", referencedColumnName = "id")
     private UserType userType;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "userStatusId", referencedColumnName = "id")
     private UserStatus userStatus;
 

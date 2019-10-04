@@ -1,6 +1,6 @@
-package com.football_school_spring.models;
+package com.football_school_spring.models.dto;
 
-public class ContactModel {
+public class ContactModelDTO {
     private String name;
     private String mail;
     private String message;

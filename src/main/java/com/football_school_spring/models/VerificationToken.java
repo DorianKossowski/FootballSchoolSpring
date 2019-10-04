@@ -13,11 +13,11 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String token;
-
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
+
+    private String token;
 
     private Date expiryDate;
 

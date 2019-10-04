@@ -1,6 +1,6 @@
 package com.football_school_spring.notifications.impl;
 
-import com.football_school_spring.models.ContactModel;
+import com.football_school_spring.models.dto.ContactModelDTO;
 import com.football_school_spring.notifications.EmailService;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
@@ -32,13 +32,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendContactMail(ContactModel contactModel) {
+    public void sendContactMail(ContactModelDTO contactModelDTO) {
         Email email = EmailBuilder.startingBlank()
                 .to(adminMail)
                 .withSubject("New user interested in Football School")
-                .withPlainText("Name: " + contactModel.getName())
-                .appendText("\nMail: " + contactModel.getMail())
-                .appendText("\nMessage: " + contactModel.getMessage())
+                .withPlainText("Name: " + contactModelDTO.getName())
+                .appendText("\nMail: " + contactModelDTO.getMail())
+                .appendText("\nMessage: " + contactModelDTO.getMessage())
                 .buildEmail();
         send(email);
     }

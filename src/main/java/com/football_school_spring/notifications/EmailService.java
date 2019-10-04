@@ -1,12 +1,12 @@
 package com.football_school_spring.notifications;
 
-import com.football_school_spring.models.ContactModel;
+import com.football_school_spring.models.dto.ContactModelDTO;
 import org.simplejavamail.email.Email;
 
 public interface EmailService {
     void send(Email email);
 
-    void sendContactMail(ContactModel contactModel);
+    void sendContactMail(ContactModelDTO contactModelDTO);
 
     void sendRegistrationInviteMail(String mailTo, String registrationUrl);
 

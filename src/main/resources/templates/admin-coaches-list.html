@@ -68,6 +68,7 @@
                 <tr>
                     <th>Mail</th>
                     <th>Name</th>
+                    <th>Teams</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -77,6 +78,7 @@
                         <td th:text="${coach.mail}">...</td>
                         <td th:if="${coach.name}==null">-</td>
                         <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
+                        <td th:text="${#lists.size(coach.teamCoaches)}">...</td>
                         <td th:text="${coach.userStatus.name}">...</td>
                     </tr>
                 </th:block>
