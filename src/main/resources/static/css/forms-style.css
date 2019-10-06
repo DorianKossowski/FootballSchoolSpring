@@ -37,7 +37,7 @@ legend {
   width: 40%;
   min-height: 50px;
   position: relative;
-  background-color: #fff;
+  background-color: #ffffff;
   margin: auto auto 10px auto;
   max-width: 300px;
 }
@@ -87,7 +87,7 @@ legend {
 
   font-family: Poppins-Regular;
   font-size: 15px;
-  color: #fff;
+  color: #ffffff;
   line-height: 1.2;
   display: flex;
   justify-content: center;

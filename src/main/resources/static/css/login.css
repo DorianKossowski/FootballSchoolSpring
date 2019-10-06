@@ -14,7 +14,7 @@
   width: 80%;
   height: 75px;
   position: relative;
-  background-color: #fff;
+  background-color: #ffffff;
   margin: auto auto 10px auto;
 }
 
@@ -90,7 +90,7 @@ input.input {
 
   font-family: Poppins-Regular;
   font-size: 15px;
-  color: #fff;
+  color: #ffffff;
   line-height: 1.2;
   display: flex;
   justify-content: center;

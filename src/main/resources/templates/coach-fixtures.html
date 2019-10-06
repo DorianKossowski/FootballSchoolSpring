@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <link rel="stylesheet" type="text/css" href="/css/index-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/options-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fixture.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>FS - coach site</title>
+</head>
+<body>
+<nav class="sidebar" id="sidebarId">
+    <div class="logo-container">
+        <h3>Football School</h3>
+    </div>
+    <div class="sidebar-category">
+        <a class="sidebar-category-title">Team</a>
+        <div class="sidebar-category-content">
+            <a href="/coach/home" class="button button-sidebar"><em class="fa fa-caret-right"></em>Home</a>
+            <a href="/coach/players" class="button button-sidebar"><em class="fa fa-caret-right"></em>Players</a>
+            <a href="/coach/fixtures" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>Fixtures</a>
+        </div>
+        <a class="sidebar-category-title">Manage</a>
+        <div class="sidebar-category-content">
+            <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
+            <a href="javascript:forward_to_admin_fees()" class="button button-sidebar"><em
+                    class="fa fa-caret-right"></em>Service fees</a>
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during fixtures modifying
+    </div>
+    <header class="header">
+        <div class="custom-select" style="width:200px; display:inline-table;">
+            <select>
+                <option th:text="${currentTeam}">...</option>
+                <th:block th:each="entry : ${teams}">
+                    <option th:value="${entry.key}" th:text="${entry.value}">...</option>
+                </th:block>
+            </select>
+        </div>
+        <div style="float:right;margin-bottom:16px;">
+            <p style="display:inline;" th:text="${userName}">...</p>
+            <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
+                                          style="text-decoration:none;color:inherit; background-color:inherit;">
+                <em class="fa fa-caret-down"></em></a>
+            </p>
+        </div>
+    </header>
+    <div id="user-menu">
+        <div class="user-menu-content">
+            <a href="/account" class="button button-header">Account</a>
+            <a href="/logout" class="button button-header">Log out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Fixtures</h1>
+        <div style="margin: 20px auto;display: flex;width: 53%;">
+            <form th:action="@{/coach/fixture-add}" th:object="${newFixture}" method="post" style="width:100%">
+                <fieldset>
+                    <div class="form-group" style="text-align: end;">
+                        <div>
+                            <label class="input-label">Opponent</label>
+                            <div class="input-wrapper" style="width:60%">
+                                <input type="text" placeholder="opponent" class="input" required=""
+                                       th:field="*{opponent}">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label">Address</label>
+                            <div class="input-wrapper" style="width:60%">
+                                <input type="text" placeholder="address" class="input" required=""
+                                       th:field="*{address}">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label">Date</label>
+                            <div class="input-wrapper" style="width:36%">
+                                <input type="date" class="input" required="" th:field="*{date}">
+                            </div>
+                            <div class="input-wrapper" style="width:23%">
+                                <input type="time" class="input" required="" th:field="*{time}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-btn-wrapper">
+                        <button class="form-btn">Add</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <th:block th:each="fixture : ${fixtures}">
+            <div class="panel panel-default">
+                <div class="row fixture-heading">
+                    <div style="width: 50%;text-align: left;"><strong th:text="${fixture.address}">...</strong></div>
+                    <div style="width: 50%;text-align: right;"><strong
+                            th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</strong></div>
+                    <div>
+                        <form th:action="'/coach/fixture-delete/' + ${fixture.id}" method="post" style="width: 100%;">
+                            <div class="form-btn-wrapper">
+                                <div style="margin-left:10px;">
+                                    <button class="form-btn" style="width:auto;height: 30px;">
+                                        <em style="margin: 0px !important;" class="fa fa-trash-o"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div th:if="${fixture.host}" class="row fixture-body" style="">
+                    <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+                    <div><small>v</small></div>
+                    <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+                </div>
+                <div th:unless="${fixture.host}" class="row fixture-body" style="">
+                    <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+                    <div><small>v</small></div>
+                    <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+<script src="/js/user-menu.js"></script>
+<script src="/js/clickable-row.js"></script>
+<script src="/js/options.js"></script>
+</body>
+</html>

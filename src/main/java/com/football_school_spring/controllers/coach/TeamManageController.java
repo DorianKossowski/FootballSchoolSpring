@@ -52,7 +52,7 @@ public class TeamManageController extends CoachController {
             updateSecurityContextHolder();
             logger.info("Team correctly updated");
 
-            session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(team.getId(), team.getName()));
+            session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(team));
             return UrlCleaner.redirectWithCleaning(model, "/coach/manage?updated=true");
         } catch (Exception e) {
             logger.error("Error during updating team", e);

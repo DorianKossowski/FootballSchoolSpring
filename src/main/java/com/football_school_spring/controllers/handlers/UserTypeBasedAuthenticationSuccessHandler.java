@@ -48,8 +48,7 @@ public class UserTypeBasedAuthenticationSuccessHandler extends SimpleUrlAuthenti
     private void setInitCurrentTeam(HttpSession session, Coach coach) {
         if (!coach.getTeamCoaches().isEmpty()) {
             Team currentTeamInDb = coach.getTeamCoaches().iterator().next().getTeam();
-            session.setAttribute(PossibleTeamsController.CURRENT_TEAM,
-                    new CurrentTeamDTO(currentTeamInDb.getId(), currentTeamInDb.getName()));
+            session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO(currentTeamInDb));
         } else {
             session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO());
         }

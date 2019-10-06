@@ -1,15 +1,19 @@
 package com.football_school_spring.models.dto;
 
+import com.football_school_spring.models.Team;
+
 public class CurrentTeamDTO {
     private long id;
     private String name;
+    private String address;
 
     public CurrentTeamDTO() {
     }
 
-    public CurrentTeamDTO(long id, String name) {
-        this.id = id;
-        this.name = name;
+    public CurrentTeamDTO(Team team) {
+        this.id = team.getId();
+        this.name = team.getName();
+        this.address = team.getAddress();
     }
 
     public long getId() {
@@ -26,5 +30,13 @@ public class CurrentTeamDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

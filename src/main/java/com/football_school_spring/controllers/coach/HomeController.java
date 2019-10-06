@@ -41,7 +41,7 @@ public class HomeController extends CoachController {
     @GetMapping("/set-team/{teamId}")
     public String setCurrentTeam(Model model, HttpSession session, @PathVariable("teamId") String teamId) {
         Optional<Team> teamOptional = teamRepository.findById(Long.valueOf(teamId));
-        teamOptional.ifPresent(team -> session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(team.getId(), team.getName())));
+        teamOptional.ifPresent(team -> session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(team)));
         logger.info(String.format("%s is new team in session", session.getAttribute(CURRENT_TEAM)));
         return UrlCleaner.redirectWithCleaning(model, "/coach/home");
     }

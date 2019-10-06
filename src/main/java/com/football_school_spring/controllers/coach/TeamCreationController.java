@@ -44,7 +44,7 @@ public class TeamCreationController extends CoachController {
             updateSecurityContextHolder();
             logger.info("Team correctly created");
 
-            session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(newTeam.getId(), newTeam.getName()));
+            session.setAttribute(CURRENT_TEAM, new CurrentTeamDTO(newTeam));
             return UrlCleaner.redirectWithCleaning(model, "/coach/home");
         } catch (Exception e) {
             logger.error("Problems during team creation", e);
