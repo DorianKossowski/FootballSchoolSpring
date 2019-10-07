@@ -10,8 +10,10 @@ import com.football_school_spring.utils.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,5 +39,13 @@ public class FixturesServiceImpl implements FixturesService {
         return fixtureRepository.findByTeamId(teamId).stream()
                 .sorted(Comparator.comparing(Fixture::getDate))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Fixture> getNextFixture(long teamId) {
+        List<Fixture> fixtures = getSortedTeamFixtures(teamId);
+        return fixtures.stream()
+                .filter(fixture -> fixture.getDate().isAfter(LocalDateTime.now()))
+                .findFirst();
     }
 }

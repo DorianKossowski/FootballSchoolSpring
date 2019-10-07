@@ -1,6 +1,6 @@
 package com.football_school_spring.controllers.handlers;
 
-import com.football_school_spring.controllers.coach.PossibleTeamsController;
+import com.football_school_spring.controllers.basic_user.PossibleTeamsController;
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.dto.CurrentTeamDTO;

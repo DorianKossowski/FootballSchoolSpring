@@ -1,4 +1,4 @@
-package com.football_school_spring.controllers.coach;
+package com.football_school_spring.controllers.basic_user.coach;
 
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;

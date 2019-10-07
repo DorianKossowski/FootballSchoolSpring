@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/css/panel.css">
     <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
     <link rel="stylesheet" type="text/css" href="/css/options-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fixture.css">
+    <link rel="stylesheet" type="text/css" href="/css/chat.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>FS - coach site</title>
 </head>
@@ -35,6 +37,9 @@
     <div class="alert alert-danger" th:if="${param.notManager}">
         Can't manage team - you are not manager
     </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during adding message - try again
+    </div>
     <header class="header">
         <div class="custom-select" style="width:200px; display:inline-table;">
             <select>
@@ -60,10 +65,52 @@
     </div>
     <div class="main-content">
         <h1>Home</h1>
+        <h3 class="subtitle">Next match</h3>
+        <div th:if="${fixture != null}" class="panel panel-default">
+            <div class="row fixture-heading">
+                <div style="width: 50%;text-align: left;">
+                    <regular th:text="${fixture.address}">...</regular>
+                </div>
+                <div style="width: 50%;text-align: right;">
+                    <regular th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</regular>
+                </div>
+            </div>
+            <div th:if="${fixture.host}" class="row fixture-body" style="">
+                <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+                <div><small>v</small></div>
+                <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+            </div>
+            <div th:unless="${fixture.host}" class="row fixture-body" style="">
+                <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+                <div><small>v</small></div>
+                <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+            </div>
+        </div>
+        <h3 class="subtitle">Team chat</h3>
+        <div class="panel panel-primary" style="border-color: #d3e0e9;">
+            <div class="panel-body">
+                <div class="chat">
+                    <th:block th:each="message : ${messages}">
+                        <div th:classappend="${message.isCurrentUser} ? right-message : left-message">
+                            <div class="header" style="padding:0;">
+                                <strong th:text="${message.userName}">...</strong>
+                                <small th:text="${message.date}">...</small>
+                            </div>
+                            <p th:text="${message.text}">...</p>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <form action="/add-message" method="post" style="width:100%; display:flex;">
+                    <input name="message" class="input" type="text" placeholder="Type your message here..."/>
+                    <button class="form-btn">Send</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
-<script src="/js/clickable-row.js"></script>
 <script src="/js/options.js"></script>
 </body>
 </html>

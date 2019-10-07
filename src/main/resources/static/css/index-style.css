@@ -168,3 +168,8 @@ button {
   color: #3c763d;
   border-color: #d6e9c6;
 }
+
+.subtitle {
+  text-align: left;
+  margin-left: 30px;
+}

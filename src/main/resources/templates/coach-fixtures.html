@@ -98,9 +98,12 @@
         <th:block th:each="fixture : ${fixtures}">
             <div class="panel panel-default">
                 <div class="row fixture-heading">
-                    <div style="width: 50%;text-align: left;"><strong th:text="${fixture.address}">...</strong></div>
-                    <div style="width: 50%;text-align: right;"><strong
-                            th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</strong></div>
+                    <div style="width: 50%;text-align: left;">
+                        <regular th:text="${fixture.address}">...</regular>
+                    </div>
+                    <div style="width: 50%;text-align: right;">
+                        <regular th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</regular>
+                    </div>
                     <div>
                         <form th:action="'/coach/fixture-delete/' + ${fixture.id}" method="post" style="width: 100%;">
                             <div class="form-btn-wrapper">
