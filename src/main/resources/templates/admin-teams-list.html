@@ -60,7 +60,7 @@
                 </thead>
                 <tbody class="clickable-row">
                 <th:block th:each="teamListDTOS : ${teamsListDTOS}">
-                    <tr th:onclick="'javascript:rowClicked(\'' + ${teamListDTOS.id} + '\');'">
+                    <tr th:onclick="'javascript:coachRowClicked(\'' + ${teamListDTOS.id} + '\');'">
                         <td th:text="${teamListDTOS.name}">...</td>
                         <td th:text="${teamListDTOS.managerFullName}">...</td>
                     </tr>

@@ -74,7 +74,7 @@
                 </thead>
                 <tbody class="clickable-row">
                 <th:block th:each="coach : ${coaches}">
-                    <tr th:onclick="'javascript:rowClicked(\'' + ${coach.id} + '\');'">
+                    <tr th:onclick="'javascript:coachRowClicked(\'' + ${coach.id} + '\');'">
                         <td th:text="${coach.mail}">...</td>
                         <td th:if="${coach.name}==null">-</td>
                         <td th:unless="${coach.name}==null" th:text="${coach.name} + ' ' + ${coach.surname}">...</td>
