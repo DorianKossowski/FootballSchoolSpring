@@ -34,13 +34,10 @@
 </nav>
 <div class="main">
     <div class="alert alert-danger" th:if="${param.error}">
-        Error during player creation
+        Error during player edit
     </div>
-    <div class="alert alert-success" th:if="${param.sent}">
-        Player correctly added
-    </div>
-    <div class="alert alert-success" th:if="${param.deleted}">
-        Player correctly deleted
+    <div class="alert alert-success" th:if="${param.updated}">
+        Player correctly edited
     </div>
     <header class="header">
         <div class="custom-select" style="width:200px; display:inline-table;">
@@ -67,11 +64,12 @@
     </div>
     <div class="main-content">
         <h1>Players</h1>
-        <h3 class="subtitle">Add new player</h3>
+        <h3 class="subtitle">Edit player</h3>
         <div style="margin: 20px auto;display: flex;width: 53%;">
-            <form id="form-to-reset" th:action="@{/coach/player-add}" th:object="${newPlayer}" method="post"
-                  style="width:100%">
+            <form id="form-to-reset" th:action="'/coach/player-edit/' + ${player.id}" th:object="${player}"
+                  method="post" style="width:100%">
                 <fieldset>
+                    <input type="hidden" th:field="*{id}"/>
                     <div class="form-group" style="text-align: end;">
                         <div>
                             <label class="input-label">Name</label>
@@ -95,35 +93,30 @@
                         <div>
                             <label class="input-label">Parent's mail</label>
                             <div class="input-wrapper" style="width:60%">
-                                <input type="email" placeholder="mail" class="input" required="" th:field="*{mail}">
+                                <input type="email" placeholder="mail" class="input" required=""
+                                       th:field="*{parent.mail}">
                             </div>
                         </div>
                     </div>
                     <div class="form-btn-wrapper">
-                        <button class="form-btn">Add</button>
+                        <button class="form-btn">Edit</button>
                     </div>
                 </fieldset>
             </form>
         </div>
-        <h3 class="subtitle" th:text="${currentTeam}">...</h3>
-        <table class="table table-hover" style="width:80%; margin:auto;">
-            <thead>
-            <tr>
-                <th>Player</th>
-                <th>Year</th>
-                <th>Mail</th>
-            </tr>
-            </thead>
-            <tbody class="clickable-row">
-            <th:block th:each="player : ${players}">
-                <tr th:onclick="'javascript:playerRowClicked(\'' + ${player.id} + '\');'">
-                    <td th:text="${player.name} + ' ' + ${player.surname}">...</td>
-                    <td th:text="${player.year}">...</td>
-                    <td th:text="${player.parent.mail}">...</td>
-                </tr>
-            </th:block>
-            </tbody>
-        </table>
+        <h3 class="subtitle">Parent</h3>
+        <div style="text-align: left;margin-left: 30px;">
+            <p th:if="${player.parent.name}==null">Name: -</p>
+            <p th:unless="${player.parent.name}==null"
+               th:text="'Name: ' + ${player.parent.name} + ' ' + ${player.parent.surname}"> ...</p>
+            <p th:text="'Mail: ' + ${player.parent.mail}">...</p>
+            <p th:if="${player.parent.name}==null">Phone: -</p>
+            <p th:unless="${player.parent.name}==null"
+               th:text="'Phone: ' +  ${player.parent.name} + ' ' + ${player.parent.surname}"> ...</p>
+        </div>
+        <form th:action="@{/coach/delete-player/__${player.id}__}" th:method="post">
+            <button type="submit" class="form-btn" style="width:auto; margin-top:50px;">Delete player</button>
+        </form>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
