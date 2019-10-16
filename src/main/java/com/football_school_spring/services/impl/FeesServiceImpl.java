@@ -43,7 +43,7 @@ public class FeesServiceImpl implements FeesService {
 
         List<CoachFeesDTO> usersFees = new ArrayList<>();
         coaches = coaches.stream()
-                .filter(coach -> coach.isEnabled() || !coach.isAccountNonLocked())
+                .filter(coach -> coach.getMaxNumberOfTeams() > 0 && (coach.isEnabled() || !coach.isAccountNonLocked()))
                 .collect(Collectors.toList());
         for (Coach coach : coaches) {
             Map<Integer, Boolean> paidMonths = allCoachFees.stream()
