@@ -33,14 +33,22 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendContactMail(ContactModelDTO contactModelDTO) {
-        Email email = EmailBuilder.startingBlank()
+        Email emailToAdmin = EmailBuilder.startingBlank()
                 .to(adminMail)
                 .withSubject("New user interested in Football School")
                 .withPlainText("Name: " + contactModelDTO.getName())
                 .appendText("\nMail: " + contactModelDTO.getMail())
                 .appendText("\nMessage: " + contactModelDTO.getMessage())
                 .buildEmail();
-        send(email);
+        Email emailToClient = EmailBuilder.startingBlank()
+                .to(contactModelDTO.getMail())
+                .withSubject("Football School")
+                .withPlainText("Thank you for interesting in Football School - our staff will contact you as soon as possible.")
+                .appendText("\nYour message: " + contactModelDTO.getMessage())
+                .buildEmail();
+
+        send(emailToAdmin);
+        send(emailToClient);
     }
 
     @Override
