@@ -16,3 +16,7 @@ function forward_to_admin_fees() {
   var href = "/admin/coaches-fees/" + new Date().getFullYear();
   window.location=href;
 }
+function forward_to_coach_fees(id) {
+  var href = "/coach/players-fees/" + id + "/" + new Date().getFullYear();
+  window.location=href;
+}

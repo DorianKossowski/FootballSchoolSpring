@@ -1,6 +1,6 @@
 package com.football_school_spring.controllers.admin;
 
-import com.football_school_spring.models.dto.UserFeesDTOListWrapper;
+import com.football_school_spring.models.dto.CoachFeesDTOListWrapper;
 import com.football_school_spring.services.FeesService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -22,16 +22,16 @@ public class AdminCoachesFeesController extends AdminController {
 
     @GetMapping("/coaches-fees/{year}")
     public String coachesFees(Model model, @PathVariable("year") String year) {
-        UserFeesDTOListWrapper wrapper = new UserFeesDTOListWrapper();
+        CoachFeesDTOListWrapper wrapper = new CoachFeesDTOListWrapper();
         wrapper.setFeesList(feesService.getCoachesFees(Integer.parseInt(year)));
         model.addAttribute("wrapper", wrapper);
         return "admin-coaches-fees";
     }
 
     @PostMapping("/coaches-fees/{year}")
-    public String saveCoachesFees(Model model, @PathVariable("year") String year, @ModelAttribute UserFeesDTOListWrapper wrapper) {
+    public String saveCoachesFees(Model model, @PathVariable("year") String year, @ModelAttribute CoachFeesDTOListWrapper wrapper) {
         try {
-            feesService.setUpdatedFees(Integer.parseInt(year), wrapper);
+            feesService.setUpdatedCoachesFees(Integer.parseInt(year), wrapper);
             logger.info("Coaches fees updated correctly");
             return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-fees/" + year + "?saved=true");
         } catch (Exception e) {

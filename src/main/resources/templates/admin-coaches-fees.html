@@ -78,10 +78,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="userFeesDTO, stat : *{feesList}">
+                    <th:block th:each="coachFeesDTO, stat : *{feesList}">
                         <tr>
-                            <td th:text="${userFeesDTO.user.name} + ' ' + ${userFeesDTO.user.surname}">...</td>
-                            <td class="container" th:each="entry: ${userFeesDTO.fees}">
+                            <td th:text="${coachFeesDTO.user.name} + ' ' + ${coachFeesDTO.user.surname}">...</td>
+                            <td class="container" th:each="entry: ${coachFeesDTO.fees}">
                                 <input type="hidden" th:field="*{feesList[__${stat.index}__].user.id}"/>
                                 <input type="checkbox"
                                        th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"/>
@@ -99,6 +99,6 @@
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
-<script src="/js/fee-years-chooser.js"></script>
+<script src="/js/admin-fee-years-chooser.js"></script>
 </body>
 </html>

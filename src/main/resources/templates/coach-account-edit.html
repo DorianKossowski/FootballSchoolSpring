@@ -24,7 +24,7 @@
         <a class="sidebar-category-title">Manage</a>
         <div class="sidebar-category-content">
             <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
-            <a href="javascript:forward_to_admin_fees()" class="button button-sidebar"><em
+            <a th:href="'javascript:forward_to_coach_fees(' + ${currentTeamId} + ')'" class="button button-sidebar"><em
                     class="fa fa-caret-right"></em>Service fees</a>
         </div>
     </div>

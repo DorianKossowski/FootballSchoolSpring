@@ -1,12 +1,18 @@
 package com.football_school_spring.services;
 
-import com.football_school_spring.models.dto.UserFeesDTO;
-import com.football_school_spring.models.dto.UserFeesDTOListWrapper;
+import com.football_school_spring.models.dto.CoachFeesDTO;
+import com.football_school_spring.models.dto.CoachFeesDTOListWrapper;
+import com.football_school_spring.models.dto.PlayerFeesDTO;
+import com.football_school_spring.models.dto.PlayerFeesDTOListWrapper;
 
 import java.util.List;
 
 public interface FeesService {
-    List<UserFeesDTO> getCoachesFees(int year);
+    List<CoachFeesDTO> getCoachesFees(int year);
 
-    void setUpdatedFees(int year, UserFeesDTOListWrapper wrapper);
+    List<PlayerFeesDTO> getPlayersFees(long teamId, int year);
+
+    void setUpdatedCoachesFees(int year, CoachFeesDTOListWrapper wrapper);
+
+    void setUpdatedPlayersFees(int year, PlayerFeesDTOListWrapper wrapper);
 }

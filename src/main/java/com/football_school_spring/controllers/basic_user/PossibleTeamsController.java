@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class PossibleTeamsController extends AuthorizedUserController {
     private static final String TEAMS = "teams";
     public static final String CURRENT_TEAM = "currentTeam";
+    public static final String CURRENT_TEAM_ID = "currentTeamId";
 
     @ModelAttribute(TEAMS)
     public Map<Long, String> getCoachTeams() {
@@ -31,5 +32,10 @@ public class PossibleTeamsController extends AuthorizedUserController {
     @ModelAttribute(CURRENT_TEAM)
     public String getCurrentTeam(@SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
         return currentTeamDTO.getName();
+    }
+
+    @ModelAttribute(CURRENT_TEAM_ID)
+    public long getCurrentTeamId(@SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
+        return currentTeamDTO.getId();
     }
 }

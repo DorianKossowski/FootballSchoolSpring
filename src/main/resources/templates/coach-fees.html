@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/css/panel.css">
     <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
     <link rel="stylesheet" type="text/css" href="/css/options-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fixture.css">
+    <link rel="stylesheet" type="text/css" href="/css/chat.css">
+    <link rel="stylesheet" type="text/css" href="/css/checkboxes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>FS - coach site</title>
 </head>
@@ -25,12 +28,18 @@
         <a class="sidebar-category-title">Manage</a>
         <div class="sidebar-category-content">
             <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
-            <a th:href="'javascript:forward_to_coach_fees(' + ${currentTeamId} + ')'" class="button button-sidebar"><em
-                    class="fa fa-caret-right"></em>Service fees</a>
+            <a th:href="'javascript:forward_to_coach_fees(' + ${currentTeamId} + ')'"
+               class="button button-sidebar button-sidebar-active"><em class="fa fa-caret-right"></em>Service fees</a>
         </div>
     </div>
 </nav>
 <div class="main">
+    <div class="alert alert-success" th:if="${param.saved}">
+        Fees correctly edited
+    </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during fees update
+    </div>
     <header class="header">
         <div class="custom-select" style="width:200px; display:inline-table;">
             <select>
@@ -55,31 +64,47 @@
         </div>
     </div>
     <div class="main-content">
-        <h1>Create team</h1>
-        <div style="display:flex; width:53%; margin:auto;">
-            <form action="/coach/create-team" method="post" style="width: 100%;">
-                <div class="form-group">
-                    <div>
-                        <label class="input-label">Name</label>
-                        <div class="input-wrapper" style="width:70%">
-                            <input type="text" placeholder="name" class="input" required="" name="name">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="input-label">Address</label>
-                        <div class="input-wrapper" style="width:70%">
-                            <input type="text" placeholder="address" class="input" required="" name="address">
-                        </div>
-                    </div>
-                    <h3 style="text-align:center;">Assign additional coaches to team:</h3>
-                    <div id="coaches-container">
-                        <a href="#" id="add-new" onclick="addFields()" style="color: #2d3447;font-size: 30px;">+</a>
-                    </div>
-                </div>
+        <h1>Service fees</h1>
+        <div th:if="${#lists.isEmpty(wrapper.feesList)}">
+            <div>Lack of players in team</div>
+        </div>
+        <div th:unless="${#lists.isEmpty(wrapper.feesList)}">
+            <div id="feeYearsDiv" style="margin-bottom: 30px;"></div>
+            <form name="feesForm" action="#" method="POST" th:object="${wrapper}">
+                <table class="table table-hover" style="width:80%; margin:auto;">
+                    <thead>
+                    <tr>
+                        <th>Coach</th>
+                        <th>I</th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                        <th>VIII</th>
+                        <th>IX</th>
+                        <th>X</th>
+                        <th>XI</th>
+                        <th>XII</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="playerFeesDTO, stat : *{feesList}">
+                        <tr>
+                            <td th:text="${playerFeesDTO.player.name} + ' ' + ${playerFeesDTO.player.surname}">...</td>
+                            <td class="container" th:each="entry: ${playerFeesDTO.fees}">
+                                <input type="hidden" th:field="*{feesList[__${stat.index}__].player.id}"/>
+                                <input type="checkbox"
+                                       th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"/>
+                                <span class="checkmark"></span>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
                 <div class="form-btn-wrapper">
-                    <div style="width: inherit;">
-                        <button id="save" class="form-btn" style="width:30%;">Create</button>
-                    </div>
+                    <button type="submit" id="save" class="form-btn" style="width:10%;margin-top:20px">Save</button>
                 </div>
             </form>
         </div>
@@ -87,6 +112,6 @@
 </div>
 <script src="/js/user-menu.js"></script>
 <script src="/js/options.js"></script>
-<script src="/js/add-coaches-to-form.js"></script>
+<script src="/js/coach-fee-years-chooser.js"></script>
 </body>
 </html>

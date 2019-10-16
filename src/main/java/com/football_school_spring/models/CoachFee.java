@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Fee {
+public class CoachFee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,10 +19,10 @@ public class Fee {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    public Fee() {
+    public CoachFee() {
     }
 
-    public Fee(User user, LocalDate date) {
+    public CoachFee(User user, LocalDate date) {
         this.user = user;
         this.date = date;
     }
