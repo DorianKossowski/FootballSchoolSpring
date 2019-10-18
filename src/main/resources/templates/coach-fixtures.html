@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="/css/options-style.css">
     <link rel="stylesheet" type="text/css" href="/css/fixture.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css">
+    <script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
     <title>FS - coach site</title>
 </head>
 <body>
@@ -86,7 +88,7 @@
                                 <input type="date" class="input" required="" th:field="*{date}">
                             </div>
                             <div class="input-wrapper" style="width:23%">
-                                <input type="time" class="input" required="" th:field="*{time}">
+                                <input type="text" placeholder="time" class="input" required="" th:field="*{time}">
                             </div>
                         </div>
                     </div>
@@ -135,5 +137,6 @@
 <script src="/js/user-menu.js"></script>
 <script src="/js/clickable-row.js"></script>
 <script src="/js/options.js"></script>
+<script src="/js/time-picker.js"></script>
 </body>
 </html>

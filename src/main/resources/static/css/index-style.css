@@ -173,3 +173,7 @@ button {
   text-align: left;
   margin-left: 30px;
 }
+
+._jw-tpk-container{
+  height: 210px !important;
+}

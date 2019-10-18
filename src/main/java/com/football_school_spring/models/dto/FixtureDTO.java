@@ -2,6 +2,7 @@ package com.football_school_spring.models.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class FixtureDTO {
     private String opponent;
@@ -44,7 +45,8 @@ public class FixtureDTO {
         return time;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setTime(String time) {
+        String timePattern = time.length() == 4 ? "H:mm" : "HH:mm";
+        this.time = LocalTime.parse(time, DateTimeFormatter.ofPattern(timePattern));
     }
 }
