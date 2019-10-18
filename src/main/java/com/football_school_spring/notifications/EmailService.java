@@ -13,4 +13,8 @@ public interface EmailService {
     void sendMailWithResetLink(String mailTo, String resetLink);
 
     void sendMailWithTeamInvitation(String mailTo, String teamName);
+
+    void sendMailWithBlockInfo(String mailTo);
+
+    void sendMailWithFeeReminder(String mailTo);
 }

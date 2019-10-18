@@ -50,7 +50,7 @@ public class FeesServiceImpl implements FeesService {
                     .filter(fee -> fee.getDate().getYear() == year && fee.getUser().getId() == coach.getId())
                     .map(fee -> fee.getDate().getMonthValue())
                     .collect(Collectors.toMap(Function.identity(), i -> true));
-            usersFees.add(new CoachFeesDTO(coach, paidMonths));
+            usersFees.add(new CoachFeesDTO(coach, paidMonths, year));
         }
         return usersFees;
     }
@@ -66,7 +66,7 @@ public class FeesServiceImpl implements FeesService {
                     .filter(fee -> fee.getDate().getYear() == year && fee.getPlayer().getId() == player.getId())
                     .map(fee -> fee.getDate().getMonthValue())
                     .collect(Collectors.toMap(Function.identity(), i -> true));
-            usersFees.add(new PlayerFeesDTO(player, paidMonths));
+            usersFees.add(new PlayerFeesDTO(player, paidMonths, year));
         }
         return usersFees;
     }
@@ -80,8 +80,9 @@ public class FeesServiceImpl implements FeesService {
                 LocalDate feeDate = LocalDate.of(year, entry.getKey(), 2);
                 Optional<CoachFee> feeOptional = coachFeeRepository.findByUserIdAndDate(id, feeDate);
                 if (entry.getValue()) {
-                    if (!feeOptional.isPresent()) {
-                        coachFeeRepository.save(new CoachFee(coachRepository.getOne(id), feeDate));
+                    Coach coach = coachRepository.getOne(id);
+                    if (!feeOptional.isPresent() && !coach.getDateOfCreation().toLocalDate().withDayOfMonth(1).isAfter(feeDate.withDayOfMonth(1))) {
+                        coachFeeRepository.save(new CoachFee(coach, feeDate));
                     }
                 } else {
                     feeOptional.ifPresent(fee -> coachFeeRepository.delete(fee));
@@ -99,8 +100,9 @@ public class FeesServiceImpl implements FeesService {
                 LocalDate feeDate = LocalDate.of(year, entry.getKey(), 2);
                 Optional<PlayerFee> feeOptional = playerFeeRepository.findByPlayerIdAndDate(id, feeDate);
                 if (entry.getValue()) {
-                    if (!feeOptional.isPresent()) {
-                        playerFeeRepository.save(new PlayerFee(playerRepository.getOne(id), feeDate));
+                    Player player = playerRepository.getOne(id);
+                    if (!feeOptional.isPresent() && player.getDateOfCreation().toLocalDate().isBefore(feeDate)) {
+                        playerFeeRepository.save(new PlayerFee(player, feeDate));
                     }
                 } else {
                     feeOptional.ifPresent(fee -> playerFeeRepository.delete(fee));

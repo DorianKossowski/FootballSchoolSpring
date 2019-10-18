@@ -82,4 +82,31 @@ public class EmailServiceImpl implements EmailService {
                 .buildEmail();
         send(email);
     }
+
+    @Override
+    public void sendMailWithBlockInfo(String mailTo) {
+        Email email = EmailBuilder.startingBlank()
+                .to(mailTo)
+                .withSubject("Football School - you have been blocked")
+                .appendText("From now on, you are not allowed to use Football School application.\n" +
+                        "Contact administrator for more information.")
+                .buildEmail();
+        Email toAdmin = EmailBuilder.startingBlank()
+                .to(adminMail)
+                .withSubject("Football School - user blocked")
+                .appendText(String.format("User with mail %s has been blocked", mailTo))
+                .buildEmail();
+        send(email);
+        send(toAdmin);
+    }
+
+    @Override
+    public void sendMailWithFeeReminder(String mailTo) {
+        Email email = EmailBuilder.startingBlank()
+                .to(mailTo)
+                .withSubject("Football School - fee reminder")
+                .appendText("Football School reminds you to pay service fees.")
+                .buildEmail();
+        send(email);
+    }
 }

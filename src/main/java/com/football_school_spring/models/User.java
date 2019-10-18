@@ -1,9 +1,11 @@
 package com.football_school_spring.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -41,6 +43,10 @@ public class User implements UserDetails {
 
     @Column
     private String resetToken;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime dateOfCreation;
 
     public long getId() {
         return id;
@@ -108,6 +114,14 @@ public class User implements UserDetails {
 
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public void setDateOfCreation(LocalDateTime dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 
     //UserDetails implementation

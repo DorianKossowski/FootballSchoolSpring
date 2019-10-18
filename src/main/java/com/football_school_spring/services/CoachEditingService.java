@@ -1,7 +1,7 @@
 package com.football_school_spring.services;
 
 import com.football_school_spring.models.Coach;
-import com.football_school_spring.utils.CoachEditingValidationResult;
+import com.football_school_spring.utils.validation.CoachEditingValidationResult;
 
 public interface CoachEditingService {
     CoachEditingValidationResult isEditingValid(long coachId);

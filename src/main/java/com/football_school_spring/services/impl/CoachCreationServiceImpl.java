@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Service
 public class CoachCreationServiceImpl implements CoachCreationService {
@@ -26,6 +27,7 @@ public class CoachCreationServiceImpl implements CoachCreationService {
     public void createCoach(Coach coach) {
         coach.setUserStatus(userStatusRepository.getByName(UserStatusName.WAITING_FOR_APPROVAL.getName()));
         coach.setUserType(userTypeRepository.getByName(UserTypeName.COACH.getName()));
+        coach.setDateOfCreation(LocalDateTime.now());
         coachRepository.save(coach);
     }
 }

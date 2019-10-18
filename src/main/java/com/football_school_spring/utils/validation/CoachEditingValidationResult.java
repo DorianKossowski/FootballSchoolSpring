@@ -1,4 +1,4 @@
-package com.football_school_spring.utils;
+package com.football_school_spring.utils.validation;
 
 import com.football_school_spring.models.Coach;
 

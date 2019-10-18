@@ -3,6 +3,7 @@ package com.football_school_spring.services.impl;
 import com.football_school_spring.models.enums.CoachPrivilegeName;
 import com.football_school_spring.models.enums.UserStatusName;
 import com.football_school_spring.models.enums.UserTypeName;
+import com.football_school_spring.services.ControllingFeesDatesService;
 import com.football_school_spring.services.InitialDataLoaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -19,6 +20,8 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private InitialDataLoaderService initialDataLoaderService;
+    @Autowired
+    private ControllingFeesDatesService controllingFeesDatesService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -26,6 +29,7 @@ public class DataLoader implements ApplicationRunner {
         userStatusInit();
         coachPrivilegeInit();
         adminInit();
+        controllingFeesDatesService.controlFees();
     }
 
     private void userTypeInit() {

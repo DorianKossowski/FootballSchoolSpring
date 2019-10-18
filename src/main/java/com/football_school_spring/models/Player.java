@@ -1,8 +1,10 @@
 package com.football_school_spring.models;
 
 import com.football_school_spring.models.dto.NewPlayerDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Player {
@@ -27,6 +29,10 @@ public class Player {
     @Column
     private int year;
 
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime dateOfCreation;
+
     public Player() {
     }
 
@@ -36,6 +42,7 @@ public class Player {
         this.year = newPlayerDTO.getYear();
         this.parent = parent;
         this.team = team;
+        this.dateOfCreation = LocalDateTime.now();
     }
 
     public long getId() {
@@ -84,5 +91,13 @@ public class Player {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public LocalDateTime getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public void setDateOfCreation(LocalDateTime dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
     }
 }

@@ -8,7 +8,7 @@ import com.football_school_spring.models.dto.ChatMessageDTO;
 import com.football_school_spring.repositories.ChatMessageRepository;
 import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.ChatMessageService;
-import com.football_school_spring.utils.GettingFromDbException;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

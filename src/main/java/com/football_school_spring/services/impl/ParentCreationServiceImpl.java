@@ -10,6 +10,8 @@ import com.football_school_spring.services.ParentCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ParentCreationServiceImpl implements ParentCreationService {
     @Autowired
@@ -23,6 +25,7 @@ public class ParentCreationServiceImpl implements ParentCreationService {
     public void createParent(Parent parent) {
         parent.setUserStatus(userStatusRepository.getByName(UserStatusName.WAITING_FOR_APPROVAL.getName()));
         parent.setUserType(userTypeRepository.getByName(UserTypeName.PARENT.getName()));
+        parent.setDateOfCreation(LocalDateTime.now());
         parentRepository.save(parent);
     }
 }

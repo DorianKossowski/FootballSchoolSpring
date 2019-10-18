@@ -2,8 +2,8 @@ package com.football_school_spring.controllers;
 
 import com.football_school_spring.models.User;
 import com.football_school_spring.repositories.UserRepository;
-import com.football_school_spring.utils.GettingFromDbException;
 import com.football_school_spring.utils.SecurityContextHolderAuthenticationSetter;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

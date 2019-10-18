@@ -11,4 +11,6 @@ public interface PlayerFeeRepository extends JpaRepository<PlayerFee, Long> {
     List<PlayerFee> findByPlayerTeamId(Long teamId);
 
     Optional<PlayerFee> findByPlayerIdAndDate(Long playerId, LocalDate date);
+
+    List<PlayerFee> findByPlayerId(Long playerId);
 }

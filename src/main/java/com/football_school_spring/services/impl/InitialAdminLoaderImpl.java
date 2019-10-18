@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 import static org.apache.log4j.Logger.getLogger;
 
 @Service
@@ -39,6 +41,7 @@ public class InitialAdminLoaderImpl implements InitialAdminLoader {
             admin.setName(adminName);
             admin.setUserType(userTypeRepository.getByName(adminName));
             admin.setUserStatus(userStatusRepository.getByName(UserStatusName.ACTIVE.getName()));
+            admin.setDateOfCreation(LocalDateTime.now());
 
             userRepository.saveCompleteUser(admin);
             logger.debug("Saved initial admin");

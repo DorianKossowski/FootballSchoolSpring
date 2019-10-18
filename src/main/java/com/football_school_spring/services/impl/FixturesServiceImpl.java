@@ -6,7 +6,7 @@ import com.football_school_spring.models.dto.FixtureDTO;
 import com.football_school_spring.repositories.FixtureRepository;
 import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.FixturesService;
-import com.football_school_spring.utils.GettingFromDbException;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

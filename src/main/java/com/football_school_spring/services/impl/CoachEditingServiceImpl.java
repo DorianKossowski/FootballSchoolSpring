@@ -6,8 +6,8 @@ import com.football_school_spring.models.enums.UserStatusName;
 import com.football_school_spring.repositories.CoachRepository;
 import com.football_school_spring.repositories.UserStatusRepository;
 import com.football_school_spring.services.CoachEditingService;
-import com.football_school_spring.utils.CoachEditingValidationResult;
-import com.football_school_spring.utils.EditingValidationErrorName;
+import com.football_school_spring.utils.validation.CoachEditingValidationResult;
+import com.football_school_spring.utils.validation.EditingValidationErrorName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

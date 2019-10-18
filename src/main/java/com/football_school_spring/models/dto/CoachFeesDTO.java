@@ -16,10 +16,15 @@ public class CoachFeesDTO {
                 .collect(Collectors.toMap(Function.identity(), i -> false));
     }
 
-    public CoachFeesDTO(User user, Map<Integer, Boolean> paidMonths) {
+    public CoachFeesDTO(User user, Map<Integer, Boolean> paidMonths, int year) {
         this.user = user;
         fees = IntStream.rangeClosed(1, 12).boxed()
                 .collect(Collectors.toMap(Function.identity(), i -> false));
+        fees.forEach((month, value) -> {
+            if (year == user.getDateOfCreation().getYear() && month < user.getDateOfCreation().getMonthValue()) {
+                paidMonths.put(month, true);
+            }
+        });
         fees.putAll(paidMonths);
     }
 

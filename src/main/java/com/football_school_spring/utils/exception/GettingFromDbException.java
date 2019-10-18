@@ -1,4 +1,4 @@
-package com.football_school_spring.utils;
+package com.football_school_spring.utils.exception;
 
 public class GettingFromDbException extends RuntimeException {
     private static final long serialVersionUID = -24092238165090424L;

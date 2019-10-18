@@ -102,6 +102,7 @@ em {
   padding:5px 10%!important;
   font-size:16px!important;
   text-align:center;
+  box-sizing: unset;
 }
 
 .main {

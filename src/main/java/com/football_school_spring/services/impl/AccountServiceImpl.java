@@ -4,7 +4,7 @@ import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.services.AccountService;
-import com.football_school_spring.utils.GettingFromDbException;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

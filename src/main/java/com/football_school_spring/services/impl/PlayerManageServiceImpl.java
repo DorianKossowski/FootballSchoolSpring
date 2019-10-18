@@ -7,7 +7,7 @@ import com.football_school_spring.repositories.ParentRepository;
 import com.football_school_spring.repositories.PlayerRepository;
 import com.football_school_spring.services.ParentCreationService;
 import com.football_school_spring.services.PlayerManageService;
-import com.football_school_spring.utils.GettingFromDbException;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

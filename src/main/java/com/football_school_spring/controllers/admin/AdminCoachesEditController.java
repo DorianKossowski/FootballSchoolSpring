@@ -2,8 +2,8 @@ package com.football_school_spring.controllers.admin;
 
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.services.CoachEditingService;
-import com.football_school_spring.utils.CoachEditingValidationResult;
 import com.football_school_spring.utils.UrlCleaner;
+import com.football_school_spring.utils.validation.CoachEditingValidationResult;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

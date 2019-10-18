@@ -1,4 +1,4 @@
-package com.football_school_spring.utils;
+package com.football_school_spring.utils.validation;
 
 public enum EditingValidationErrorName {
     NOT_EXISTS("notExists"), NOT_ACTIVE("notActive"), WRONG_NUMBER("wrongNumber");

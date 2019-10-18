@@ -5,7 +5,7 @@ import com.football_school_spring.repositories.TeamCoachRepository;
 import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.CoachToTeamAttachingService;
 import com.football_school_spring.services.TeamManageService;
-import com.football_school_spring.utils.GettingFromDbException;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
