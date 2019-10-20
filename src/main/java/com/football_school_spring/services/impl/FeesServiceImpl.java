@@ -101,7 +101,7 @@ public class FeesServiceImpl implements FeesService {
                 Optional<PlayerFee> feeOptional = playerFeeRepository.findByPlayerIdAndDate(id, feeDate);
                 if (entry.getValue()) {
                     Player player = playerRepository.getOne(id);
-                    if (!feeOptional.isPresent() && player.getDateOfCreation().toLocalDate().isBefore(feeDate)) {
+                    if (!feeOptional.isPresent() && !player.getDateOfCreation().toLocalDate().withDayOfMonth(1).isAfter(feeDate.withDayOfMonth(1))) {
                         playerFeeRepository.save(new PlayerFee(player, feeDate));
                     }
                 } else {

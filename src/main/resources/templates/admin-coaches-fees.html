@@ -83,9 +83,15 @@
                             <td th:text="${coachFeesDTO.user.name} + ' ' + ${coachFeesDTO.user.surname}">...</td>
                             <td class="container" th:each="entry: ${coachFeesDTO.fees}">
                                 <input type="hidden" th:field="*{feesList[__${stat.index}__].user.id}"/>
-                                <input type="checkbox"
-                                       th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"/>
-                                <span class="checkmark"></span>
+                                <input type="checkbox" style="pointer-events: none;" checked="checked"
+                                       th:if="*{feesList[__${stat.index}__].fees[__${entry.key}__]}==null"/>
+                                <span class="checkmark" style="background-color: #7b7f88;"
+                                      th:if="*{feesList[__${stat.index}__].fees[__${entry.key}__]}==null"></span>
+
+                                <input type="checkbox" th:field="*{feesList[__${stat.index}__].fees[__${entry.key}__]}"
+                                       th:unless="*{feesList[__${stat.index}__].fees[__${entry.key}__]}==null"/>
+                                <span class="checkmark"
+                                      th:unless="*{feesList[__${stat.index}__].fees[__${entry.key}__]}==null"></span>
                             </td>
                         </tr>
                     </th:block>

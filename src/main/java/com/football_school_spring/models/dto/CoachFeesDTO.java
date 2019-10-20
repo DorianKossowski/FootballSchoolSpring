@@ -22,7 +22,7 @@ public class CoachFeesDTO {
                 .collect(Collectors.toMap(Function.identity(), i -> false));
         fees.forEach((month, value) -> {
             if (year == user.getDateOfCreation().getYear() && month < user.getDateOfCreation().getMonthValue()) {
-                paidMonths.put(month, true);
+                paidMonths.put(month, null);
             }
         });
         fees.putAll(paidMonths);
