@@ -55,15 +55,15 @@
         </div>
     </div>
     <div class="main-content">
-        <h1 style="margin-top:0px;">Send invitation to new coach</h1>
+        <h1 style="margin-top:0px;">Send invitation to new manager</h1>
         <div style="margin: 20px auto;display: flex;width: 53%;">
             <form id="form-to-reset" th:action="@{/admin/coaches-add}" th:object="${newCoach}" method="post"
                   style="width:100%">
                 <fieldset>
                     <div class="form-group" style="text-align: end;">
                         <div>
-                            <label class="input-label">New coach's mail</label>
-                            <div class="input-wrapper" style="width:60%">
+                            <label class="input-label">New manager's mail</label>
+                            <div class="input-wrapper" style="width:55%">
                                 <input id="newCoachMail" name="newCoachMail" type="email" placeholder="mail"
                                        class="input" required="" th:field="*{mail}">
                             </div>
