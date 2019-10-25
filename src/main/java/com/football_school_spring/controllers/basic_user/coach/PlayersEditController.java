@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class CoachPlayersEditController extends CoachController {
-    private static final Logger logger = getLogger(CoachPlayersEditController.class);
+public class PlayersEditController extends CoachController {
+    private static final Logger logger = getLogger(PlayersEditController.class);
 
     @Autowired
     private PlayerManageService playerManageService;

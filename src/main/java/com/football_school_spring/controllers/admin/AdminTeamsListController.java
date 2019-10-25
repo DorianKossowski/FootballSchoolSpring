@@ -3,11 +3,14 @@ package com.football_school_spring.controllers.admin;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.dto.TeamsListDTO;
 import com.football_school_spring.models.enums.CoachPrivilegeName;
+import com.football_school_spring.repositories.PlayerRepository;
 import com.football_school_spring.repositories.TeamRepository;
+import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +20,28 @@ import java.util.stream.Collectors;
 public class AdminTeamsListController extends AdminController {
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @GetMapping("/teams-list")
-    public String showCoachesList(Model model) {
+    public String showTeamsList(Model model) {
         List<Team> teams = teamRepository.findAll();
 
         List<TeamsListDTO> teamsListDTOS = getTeamsListDTOS(teams);
         model.addAttribute("teamsListDTOS", teamsListDTOS);
         model.addAttribute("teamsSize", teamsListDTOS.size());
         return "admin-teams-list";
+    }
+
+    @GetMapping("/team/{id}")
+    public String showTeam(Model model, @PathVariable("id") String teamId) {
+        Team team = teamRepository.findById(Long.valueOf(teamId))
+                .orElseThrow(() -> new GettingFromDbException(Team.class, Long.parseLong(teamId)));
+        model.addAttribute("team", team);
+        model.addAttribute("manager", team.getManager());
+        model.addAttribute("numberOfPlayers", playerRepository.findByTeamId(Long.valueOf(teamId)).size());
+        model.addAttribute("teamCoaches", team.getTeamCoaches());
+        return "admin-team";
     }
 
     private List<TeamsListDTO> getTeamsListDTOS(List<Team> teams) {

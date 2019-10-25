@@ -5,3 +5,7 @@ function coachRowClicked(value) {
 function playerRowClicked(value) {
     location.href = "/coach/player-edit/" + value;
 }
+
+function teamRowClicked(value) {
+    location.href = "/admin/team/" + value;
+}

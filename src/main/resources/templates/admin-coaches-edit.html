@@ -79,7 +79,7 @@
                 </thead>
                 <tbody class="clickable-row">
                 <th:block th:each="teamCoach : ${coach.teamCoaches}">
-                    <tr>
+                    <tr th:onclick="'javascript:teamRowClicked(\'' + ${teamCoach.team.id} + '\');'">
                         <td th:text="${teamCoach.team.name}">...</td>
                         <td th:text="${teamCoach.coachPrivilege.name}">...</td>
                     </tr>
@@ -102,5 +102,6 @@
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
+<script src="/js/clickable-row.js"></script>
 </body>
 </html>

@@ -93,11 +93,4 @@ public class TeamManageController extends CoachController {
                 .map(TeamCoach::getCoach)
                 .collect(Collectors.toList());
     }
-
-    private boolean isManager(Coach coach, long teamId) {
-        return coach.getTeamCoaches().stream()
-                .anyMatch(teamCoach -> teamCoach.getTeam().getId() == teamId &&
-                        teamCoach.getCoachPrivilege().getName().equals(CoachPrivilegeName.MANAGER.getName())
-                );
-    }
 }

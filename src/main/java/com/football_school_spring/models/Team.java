@@ -1,5 +1,7 @@
 package com.football_school_spring.models;
 
+import com.football_school_spring.models.enums.CoachPrivilegeName;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -56,5 +58,12 @@ public class Team {
 
     public void setTeamCoaches(Set<TeamCoach> teamCoaches) {
         this.teamCoaches = teamCoaches;
+    }
+
+    public Coach getManager() {
+        return teamCoaches.stream()
+                .filter(teamCoach -> teamCoach.getCoachPrivilege().getName().equals(CoachPrivilegeName.MANAGER.getName()))
+                .map(TeamCoach::getCoach)
+                .findFirst().orElseThrow(() -> new RuntimeException("Team doesn't have manager"));
     }
 }

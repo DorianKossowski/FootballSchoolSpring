@@ -24,8 +24,7 @@
         </div>
         <a class="sidebar-category-title">Teams</a>
         <div class="sidebar-category-content">
-            <a href="/admin/teams-list" class="button button-sidebar button-sidebar-active"><em
-                    class="fa fa-caret-right"></em>List</a>
+            <a href="/admin/teams-list" class="button button-sidebar"><em class="fa fa-caret-right"></em>List</a>
         </div>
     </div>
 </nav>
@@ -46,23 +45,28 @@
         </div>
     </div>
     <div class="main-content">
-        <h1>Teams</h1>
-        <div th:if="${teamsSize}==0">
-            <div>Lack of teams in database</div>
-        </div>
-        <div th:unless="${teamsSize}==0">
-            <table class="table table-hover" style="width:80%; margin:auto;">
+        <h1 th:text="${team.name}">...</h1>
+        <div style="text-align:left; margin-left:30px;">
+            <h3>Details</h3>
+            <p th:text="'Address: ' + ${team.address}">...</p>
+            <p th:text="'Manager: ' + ${manager.name} + ' ' + ${manager.surname}">...</p>
+            <p th:text="'Number of players: ' + ${numberOfPlayers}">...</p>
+            <h3>Staff</h3>
+            <table class="table table-hover" style="width:80%; margin:auto; text-align:center;">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Manager</th>
+                    <th>Role</th>
                 </tr>
                 </thead>
                 <tbody class="clickable-row">
-                <th:block th:each="teamListDTOS : ${teamsListDTOS}">
-                    <tr th:onclick="'javascript:teamRowClicked(\'' + ${teamListDTOS.id} + '\');'">
-                        <td th:text="${teamListDTOS.name}">...</td>
-                        <td th:text="${teamListDTOS.managerFullName}">...</td>
+                <th:block th:each="teamCoach : ${teamCoaches}">
+                    <tr th:onclick="'javascript:coachRowClicked(\'' + ${teamCoach.coach.id} + '\');'">
+                        <td th:if="${teamCoach.coach.name}==null">-</td>
+                        <td th:unless="${teamCoach.coach.name}==null"
+                            th:text="${teamCoach.coach.name} + ' ' + ${teamCoach.coach.surname}">...
+                        </td>
+                        <td th:text="${teamCoach.coachPrivilege.name}">...</td>
                     </tr>
                 </th:block>
                 </tbody>
