@@ -1,6 +1,7 @@
 package com.football_school_spring.models;
 
 import com.football_school_spring.models.dto.FixtureDTO;
+import com.football_school_spring.utils.CalendarEventCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class Fixture {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime date;
 
+    @Column
+    private String calendarUrl;
+
     public Fixture() {
     }
 
@@ -38,6 +42,7 @@ public class Fixture {
         this.address = fixtureDTO.getAddress();
         this.host = team.getAddress().equals(fixtureDTO.getAddress());
         this.date = LocalDateTime.of(fixtureDTO.getDate(), fixtureDTO.getTime());
+        this.calendarUrl = CalendarEventCreator.createEventHtmlLink(fixtureDTO);
     }
 
     public long getId() {
@@ -86,5 +91,13 @@ public class Fixture {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public String getCalendarUrl() {
+        return calendarUrl;
+    }
+
+    public void setCalendarUrl(String calendarUrl) {
+        this.calendarUrl = calendarUrl;
     }
 }

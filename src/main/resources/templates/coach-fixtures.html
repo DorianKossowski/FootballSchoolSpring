@@ -108,10 +108,22 @@
                         <regular th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</regular>
                     </div>
                     <div>
+                        <a th:href="${fixture.calendarUrl}" style="width: 100%;" target="_blank"
+                           rel="noopener noreferrer">
+                            <div class="form-btn-wrapper">
+                                <div style="margin-left:10px;">
+                                    <button class="form-btn" style="width:30px;height: 30px;">
+                                        <em style="margin: 0px !important;" class="fa fa-calendar-o"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div>
                         <form th:action="'/coach/fixture-delete/' + ${fixture.id}" method="post" style="width: 100%;">
                             <div class="form-btn-wrapper">
                                 <div style="margin-left:10px;">
-                                    <button class="form-btn" style="width:auto;height: 30px;">
+                                    <button class="form-btn" style="width:30px;height: 30px;">
                                         <em style="margin: 0px !important;" class="fa fa-trash-o"></em>
                                     </button>
                                 </div>
