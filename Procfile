@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,address=9090,suspend=n -jar target/FootballSchool-0.0.1-SNAPSHOT.jar
+web: java -Djavax.servlet.request.encoding=UTF-8 -Dfile.encoding=UTF-8 -Dserver.port=$PORT $JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,address=9090,suspend=n -jar target/FootballSchool-0.0.1-SNAPSHOT.jar
