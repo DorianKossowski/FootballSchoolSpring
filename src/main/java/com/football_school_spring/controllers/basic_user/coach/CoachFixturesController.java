@@ -16,8 +16,8 @@ import java.util.List;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class FixturesController extends CoachController {
-    private static final Logger logger = getLogger(FixturesController.class);
+public class CoachFixturesController extends CoachController {
+    private static final Logger logger = getLogger(CoachFixturesController.class);
 
     @Autowired
     private FixturesService fixturesService;

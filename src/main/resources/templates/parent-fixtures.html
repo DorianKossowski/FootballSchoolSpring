@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <link rel="stylesheet" type="text/css" href="/css/index-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/options-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fixture.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>FS - parent site</title>
+</head>
+<body>
+<nav class="sidebar" id="sidebarId">
+    <div class="logo-container">
+        <h3>Football School</h3>
+    </div>
+    <div class="sidebar-category">
+        <a class="sidebar-category-title">Team</a>
+        <div class="sidebar-category-content">
+            <a href="/parent/home" class="button button-sidebar"><em class="fa fa-caret-right"></em>Home</a>
+            <a href="/parent/fixtures" class="button button-sidebar button-sidebar-active"><em
+                    class="fa fa-caret-right"></em>Fixtures</a>
+            <a href="/parent/team" class="button button-sidebar"><em class="fa fa-caret-right"></em>This team</a>
+
+        </div>
+    </div>
+</nav>
+<div class="main">
+    <header class="header">
+        <div class="custom-select" style="width:200px; display:inline-table;">
+            <select>
+                <option th:text="${currentTeam}">...</option>
+                <th:block th:each="entry : ${teams}">
+                    <option th:value="${entry.key}" th:text="${entry.value}">...</option>
+                </th:block>
+            </select>
+        </div>
+        <div style="float:right;margin-bottom:16px;">
+            <p style="display:inline;" th:text="${userName}">...</p>
+            <p style="display:inline;"><a href="javascript:void(0)" onclick="user_menu_handler()"
+                                          style="text-decoration:none;color:inherit; background-color:inherit;">
+                <em class="fa fa-caret-down"></em></a>
+            </p>
+        </div>
+    </header>
+    <div id="user-menu">
+        <div class="user-menu-content">
+            <a href="/account" class="button button-header">Account</a>
+            <a href="/logout" class="button button-header">Log out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h1>Fixtures</h1>
+        <h3 class="subtitle">All fixtures</h3>
+        <th:block th:each="fixture : ${fixtures}">
+            <div class="panel panel-default">
+                <div class="row fixture-heading">
+                    <div style="width: 50%;text-align: left;">
+                        <regular th:text="${fixture.address}">...</regular>
+                    </div>
+                    <div style="width: 50%;text-align: right;">
+                        <regular th:utext="${#strings.replace(fixture.date,'T',' | ')}">...</regular>
+                    </div>
+                    <div>
+                        <a th:href="${fixture.calendarUrl}" style="width: 100%;" target="_blank"
+                           rel="noopener noreferrer">
+                            <div class="form-btn-wrapper">
+                                <div style="margin-left:10px;">
+                                    <button class="form-btn" style="width:30px;height: 30px;">
+                                        <em style="margin: 0px !important;" class="fa fa-calendar-o"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div th:if="${fixture.host}" class="row fixture-body" style="">
+                    <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+                    <div><small>v</small></div>
+                    <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+                </div>
+                <div th:unless="${fixture.host}" class="row fixture-body" style="">
+                    <div style="width: 50%;"><strong th:text="${fixture.opponent}">...</strong></div>
+                    <div><small>v</small></div>
+                    <div style="width: 50%;"><strong th:text="${currentTeam}">...</strong></div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+<script src="/js/user-menu.js"></script>
+<script src="/js/parent-options.js"></script>
+</body>
+</html>
