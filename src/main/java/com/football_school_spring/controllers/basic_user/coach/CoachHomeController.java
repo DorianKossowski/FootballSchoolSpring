@@ -22,8 +22,8 @@ import java.util.Optional;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class HomeController extends CoachController {
-    private static final Logger logger = getLogger(HomeController.class);
+public class CoachHomeController extends CoachController {
+    private static final Logger logger = getLogger(CoachHomeController.class);
 
     @Autowired
     private TeamRepository teamRepository;
@@ -37,7 +37,7 @@ public class HomeController extends CoachController {
         Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (coach.getTeamCoaches().isEmpty()) {
             if (coach.getMaxNumberOfTeams() == 0) {
-                return "no-team-possible";
+                return "coach-no-team-possible";
             }
             return "coach-init-team";
         }

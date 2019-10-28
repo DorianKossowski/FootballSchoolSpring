@@ -1,7 +1,6 @@
 package com.football_school_spring.services.impl;
 
 import com.football_school_spring.models.ChatMessage;
-import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.ChatMessageDTO;
@@ -34,10 +33,10 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 
     @Override
     public List<ChatMessageDTO> getMessagesDTO(long teamId) {
-        Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return chatMessageRepository.findByTeamId(teamId).stream()
                 .sorted(Comparator.comparing(ChatMessage::getDate).reversed())
-                .map(chatMessage -> new ChatMessageDTO(chatMessage, coach.getId()))
+                .map(chatMessage -> new ChatMessageDTO(chatMessage, user.getId()))
                 .collect(Collectors.toList());
     }
 }

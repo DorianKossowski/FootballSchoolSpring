@@ -1,10 +1,10 @@
 package com.football_school_spring.controllers.basic_user;
 
 import com.football_school_spring.controllers.AuthorizedUserController;
-import com.football_school_spring.models.Coach;
-import com.football_school_spring.models.Team;
-import com.football_school_spring.models.TeamCoach;
+import com.football_school_spring.models.*;
 import com.football_school_spring.models.dto.CurrentTeamDTO;
+import com.football_school_spring.repositories.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -17,14 +17,27 @@ public class PossibleTeamsController extends AuthorizedUserController {
     public static final String CURRENT_TEAM = "currentTeam";
     public static final String CURRENT_TEAM_ID = "currentTeamId";
 
+    @Autowired
+    private PlayerRepository playerRepository;
+
     @ModelAttribute(TEAMS)
     public Map<Long, String> getCoachTeams() {
-        Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Map<Long, String> teams = coach.getTeamCoaches().stream()
-                .map(TeamCoach::getTeam)
-                .collect(Collectors.toMap(Team::getId, Team::getName));
-        if (coach.getTeamCoaches().size() < coach.getMaxNumberOfTeams()) {
-            teams.put(-1L, "Create new team");
+        Map<Long, String> teams;
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user instanceof Coach) {
+            Coach coach = (Coach) user;
+            teams = coach.getTeamCoaches().stream()
+                    .map(TeamCoach::getTeam)
+                    .collect(Collectors.toMap(Team::getId, Team::getName));
+            if (coach.getTeamCoaches().size() < coach.getMaxNumberOfTeams()) {
+                teams.put(-1L, "Create new team");
+            }
+        } else {
+            Parent parent = (Parent) user;
+            teams = playerRepository.findByParentId(parent.getId()).stream()
+                    .map(Player::getTeam)
+                    .distinct()
+                    .collect(Collectors.toMap(Team::getId, Team::getName));
         }
         return teams;
     }

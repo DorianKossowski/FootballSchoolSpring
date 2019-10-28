@@ -1,6 +1,7 @@
 package com.football_school_spring.controllers;
 
 import com.football_school_spring.models.Coach;
+import com.football_school_spring.models.Parent;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.services.AccountService;
@@ -30,6 +31,9 @@ public class AccountController extends AuthorizedUserController {
         model.addAttribute("editPasswordObj", new EditPasswordDTO(user.getId()));
         if (user instanceof Coach) {
             return "coach-account-edit";
+        }
+        if (user instanceof Parent) {
+            return "parent-account-edit";
         }
         return "admin-account-edit";
     }

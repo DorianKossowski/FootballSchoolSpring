@@ -112,7 +112,7 @@
             <p th:text="'Mail: ' + ${player.parent.mail}">...</p>
             <p th:if="${player.parent.name}==null">Phone: -</p>
             <p th:unless="${player.parent.name}==null"
-               th:text="'Phone: ' +  ${player.parent.name} + ' ' + ${player.parent.surname}"> ...</p>
+               th:text="'Phone: ' +  ${player.parent.phone}"> ...</p>
         </div>
         <form th:action="@{/coach/delete-player/__${player.id}__}" th:method="post">
             <button type="submit" class="form-btn" style="width:auto; margin-top:50px;">Delete player</button>
@@ -121,6 +121,6 @@
 </div>
 <script src="/js/user-menu.js"></script>
 <script src="/js/clickable-row.js"></script>
-<script src="/js/options.js"></script>
+<script src="/js/coach-options.js"></script>
 </body>
 </html>

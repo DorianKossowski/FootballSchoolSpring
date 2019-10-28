@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/panel.css">
     <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>FS - coach site</title>
+    <title>FS - parent site</title>
 </head>
 <body>
 <nav class="sidebar" id="sidebarId">
@@ -17,15 +17,9 @@
     <div class="sidebar-category">
         <a class="sidebar-category-title">Team</a>
         <div class="sidebar-category-content">
-            <a href="/coach/home" class="button button-sidebar"><em class="fa fa-caret-right"></em>Home</a>
-            <a href="/coach/players" class="button button-sidebar"><em class="fa fa-caret-right"></em>Players</a>
-            <a href="/coach/fixtures" class="button button-sidebar"><em class="fa fa-caret-right"></em>Fixtures</a>
-        </div>
-        <a class="sidebar-category-title">Manage</a>
-        <div class="sidebar-category-content">
-            <a href="/coach/manage" class="button button-sidebar"><em class="fa fa-caret-right"></em>Your team</a>
-            <a th:href="'javascript:forward_to_coach_fees(' + ${currentTeamId} + ')'" class="button button-sidebar"><em
-                    class="fa fa-caret-right"></em>Service fees</a>
+            <a href="/parent/home" class="button button-sidebar"><em class="fa fa-caret-right"></em>Home</a>
+            <a href="/parent/fixtures" class="button button-sidebar"><em class="fa fa-caret-right"></em>Fixtures</a>
+            <a href="/parent/team" class="button button-sidebar"><em class="fa fa-caret-right"></em>This team</a>
         </div>
     </div>
 </nav>
