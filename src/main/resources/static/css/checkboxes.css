@@ -60,3 +60,11 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+#immutableCheckBox {
+  background-color: #7b7f88;
+}
+
+#immutableCheckBox:after {
+  content: none!important;
+}
