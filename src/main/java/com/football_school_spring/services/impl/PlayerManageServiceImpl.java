@@ -27,8 +27,14 @@ public class PlayerManageServiceImpl implements PlayerManageService {
     private ApplicationEventPublisher eventPublisher;
 
     @Override
-    public Player getPlayerById(long id) {
-        return playerRepository.findById(id)
+    public Player getPlayerByIdAndParentId(long id, long parentId) {
+        return playerRepository.findByIdAndParentId(id, parentId)
+                .orElseThrow(() -> new GettingFromDbException(Player.class, id));
+    }
+
+    @Override
+    public Player getPlayerByIdAndTeamId(long id, long teamId) {
+        return playerRepository.findByIdAndTeamId(id, teamId)
                 .orElseThrow(() -> new GettingFromDbException(Player.class, id));
     }
 
@@ -43,16 +49,7 @@ public class PlayerManageServiceImpl implements PlayerManageService {
 
         String newParentMail = player.getParent().getMail();
         if (!playerInDb.getParent().getMail().equals(newParentMail)) {
-            Optional<Parent> parentOptional = parentRepository.findByMail(newParentMail);
-            Parent parent;
-            if (parentOptional.isPresent()) {
-                parent = parentOptional.get();
-            } else {
-                parent = new Parent(newParentMail);
-                parentCreationService.createParent(parent);
-                eventPublisher.publishEvent(new OnRegistrationInviteEvent(parent));
-            }
-            playerInDb.setParent(parent);
+            playerInDb.setParent(getNewParent(newParentMail));
         }
 
         playerRepository.save(playerInDb);
@@ -60,6 +57,19 @@ public class PlayerManageServiceImpl implements PlayerManageService {
 
     @Override
     public void delete(long playerId) {
-        playerRepository.deleteById(Long.valueOf(playerId));
+        playerRepository.deleteById(playerId);
+    }
+
+    private Parent getNewParent(String newParentMail) {
+        Optional<Parent> parentOptional = parentRepository.findByMail(newParentMail);
+        Parent parent;
+        if (parentOptional.isPresent()) {
+            parent = parentOptional.get();
+        } else {
+            parent = new Parent(newParentMail);
+            parentCreationService.createParent(parent);
+            eventPublisher.publishEvent(new OnRegistrationInviteEvent(parent));
+        }
+        return parent;
     }
 }

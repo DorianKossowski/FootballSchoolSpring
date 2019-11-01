@@ -9,3 +9,7 @@ function playerRowClicked(value) {
 function teamRowClicked(value) {
     location.href = "/admin/team/" + value;
 }
+
+function playerParentRowClicked(value) {
+    location.href = "/parent/player-edit/" + value;
+}

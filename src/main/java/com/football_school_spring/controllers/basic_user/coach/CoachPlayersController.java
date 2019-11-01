@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class PlayersController extends CoachController {
-    private static final Logger logger = getLogger(PlayersController.class);
+public class CoachPlayersController extends CoachController {
+    private static final Logger logger = getLogger(CoachPlayersController.class);
 
     @Autowired
     private PlayerCreationService playerCreationService;

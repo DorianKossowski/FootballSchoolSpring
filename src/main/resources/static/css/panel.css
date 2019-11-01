@@ -138,3 +138,7 @@ em {
   background: #cccccc;
   cursor: pointer;
 }
+
+.unclickable-row tr:hover {
+  background: #e6e6e6;
+}

@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class TeamManageController extends CoachController {
-    private static final Logger logger = getLogger(TeamManageController.class);
+public class CoachTeamManageController extends CoachController {
+    private static final Logger logger = getLogger(CoachTeamManageController.class);
 
     @Autowired
     private TeamRepository teamRepository;

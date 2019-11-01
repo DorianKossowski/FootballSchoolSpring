@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class TeamCreationController extends CoachController {
-    private static final Logger logger = getLogger(TeamCreationController.class);
+public class CoachTeamCreationController extends CoachController {
+    private static final Logger logger = getLogger(CoachTeamCreationController.class);
 
     @Autowired
     private TeamCreationService teamCreationService;

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class PlayersFeesController extends CoachController {
-    private static final Logger logger = getLogger(PlayersFeesController.class);
+public class CoachPlayersFeesController extends CoachController {
+    private static final Logger logger = getLogger(CoachPlayersFeesController.class);
     @Autowired
     private FeesService feesService;
 
