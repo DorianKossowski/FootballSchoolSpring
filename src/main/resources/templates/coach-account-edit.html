@@ -80,8 +80,9 @@
                     <div>
                         <label class="input-label">Phone</label>
                         <div class="input-wrapper" style="width:70%">
-                            <input type="number" placeholder="phone" class="input" required="" th:field="*{phone}"
-                                   autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
+                            <input type="tel" pattern="\d{9,}" placeholder="format: 123456789" class="input" required=""
+                                   th:field="*{phone}" autocomplete="off" readonly
+                                   onfocus="this.removeAttribute('readonly');">
                         </div>
                     </div>
                 </div>
