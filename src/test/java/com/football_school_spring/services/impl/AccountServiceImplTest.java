@@ -1,6 +1,6 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.WithoutInitContextConfiguration;
+import com.football_school_spring.WithoutInitAdminContextConfiguration;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.repositories.UserRepository;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Import(WithoutInitContextConfiguration.class)
+@Import(WithoutInitAdminContextConfiguration.class)
 class AccountServiceImplTest extends ServicesTests {
     @Autowired
     private AccountService underTest;

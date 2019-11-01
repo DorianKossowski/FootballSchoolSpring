@@ -43,7 +43,7 @@ public class ParentHomeController extends ParentController {
         }
         fixturesService.getNextFixture(currentTeamDTO.getId())
                 .ifPresent(fixture -> model.addAttribute("fixture", fixture));
-        model.addAttribute("messages", chatMessageService.getMessagesDTO(currentTeamDTO.getId()));
+        model.addAttribute("messages", chatMessageService.getMessagesDTO(currentTeamDTO.getId(), parent));
         return "parent-home";
     }
 

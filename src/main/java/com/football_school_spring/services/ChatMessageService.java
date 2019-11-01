@@ -8,5 +8,5 @@ import java.util.List;
 public interface ChatMessageService {
     void addMessage(String message, long teamId, User user);
 
-    List<ChatMessageDTO> getMessagesDTO(long teamId);
+    List<ChatMessageDTO> getMessagesDTO(long teamId, User currentUser);
 }

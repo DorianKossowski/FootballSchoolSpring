@@ -9,7 +9,6 @@ import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.ChatMessageService;
 import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,11 +31,10 @@ public class ChatMessageServiceImpl implements ChatMessageService {
     }
 
     @Override
-    public List<ChatMessageDTO> getMessagesDTO(long teamId) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<ChatMessageDTO> getMessagesDTO(long teamId, User currentUser) {
         return chatMessageRepository.findByTeamId(teamId).stream()
                 .sorted(Comparator.comparing(ChatMessage::getDate).reversed())
-                .map(chatMessage -> new ChatMessageDTO(chatMessage, user.getId()))
+                .map(chatMessage -> new ChatMessageDTO(chatMessage, currentUser.getId()))
                 .collect(Collectors.toList());
     }
 }
