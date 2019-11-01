@@ -2,6 +2,7 @@ package com.football_school_spring.controllers.basic_user.coach;
 
 import com.football_school_spring.models.dto.CurrentTeamDTO;
 import com.football_school_spring.models.dto.NewPlayerDTO;
+import com.football_school_spring.notifications.EmailService;
 import com.football_school_spring.repositories.PlayerRepository;
 import com.football_school_spring.services.PlayerCreationService;
 import com.football_school_spring.utils.UrlCleaner;
@@ -24,6 +25,8 @@ public class CoachPlayersController extends CoachController {
     private PlayerCreationService playerCreationService;
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/players")
     public String getPlayers(Model model, @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
@@ -38,6 +41,7 @@ public class CoachPlayersController extends CoachController {
         try {
             newPlayerDTO.setTeamId(currentTeamDTO.getId());
             playerCreationService.createPlayer(newPlayerDTO);
+            emailService.sendMailWithNewPlayerAssigned(newPlayerDTO.getMail());
 
             logger.info("New player correctly added");
             return UrlCleaner.redirectWithCleaning(model, "/coach/players?sent=true");

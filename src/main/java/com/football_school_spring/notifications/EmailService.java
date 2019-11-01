@@ -17,4 +17,6 @@ public interface EmailService {
     void sendMailWithBlockInfo(String mailTo);
 
     void sendMailWithFeeReminder(String mailTo);
+
+    void sendMailWithNewPlayerAssigned(String mailTo);
 }

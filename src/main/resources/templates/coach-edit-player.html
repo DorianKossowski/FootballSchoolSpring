@@ -87,7 +87,8 @@
                         <div>
                             <label class="input-label">Year</label>
                             <div class="input-wrapper" style="width:60%">
-                                <input type="number" placeholder="year" class="input" required="" th:field="*{year}">
+                                <input type="tel" pattern="\d{4}" placeholder="year" class="input" required=""
+                                       th:field="*{year}">
                             </div>
                         </div>
                         <div>

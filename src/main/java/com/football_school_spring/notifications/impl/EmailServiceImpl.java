@@ -109,4 +109,14 @@ public class EmailServiceImpl implements EmailService {
                 .buildEmail();
         send(email);
     }
+
+    @Override
+    public void sendMailWithNewPlayerAssigned(String mailTo) {
+        Email email = EmailBuilder.startingBlank()
+                .to(mailTo)
+                .withSubject("Football School - new player assigned")
+                .appendText("You have been assigned to new player.")
+                .buildEmail();
+        send(email);
+    }
 }
