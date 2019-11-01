@@ -48,6 +48,17 @@ public class User implements UserDetails {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime dateOfCreation;
 
+    public User() {
+    }
+
+    public User(String mail, String name, String surname, String password, String phone) {
+        this.mail = mail;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.phone = phone;
+    }
+
     public long getId() {
         return id;
     }

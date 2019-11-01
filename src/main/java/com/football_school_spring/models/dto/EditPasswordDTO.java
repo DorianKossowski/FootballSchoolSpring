@@ -13,6 +13,13 @@ public class EditPasswordDTO {
         this.id = id;
     }
 
+    public EditPasswordDTO(long id, String oldPassword, String newPassword, String repNewPassword) {
+        this.id = id;
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
+        this.repNewPassword = repNewPassword;
+    }
+
     public long getId() {
         return id;
     }
