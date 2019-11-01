@@ -33,7 +33,9 @@ public class CoachToTeamAttachingServiceImpl implements CoachToTeamAttachingServ
         Optional<Coach> coachOptional = coachRepository.findByMail(coachMail);
         if (coachOptional.isPresent()) {
             Coach coachWithAccount = coachOptional.get();
-            teamCoachRepository.save(new TeamCoach(new TeamCoachKey(team.getId(), coachWithAccount.getId(), coachPrivilege.getId())));
+            if (team.getManager().getId() != coachWithAccount.getId()) {
+                teamCoachRepository.save(new TeamCoach(new TeamCoachKey(team.getId(), coachWithAccount.getId(), coachPrivilege.getId())));
+            }
         } else {
             Coach newCoach = new Coach(0);
             newCoach.setMail(coachMail);
