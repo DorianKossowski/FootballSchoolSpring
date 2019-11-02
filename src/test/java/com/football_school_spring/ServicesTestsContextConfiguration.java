@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import static org.mockito.Mockito.mock;
 
 @TestConfiguration
-public class WithoutInitAdminContextConfiguration {
+public class ServicesTestsContextConfiguration {
 
     @Bean
     public InitialAdminLoader initialAdminLoader() {

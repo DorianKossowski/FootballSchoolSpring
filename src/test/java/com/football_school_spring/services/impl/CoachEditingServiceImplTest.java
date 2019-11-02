@@ -1,6 +1,5 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.WithoutInitAdminContextConfiguration;
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.User;
@@ -16,7 +15,6 @@ import com.football_school_spring.utils.validation.EditingValidationErrorName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 
 import java.util.Collections;
 
@@ -24,7 +22,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Import(WithoutInitAdminContextConfiguration.class)
 class CoachEditingServiceImplTest extends ServicesTests {
     @Autowired
     private CoachEditingService underTest;

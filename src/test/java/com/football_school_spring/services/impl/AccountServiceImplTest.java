@@ -1,6 +1,5 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.WithoutInitAdminContextConfiguration;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.repositories.UserRepository;
@@ -10,12 +9,10 @@ import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Import(WithoutInitAdminContextConfiguration.class)
 class AccountServiceImplTest extends ServicesTests {
     @Autowired
     private AccountService underTest;

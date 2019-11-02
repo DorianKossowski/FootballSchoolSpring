@@ -1,6 +1,5 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.WithoutInitAdminContextConfiguration;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.ChatMessageDTO;
@@ -12,14 +11,12 @@ import com.football_school_spring.utils.exception.GettingFromDbException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@Import(WithoutInitAdminContextConfiguration.class)
 class ChatMessageServiceImplTest extends ServicesTests {
     @Autowired
     private ChatMessageService underTest;

@@ -1,6 +1,5 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.WithoutInitAdminContextConfiguration;
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.enums.UserStatusName;
@@ -10,13 +9,11 @@ import com.football_school_spring.services.CoachCreationService;
 import com.football_school_spring.services.ServicesTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Import(WithoutInitAdminContextConfiguration.class)
 class CoachCreationServiceImplTest extends ServicesTests {
     @Autowired
     private CoachCreationService underTest;
