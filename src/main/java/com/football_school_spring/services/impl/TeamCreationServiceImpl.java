@@ -12,7 +12,6 @@ import com.football_school_spring.repositories.TeamRepository;
 import com.football_school_spring.services.CoachToTeamAttachingService;
 import com.football_school_spring.services.TeamCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,15 +33,14 @@ public class TeamCreationServiceImpl implements TeamCreationService {
 
     @Override
     @Transactional
-    public void create(Team newTeam, List<String> coachesMails) {
-        Coach coach = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void create(Team newTeam, Coach manager, List<String> coachesMails) {
         teamRepository.save(newTeam);
-        teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), coach.getId(),
+        teamCoachRepository.save(new TeamCoach(new TeamCoachKey(newTeam.getId(), manager.getId(),
                 coachPrivilegeRepository.getByName(CoachPrivilegeName.MANAGER.getName()).getId())));
 
         coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(newTeam, coachMail));
 
-        sendTeamInvitationMails(coach.getMail(), coachesMails, newTeam.getName());
+        sendTeamInvitationMails(manager.getMail(), coachesMails, newTeam.getName());
     }
 
     private void sendTeamInvitationMails(String managerMail, Collection<String> coachesMails, String teamName) {

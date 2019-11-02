@@ -12,4 +12,8 @@ public enum EditingValidationErrorName {
     public String getUrlName() {
         return name + "=true";
     }
+
+    public String getName() {
+        return name;
+    }
 }

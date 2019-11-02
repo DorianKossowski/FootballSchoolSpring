@@ -1,11 +1,13 @@
 package com.football_school_spring.controllers.basic_user.coach;
 
+import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.dto.CurrentTeamDTO;
 import com.football_school_spring.services.TeamCreationService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,8 @@ public class CoachTeamCreationController extends CoachController {
                 .collect(Collectors.toList());
 
         try {
-            teamCreationService.create(newTeam, coachesMails);
+            Coach principal = (Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            teamCreationService.create(newTeam, principal, coachesMails);
             // unnecessary to update number of teams of currently logged user
             updateSecurityContextHolder();
             logger.info("Team correctly created");
