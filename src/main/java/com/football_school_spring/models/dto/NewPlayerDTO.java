@@ -7,6 +7,14 @@ public class NewPlayerDTO {
     private String mail;
     private long teamId;
 
+    public NewPlayerDTO() {
+    }
+
+    public NewPlayerDTO(long teamId, String mail) {
+        this.teamId = teamId;
+        this.mail = mail;
+    }
+
     public String getName() {
         return name;
     }
