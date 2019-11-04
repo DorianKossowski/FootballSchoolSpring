@@ -13,6 +13,11 @@ public class FixtureDTO {
     public FixtureDTO() {
     }
 
+    public FixtureDTO(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
+
     public FixtureDTO(String address) {
         this.address = address;
     }
