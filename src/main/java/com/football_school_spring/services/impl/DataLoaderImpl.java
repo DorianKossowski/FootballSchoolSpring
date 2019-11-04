@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-public class DataLoader implements ApplicationRunner {
+public class DataLoaderImpl implements ApplicationRunner {
     private static final UserTypeName[] USER_TYPE_NAMES = UserTypeName.values();
     private static final UserStatusName[] USER_STATUS_NAMES = UserStatusName.values();
     private static final CoachPrivilegeName[] COACH_PRIVILEGE_NAMES = CoachPrivilegeName.values();
