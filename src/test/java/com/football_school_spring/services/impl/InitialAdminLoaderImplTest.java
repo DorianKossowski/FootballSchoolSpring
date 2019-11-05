@@ -1,7 +1,7 @@
 package com.football_school_spring.services.impl;
 
 import com.football_school_spring.FootballSchoolApplicationTests;
-import com.football_school_spring.WithoutInitContextConfiguration;
+import com.football_school_spring.configuration.WithoutInitContextConfiguration;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.services.InitialAdminLoader;
 import org.junit.jupiter.api.Test;

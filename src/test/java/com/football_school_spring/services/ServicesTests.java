@@ -1,7 +1,7 @@
 package com.football_school_spring.services;
 
 import com.football_school_spring.FootballSchoolApplicationTests;
-import com.football_school_spring.ServicesTestsContextConfiguration;
+import com.football_school_spring.configuration.ServicesTestsContextConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 

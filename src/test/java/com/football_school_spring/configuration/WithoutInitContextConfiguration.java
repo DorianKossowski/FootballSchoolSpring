@@ -1,4 +1,4 @@
-package com.football_school_spring;
+package com.football_school_spring.configuration;
 
 import com.football_school_spring.services.InitialDataLoaderService;
 import org.springframework.boot.test.context.TestConfiguration;

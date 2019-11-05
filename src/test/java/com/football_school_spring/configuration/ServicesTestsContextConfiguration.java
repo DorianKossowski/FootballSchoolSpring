@@ -1,4 +1,4 @@
-package com.football_school_spring;
+package com.football_school_spring.configuration;
 
 import com.football_school_spring.notifications.EmailService;
 import com.football_school_spring.services.InitialAdminLoader;
