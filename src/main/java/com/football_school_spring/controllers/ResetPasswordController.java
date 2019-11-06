@@ -68,7 +68,7 @@ public class ResetPasswordController {
             return "redirect:/resetPassword?token=" + token + "&error=true";
         }
         try {
-            resetPasswordService.setNewPassword(token, newPassword, repNewPassword);
+            resetPasswordService.setNewPassword(token, newPassword);
         } catch (IllegalArgumentException e) {
             logger.error("Token doesn't exist");
             redirectAttributes.addFlashAttribute("badUser", "Reset password token doesn't exist");

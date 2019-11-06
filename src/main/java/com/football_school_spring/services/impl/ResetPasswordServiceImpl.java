@@ -24,7 +24,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
     }
 
     @Override
-    public void setNewPassword(String token, String password, String repPassword) {
+    public void setNewPassword(String token, String password) {
         User user = userRepository.findByResetToken(token)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("There isn't user in database with token %s", token)));
 
