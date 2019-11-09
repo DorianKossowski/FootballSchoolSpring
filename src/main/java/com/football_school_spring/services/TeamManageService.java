@@ -2,12 +2,12 @@ package com.football_school_spring.services;
 
 import com.football_school_spring.models.Team;
 
-import java.util.Map;
+import java.util.List;
 
 public interface TeamManageService {
     void updateTeam(Team updatedTeam);
 
-    void deleteCoachFromTeam(String coachId, long teamId);
+    void deleteCoachFromTeam(long coachId, long teamId);
 
-    void assignNewCoaches(Map<String, String> requestParams, long teamId);
+    void assignNewCoaches(List<String> coachesMails, long teamId);
 }

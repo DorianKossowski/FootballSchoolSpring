@@ -1,5 +1,6 @@
 package com.football_school_spring.controllers;
 
+import com.football_school_spring.controllers.basic_user.PossibleTeamsController;
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Parent;
 import com.football_school_spring.models.User;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import static org.apache.log4j.Logger.getLogger;
 
 @Controller
-public class AccountController extends AuthorizedUserController {
+public class AccountController extends PossibleTeamsController {
     private static final Logger logger = getLogger(AccountController.class);
 
     @Autowired

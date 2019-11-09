@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamManageServiceImpl implements TeamManageService {
@@ -32,21 +30,22 @@ public class TeamManageServiceImpl implements TeamManageService {
     }
 
     @Override
-    public void deleteCoachFromTeam(String coachId, long teamId) {
+    public void deleteCoachFromTeam(long coachId, long teamId) {
         Team teamInDB = teamRepository.findById(teamId)
                 .orElseThrow(() -> new GettingFromDbException(Team.class, teamId));
 
         teamInDB.getTeamCoaches().stream()
-                .filter(teamCoach -> teamCoach.getCoach().getId() == Long.parseLong(coachId))
+                .filter(teamCoach -> teamCoach.getCoach().getId() == coachId)
                 .findFirst().ifPresent(teamCoach -> teamCoachRepository.delete(teamCoach));
     }
 
     @Override
-    public void assignNewCoaches(Map<String, String> requestParams, long teamId) {
-        List<String> coachesMails = requestParams.values().stream()
-                .filter(coachMail -> !coachMail.isEmpty())
-                .collect(Collectors.toList());
-        Team team = teamRepository.findById(teamId).orElseThrow(() -> new GettingFromDbException(Team.class, teamId));
-        coachesMails.forEach(coachMail -> coachToTeamAttachingService.attach(team, coachMail));
+    public void assignNewCoaches(List<String> coachesMails, long teamId) {
+        Team team = teamRepository.findById(teamId)
+                .orElseThrow(() -> new GettingFromDbException(Team.class, teamId));
+        coachesMails.forEach(coachMail -> {
+            if (!coachMail.isEmpty())
+                coachToTeamAttachingService.attach(team, coachMail);
+        });
     }
 }

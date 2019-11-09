@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class CoachTeamManageController extends CoachController {
     @PostMapping("/delete-coach/{coachId}")
     public String deleteCoach(Model model, @PathVariable("coachId") String coachId, @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
         try {
-            teamManageService.deleteCoachFromTeam(coachId, currentTeamDTO.getId());
+            teamManageService.deleteCoachFromTeam(Long.parseLong(coachId), currentTeamDTO.getId());
             logger.info(String.format("User with id %d is not %s coach anymore", Long.parseLong(coachId), currentTeamDTO.getName()));
 
             return UrlCleaner.redirectWithCleaning(model, "/coach/manage?updated=true");
@@ -77,7 +78,7 @@ public class CoachTeamManageController extends CoachController {
     public String assignCoaches(@RequestParam Map<String, String> requestParams, Model model,
                                 @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
         try {
-            teamManageService.assignNewCoaches(requestParams, currentTeamDTO.getId());
+            teamManageService.assignNewCoaches(new ArrayList<>(requestParams.values()), currentTeamDTO.getId());
             logger.info("Added new staff to team");
 
             return UrlCleaner.redirectWithCleaning(model, "/coach/manage?updated=true");
