@@ -6,6 +6,16 @@ public class UserRegistrationDTO {
     private String phone;
     private String password;
 
+    public UserRegistrationDTO() {
+    }
+
+    public UserRegistrationDTO(String name, String surname, String phone, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
