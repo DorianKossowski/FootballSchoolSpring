@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,12 +33,15 @@ public class PossibleTeamsController extends AuthorizedUserController {
             if (coach.getNumberOfTeamsAsManager() < coach.getMaxNumberOfTeams()) {
                 teams.put(-1L, "Create new team");
             }
-        } else {
+        } else if (user instanceof Parent) {
             Parent parent = (Parent) user;
             teams = playerRepository.findByParentId(parent.getId()).stream()
                     .map(Player::getTeam)
                     .distinct()
                     .collect(Collectors.toMap(Team::getId, Team::getName));
+        } else {
+            // Admin case
+            return Collections.emptyMap();
         }
         return teams;
     }

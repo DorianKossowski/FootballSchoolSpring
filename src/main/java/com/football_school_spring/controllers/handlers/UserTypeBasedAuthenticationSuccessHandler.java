@@ -27,6 +27,7 @@ public class UserTypeBasedAuthenticationSuccessHandler extends SimpleUrlAuthenti
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (isTypeOf(authentication, UserTypeName.ADMIN)) {
+            CurrentTeamInitializer.setDefaultInitCurrentTeam(request.getSession());
             this.getRedirectStrategy().sendRedirect(request, response, ADMIN_URL);
             return;
         }

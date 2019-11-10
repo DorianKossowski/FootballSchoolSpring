@@ -18,7 +18,7 @@ public class CurrentTeamInitializer {
             Team currentTeamInDb = coach.getTeamCoaches().iterator().next().getTeam();
             session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO(currentTeamInDb));
         } else {
-            session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO());
+            setDefaultInitCurrentTeam(session);
         }
     }
 
@@ -28,7 +28,11 @@ public class CurrentTeamInitializer {
             Team currentTeamInDb = playersByParent.iterator().next().getTeam();
             session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO(currentTeamInDb));
         } else {
-            session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO());
+            setDefaultInitCurrentTeam(session);
         }
+    }
+
+    public static void setDefaultInitCurrentTeam(HttpSession session) {
+        session.setAttribute(PossibleTeamsController.CURRENT_TEAM, new CurrentTeamDTO());
     }
 }
