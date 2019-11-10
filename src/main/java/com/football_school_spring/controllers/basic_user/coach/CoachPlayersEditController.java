@@ -2,6 +2,7 @@ package com.football_school_spring.controllers.basic_user.coach;
 
 import com.football_school_spring.models.Player;
 import com.football_school_spring.models.dto.CurrentTeamDTO;
+import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.services.PlayerManageService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -18,6 +19,8 @@ public class CoachPlayersEditController extends CoachController {
 
     @Autowired
     private PlayerManageService playerManageService;
+    @Autowired
+    private ObjectsDeletingService objectsDeletingService;
 
     @GetMapping("/player-edit/{id}")
     public String getEditPlayer(Model model, @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO,
@@ -41,7 +44,7 @@ public class CoachPlayersEditController extends CoachController {
     @PostMapping("/delete-player/{id}")
     public String deleteCoach(Model model, @PathVariable("id") String playerId) {
         try {
-            playerManageService.delete(Long.parseLong(playerId));
+            objectsDeletingService.deletePlayer(Long.parseLong(playerId));
             logger.info("Player correctly deleted");
             return UrlCleaner.redirectWithCleaning(model, "/coach/players?deleted=true");
         } catch (Exception e) {

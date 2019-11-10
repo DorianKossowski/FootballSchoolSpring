@@ -29,7 +29,7 @@ public class PossibleTeamsController extends AuthorizedUserController {
             teams = coach.getTeamCoaches().stream()
                     .map(TeamCoach::getTeam)
                     .collect(Collectors.toMap(Team::getId, Team::getName));
-            if (coach.getTeamCoaches().size() < coach.getMaxNumberOfTeams()) {
+            if (coach.getNumberOfTeamsAsManager() < coach.getMaxNumberOfTeams()) {
                 teams.put(-1L, "Create new team");
             }
         } else {

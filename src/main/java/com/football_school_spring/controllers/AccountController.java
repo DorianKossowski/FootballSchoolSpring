@@ -6,7 +6,9 @@ import com.football_school_spring.models.Parent;
 import com.football_school_spring.models.User;
 import com.football_school_spring.models.dto.EditPasswordDTO;
 import com.football_school_spring.services.AccountService;
+import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.utils.UrlCleaner;
+import com.football_school_spring.utils.exception.ManagerWithTeamException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,8 @@ public class AccountController extends PossibleTeamsController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private ObjectsDeletingService objectsDeletingService;
 
     @GetMapping("/account")
     public String getAccount(Model model) {
@@ -31,6 +35,7 @@ public class AccountController extends PossibleTeamsController {
         model.addAttribute("user", user);
         model.addAttribute("editPasswordObj", new EditPasswordDTO(user.getId()));
         if (user instanceof Coach) {
+            model.addAttribute("hasTeams", !((Coach) user).getTeamCoaches().isEmpty());
             return "coach-account-edit";
         }
         if (user instanceof Parent) {
@@ -62,6 +67,22 @@ public class AccountController extends PossibleTeamsController {
             return "redirect:/logout";
         } catch (Exception e) {
             logger.error("Error during changing user password", e);
+            return UrlCleaner.redirectWithCleaning(model, "/account?error=true");
+        }
+    }
+
+    @PostMapping("/coach/delete-account")
+    public String deleteCoachAccount(Model model) {
+        try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            objectsDeletingService.deleteCoach(user.getId());
+            logger.info("Coach correctly deleted");
+            return "redirect:/logout";
+        } catch (ManagerWithTeamException e) {
+            logger.error(e);
+            return UrlCleaner.redirectWithCleaning(model, "/account?notDeleted=true");
+        } catch (Exception e) {
+            logger.error("Error during deleting coach", e);
             return UrlCleaner.redirectWithCleaning(model, "/account?error=true");
         }
     }

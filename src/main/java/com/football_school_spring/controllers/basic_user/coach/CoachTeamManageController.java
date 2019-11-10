@@ -6,6 +6,7 @@ import com.football_school_spring.models.TeamCoach;
 import com.football_school_spring.models.dto.CurrentTeamDTO;
 import com.football_school_spring.models.enums.CoachPrivilegeName;
 import com.football_school_spring.repositories.TeamRepository;
+import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.services.TeamManageService;
 import com.football_school_spring.utils.UrlCleaner;
 import com.football_school_spring.utils.exception.GettingFromDbException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.apache.log4j.Logger.getLogger;
@@ -32,6 +34,8 @@ public class CoachTeamManageController extends CoachController {
     private TeamRepository teamRepository;
     @Autowired
     private TeamManageService teamManageService;
+    @Autowired
+    private ObjectsDeletingService objectsDeletingService;
 
     @GetMapping("/manage")
     public String getManage(Model model, @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
@@ -86,6 +90,27 @@ public class CoachTeamManageController extends CoachController {
             logger.error("Error during updating team", e);
             return UrlCleaner.redirectWithCleaning(model, "/coach/manage?error=true");
         }
+    }
+
+    @PostMapping("/delete-team")
+    public String deleteTeam(Model model, @SessionAttribute(CURRENT_TEAM) CurrentTeamDTO currentTeamDTO) {
+        try {
+            objectsDeletingService.deleteTeam(currentTeamDTO.getId());
+            updateSecurityContextHolder();
+            logger.info("Team correctly removed");
+            return getPostDeletingRedirection(model);
+        } catch (Exception e) {
+            logger.error("Error during team deleting", e);
+            return UrlCleaner.redirectWithCleaning(model, "/coach/manage?error=true");
+        }
+    }
+
+    private String getPostDeletingRedirection(Model model) {
+        Set<TeamCoach> teamCoaches = ((Coach) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getTeamCoaches();
+        if (teamCoaches.isEmpty()) {
+            return UrlCleaner.redirectWithCleaning(model, "/coach/home");
+        }
+        return UrlCleaner.redirectWithCleaning(model, "/coach/set-team/" + teamCoaches.iterator().next().getTeam().getId());
     }
 
     private List<Coach> getTeamCoaches(Team team) {

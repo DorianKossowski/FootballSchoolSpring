@@ -1,5 +1,7 @@
 package com.football_school_spring.models;
 
+import com.football_school_spring.models.enums.CoachPrivilegeName;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,5 +39,11 @@ public class Coach extends User {
 
     public void setTeamCoaches(Set<TeamCoach> teamCoaches) {
         this.teamCoaches = teamCoaches;
+    }
+
+    public long getNumberOfTeamsAsManager() {
+        return getTeamCoaches().stream()
+                .filter(teamCoach -> teamCoach.getCoachPrivilege().getName().equals(CoachPrivilegeName.MANAGER.getName()))
+                .count();
     }
 }
