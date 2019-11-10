@@ -1,9 +1,6 @@
 package com.football_school_spring.services.impl;
 
-import com.football_school_spring.models.Coach;
-import com.football_school_spring.models.Player;
-import com.football_school_spring.models.Team;
-import com.football_school_spring.models.VerificationToken;
+import com.football_school_spring.models.*;
 import com.football_school_spring.repositories.*;
 import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.utils.exception.GettingFromDbException;
@@ -70,7 +67,7 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
         }
         teamCoachRepository.deleteAll(coach.getTeamCoaches());
         coachFeeRepository.deleteAll(coachFeeRepository.findByUserId(id));
-        deleteVerificationToken(coach.getId());
+        deleteVerificationToken(id);
         userRepository.deleteById(id);
     }
 
@@ -79,13 +76,19 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
         List<Player> assignedPlayers = playerRepository.findByParentId(id);
         assignedPlayers.forEach(player -> player.setParent(null));
         playerRepository.saveAll(assignedPlayers);
+        deleteVerificationToken(id);
         userRepository.deleteById(id);
     }
 
     @Override
     public void deleteExpiredUser(long id) {
-        deleteVerificationToken(id);
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new GettingFromDbException(User.class, id));
+        if (user instanceof Coach) {
+            deleteCoach(id);
+        } else if (user instanceof Parent) {
+            deleteParent(id);
+        }
     }
 
     private void deleteVerificationToken(long id) {
