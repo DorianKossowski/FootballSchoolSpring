@@ -110,10 +110,12 @@
             <p th:if="${player.parent.name}==null">Name: -</p>
             <p th:unless="${player.parent.name}==null"
                th:text="'Name: ' + ${player.parent.name} + ' ' + ${player.parent.surname}"> ...</p>
-            <p th:text="'Mail: ' + ${player.parent.mail}">...</p>
+
+            <p th:if="${player.parent.mail}==null">Mail: -</p>
+            <p th:unless="${player.parent.mail}==null" th:text="'Mail: ' + ${player.parent.mail}">...</p>
+
             <p th:if="${player.parent.name}==null">Phone: -</p>
-            <p th:unless="${player.parent.name}==null"
-               th:text="'Phone: ' +  ${player.parent.phone}"> ...</p>
+            <p th:unless="${player.parent.name}==null" th:text="'Phone: ' +  ${player.parent.phone}"> ...</p>
         </div>
         <form th:action="@{/coach/delete-player/__${player.id}__}" th:method="post">
             <button type="submit" class="form-btn" style="width:auto; margin-top:50px;">Delete player</button>

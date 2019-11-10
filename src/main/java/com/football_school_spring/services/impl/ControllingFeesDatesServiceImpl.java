@@ -65,7 +65,7 @@ public class ControllingFeesDatesServiceImpl implements ControllingFeesDatesServ
     private void controlPlayerFees(Player player) {
         List<PlayerFee> playerFees = playerFeeRepository.findByPlayerId(player.getId());
         FeesAnalysisResult result = FeesAnalyser.analysePlayerFees(playerFees);
-        if (result.shouldRemind()) {
+        if (result.shouldRemind() && player.getParent() != null) {
             emailService.sendMailWithFeeReminder(player.getParent().getMail());
             logger.info(String.format("User with id: %d has been reminded about service fees", player.getId()));
         }

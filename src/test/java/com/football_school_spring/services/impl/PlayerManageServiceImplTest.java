@@ -15,7 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PlayerManageServiceImplTest extends ServicesTests {
     @Autowired
@@ -129,12 +130,5 @@ class PlayerManageServiceImplTest extends ServicesTests {
         assertEquals(newParentMail, updatedPlayer.getParent().getMail());
         assertEquals(2L, updatedPlayer.getParent().getId());
         assertEquals(newName, updatedPlayer.getName());
-    }
-
-    @Test
-    void shouldDeletePlayer() {
-        underTest.delete(1L);
-
-        assertTrue(playerRepository.findAll().isEmpty());
     }
 }

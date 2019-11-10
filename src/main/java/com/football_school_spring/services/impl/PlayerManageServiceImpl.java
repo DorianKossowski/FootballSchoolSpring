@@ -48,16 +48,11 @@ public class PlayerManageServiceImpl implements PlayerManageService {
         playerInDb.setYear(player.getYear());
 
         String newParentMail = player.getParent().getMail();
-        if (!playerInDb.getParent().getMail().equals(newParentMail)) {
+        if (playerInDb.getParent() == null || !newParentMail.equals(playerInDb.getParent().getMail())) {
             playerInDb.setParent(getNewParent(newParentMail));
         }
 
         playerRepository.save(playerInDb);
-    }
-
-    @Override
-    public void delete(long playerId) {
-        playerRepository.deleteById(playerId);
     }
 
     private Parent getNewParent(String newParentMail) {

@@ -1,6 +1,7 @@
 package com.football_school_spring.services.impl;
 
 import com.football_school_spring.models.Coach;
+import com.football_school_spring.models.Player;
 import com.football_school_spring.models.Team;
 import com.football_school_spring.models.VerificationToken;
 import com.football_school_spring.repositories.*;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,6 +70,14 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
         teamCoachRepository.deleteAll(coach.getTeamCoaches());
         coachFeeRepository.deleteAll(coachFeeRepository.findByUserId(id));
         deleteVerificationToken(coach.getMail());
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteParent(long id) {
+        List<Player> assignedPlayers = playerRepository.findByParentId(id);
+        assignedPlayers.forEach(player -> player.setParent(null));
+        playerRepository.saveAll(assignedPlayers);
         userRepository.deleteById(id);
     }
 

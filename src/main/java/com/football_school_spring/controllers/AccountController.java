@@ -86,4 +86,17 @@ public class AccountController extends PossibleTeamsController {
             return UrlCleaner.redirectWithCleaning(model, "/account?error=true");
         }
     }
+
+    @PostMapping("/parent/delete-account")
+    public String deleteParentAccount(Model model) {
+        try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            objectsDeletingService.deleteParent(user.getId());
+            logger.info("Parent correctly deleted");
+            return "redirect:/logout";
+        } catch (Exception e) {
+            logger.error("Error during deleting parent", e);
+            return UrlCleaner.redirectWithCleaning(model, "/account?error=true");
+        }
+    }
 }

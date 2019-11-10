@@ -9,6 +9,4 @@ public interface PlayerManageService {
     Player getPlayerByIdAndTeamId(long id, long teamId);
 
     void update(Player player);
-
-    void delete(long playerId);
 }

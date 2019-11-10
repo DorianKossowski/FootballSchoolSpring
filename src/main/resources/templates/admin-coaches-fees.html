@@ -54,7 +54,7 @@
     <div class="main-content">
         <h1>Service fees</h1>
         <div th:if="${#lists.isEmpty(wrapper.feesList)}">
-            <div>Lack of coaches in database</div>
+            <div>Lack of managers in database</div>
         </div>
         <div th:unless="${#lists.isEmpty(wrapper.feesList)}">
             <div id="feeYearsDiv" style="margin-bottom: 30px;"></div>

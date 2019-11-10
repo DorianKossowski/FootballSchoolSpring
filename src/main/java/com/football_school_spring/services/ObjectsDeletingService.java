@@ -6,4 +6,6 @@ public interface ObjectsDeletingService {
     void deletePlayer(long id);
 
     void deleteCoach(long id);
+
+    void deleteParent(long id);
 }

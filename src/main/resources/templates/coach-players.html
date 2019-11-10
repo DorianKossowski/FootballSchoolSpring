@@ -120,7 +120,8 @@
                 <tr th:onclick="'javascript:playerRowClicked(\'' + ${player.id} + '\');'">
                     <td th:text="${player.name} + ' ' + ${player.surname}">...</td>
                     <td th:text="${player.year}">...</td>
-                    <td th:text="${player.parent.mail}">...</td>
+                    <td th:if="${player.parent} == null">No parent assigned</td>
+                    <td th:unless="${player.parent} == null" th:text="${player.parent.mail}">...</td>
                 </tr>
             </th:block>
             </tbody>

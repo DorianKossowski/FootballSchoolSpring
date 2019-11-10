@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/index-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <link rel="stylesheet" type="text/css" href="/css/forms-style.css">
     <meta name="viewport" content="width=1024">
     <title>Football School</title>
 </head>
@@ -15,6 +17,18 @@
         <p style="text-align: center;width: 100%;font-size: 24px;color:#ffffff;">You don't have players assigned to your
             account! <br/>Please contact administrator.
         </p>
+        <div style="display:flex; margin: 0 auto; width: 100%;">
+            <form action="/parent/delete-account" method="post" style="width: 100%;">
+                <div class="form-btn-wrapper">
+                    <div style="width: inherit;">
+                        <button class="form-btn" style="width:150px;">Remove account</button>
+                    </div>
+                </div>
+            </form>
+            <div style="width: 100%;">
+                <a href="/logout" class="form-btn" style="width: 150px; padding: 0px;">Log out</a>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
