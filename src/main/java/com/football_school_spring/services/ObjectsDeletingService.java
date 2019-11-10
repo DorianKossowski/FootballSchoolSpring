@@ -9,5 +9,5 @@ public interface ObjectsDeletingService {
 
     void deleteParent(long id);
 
-    void deleteExpiredUser(long id);
+    void deleteUser(long id);
 }

@@ -48,7 +48,7 @@ public class RegisterController {
         VerificationToken verificationToken = verificationTokenOptional.get();
         if ((verificationToken.getExpiryDate().isBefore(LocalDateTime.now()))) {
             logger.warn("Token's already expired");
-            objectsDeletingService.deleteExpiredUser(verificationToken.getUser().getId());
+            objectsDeletingService.deleteUser(verificationToken.getUser().getId());
             model.addAttribute("badUser", "Registration token's already expired");
             return "redirect:/?badUser=true";
         }

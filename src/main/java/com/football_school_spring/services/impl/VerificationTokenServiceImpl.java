@@ -30,7 +30,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
                 .collect(Collectors.toList());
         expiredTokens.forEach(verificationToken -> {
             long userId = verificationToken.getUser().getId();
-            objectsDeletingService.deleteExpiredUser(userId);
+            objectsDeletingService.deleteUser(userId);
             logger.info(String.format("User with id %d deleted due to token expiration", userId));
         });
     }

@@ -25,17 +25,19 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
     private FixtureRepository fixtureRepository;
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private VerificationTokenRepository verificationTokenRepository;
+
+    @Autowired
     private PlayerFeeRepository playerFeeRepository;
     @Autowired
     private PlayerRepository playerRepository;
+
     @Autowired
     private CoachRepository coachRepository;
     @Autowired
     private CoachFeeRepository coachFeeRepository;
-    @Autowired
-    private VerificationTokenRepository verificationTokenRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public void deleteTeam(long id) {
@@ -81,7 +83,7 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
     }
 
     @Override
-    public void deleteExpiredUser(long id) {
+    public void deleteUser(long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new GettingFromDbException(User.class, id));
         if (user instanceof Coach) {
