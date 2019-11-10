@@ -63,13 +63,14 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
 
     @Override
     public void deleteCoach(long id) {
-        Coach coach = coachRepository.findById(id).orElseThrow(() -> new GettingFromDbException(Coach.class, id));
+        Coach coach = coachRepository.findById(id)
+                .orElseThrow(() -> new GettingFromDbException(Coach.class, id));
         if (coach.getNumberOfTeamsAsManager() > 0) {
             throw new ManagerWithTeamException();
         }
         teamCoachRepository.deleteAll(coach.getTeamCoaches());
         coachFeeRepository.deleteAll(coachFeeRepository.findByUserId(id));
-        deleteVerificationToken(coach.getMail());
+        deleteVerificationToken(coach.getId());
         userRepository.deleteById(id);
     }
 
@@ -81,8 +82,14 @@ public class ObjectsDeletingServiceImpl implements ObjectsDeletingService {
         userRepository.deleteById(id);
     }
 
-    private void deleteVerificationToken(String mail) {
-        Optional<VerificationToken> tokenOptional = verificationTokenRepository.findByUserMail(mail);
+    @Override
+    public void deleteExpiredUser(long id) {
+        deleteVerificationToken(id);
+        userRepository.deleteById(id);
+    }
+
+    private void deleteVerificationToken(long id) {
+        Optional<VerificationToken> tokenOptional = verificationTokenRepository.findByUserId(id);
         tokenOptional.ifPresent(verificationToken -> verificationTokenRepository.delete(verificationToken));
     }
 }

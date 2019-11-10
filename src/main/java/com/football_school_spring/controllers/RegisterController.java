@@ -4,6 +4,7 @@ import com.football_school_spring.models.VerificationToken;
 import com.football_school_spring.models.dto.UserRegistrationDTO;
 import com.football_school_spring.repositories.UserRepository;
 import com.football_school_spring.repositories.VerificationTokenRepository;
+import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.services.UserRegistrationService;
 import com.football_school_spring.utils.UrlCleaner;
 import org.apache.log4j.Logger;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.apache.log4j.Logger.getLogger;
@@ -32,6 +33,8 @@ public class RegisterController {
     private UserRegistrationService userRegistrationService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ObjectsDeletingService objectsDeletingService;
 
     @GetMapping(value = "/register")
     public String register(Model model, @RequestParam("token") String token, RedirectAttributes redirectAttributes) {
@@ -43,11 +46,9 @@ public class RegisterController {
         }
 
         VerificationToken verificationToken = verificationTokenOptional.get();
-        Calendar calendar = Calendar.getInstance();
-        if ((verificationToken.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
+        if ((verificationToken.getExpiryDate().isBefore(LocalDateTime.now()))) {
             logger.warn("Token's already expired");
-            verificationTokenRepository.delete(verificationToken);
-            userRepository.delete(verificationToken.getUser());
+            objectsDeletingService.deleteExpiredUser(verificationToken.getUser().getId());
             model.addAttribute("badUser", "Registration token's already expired");
             return "redirect:/?badUser=true";
         }

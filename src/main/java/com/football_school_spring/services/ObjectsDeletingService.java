@@ -8,4 +8,6 @@ public interface ObjectsDeletingService {
     void deleteCoach(long id);
 
     void deleteParent(long id);
+
+    void deleteExpiredUser(long id);
 }

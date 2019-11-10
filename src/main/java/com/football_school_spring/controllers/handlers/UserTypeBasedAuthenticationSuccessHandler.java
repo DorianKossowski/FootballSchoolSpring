@@ -4,6 +4,7 @@ import com.football_school_spring.models.Coach;
 import com.football_school_spring.models.Parent;
 import com.football_school_spring.models.enums.UserTypeName;
 import com.football_school_spring.repositories.PlayerRepository;
+import com.football_school_spring.services.VerificationTokenService;
 import com.football_school_spring.utils.CurrentTeamInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,10 +24,13 @@ public class UserTypeBasedAuthenticationSuccessHandler extends SimpleUrlAuthenti
 
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private VerificationTokenService verificationTokenService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (isTypeOf(authentication, UserTypeName.ADMIN)) {
+            verificationTokenService.cleanUpUsersWithExpiredTokens();
             CurrentTeamInitializer.setDefaultInitCurrentTeam(request.getSession());
             this.getRedirectStrategy().sendRedirect(request, response, ADMIN_URL);
             return;

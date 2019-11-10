@@ -1,13 +1,11 @@
 package com.football_school_spring.models;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class VerificationToken {
-    private static final int EXPIRATION = 60 * 24 * 7;
+    private static final int EXPIRATION = 7;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,17 +17,10 @@ public class VerificationToken {
 
     private String token;
 
-    private Date expiryDate;
+    private LocalDateTime expiryDate;
 
     public void setDefaultExpiryDate() {
-        setExpiryDate(calculateExpiryDate());
-    }
-
-    private Date calculateExpiryDate() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Timestamp(cal.getTime().getTime()));
-        cal.add(Calendar.MINUTE, EXPIRATION);
-        return new Date(cal.getTime().getTime());
+        setExpiryDate(LocalDateTime.now().plusDays(EXPIRATION));
     }
 
     public Long getId() {
@@ -56,11 +47,11 @@ public class VerificationToken {
         this.user = user;
     }
 
-    public Date getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 }
