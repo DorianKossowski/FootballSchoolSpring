@@ -11,6 +11,7 @@
     <title>FS - coach site</title>
 </head>
 <body>
+<div id="blackout" style="display:none;"></div>
 <nav class="sidebar" id="sidebarId">
     <div class="logo-container">
         <h3>Football School</h3>
@@ -122,18 +123,24 @@
                 </div>
             </div>
         </form>
-        <h3 class="subtitle">Remove team</h3>
-        <form action="/coach/delete-team" method="post" style="width: 100%;">
-            <div class="form-btn-wrapper">
-                <div style="width: inherit;">
-                    <button class="form-btn" style="width:150px;">Remove</button>
+        <div id="confirmation-modal">
+            <span class="close" onclick="modalOff()">&times;</span>
+            <form action="/coach/delete-team" method="post" style="width: 100%;">
+                <legend>Are you sure you want to delete your team?</legend>
+                <div class="form-btn-wrapper">
+                    <div style="width: inherit;">
+                        <button class="form-btn" style="width:150px;">Remove</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <h3 class="subtitle">Remove team</h3>
+        <button class="form-btn" onclick="modalOn()" style="width:150px;">Remove</button>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
 <script src="/js/coach-options.js"></script>
 <script src="/js/add-coaches-to-form.js"></script>
+<script src="/js/modal.js"></script>
 </body>
 </html>
