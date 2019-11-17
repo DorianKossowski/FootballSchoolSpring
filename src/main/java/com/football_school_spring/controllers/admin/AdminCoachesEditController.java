@@ -2,7 +2,9 @@ package com.football_school_spring.controllers.admin;
 
 import com.football_school_spring.models.Coach;
 import com.football_school_spring.services.CoachEditingService;
+import com.football_school_spring.services.ObjectsDeletingService;
 import com.football_school_spring.utils.UrlCleaner;
+import com.football_school_spring.utils.exception.ManagerWithTeamException;
 import com.football_school_spring.utils.validation.CoachEditingValidationResult;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class AdminCoachesEditController extends AdminController {
 
     @Autowired
     private CoachEditingService coachEditingService;
+    @Autowired
+    private ObjectsDeletingService objectsDeletingService;
 
     @GetMapping("/coaches-edit/{coachId}")
     public String editCoach(Model model, @PathVariable("coachId") String coachId) {
@@ -65,5 +69,20 @@ public class AdminCoachesEditController extends AdminController {
         coachEditingService.changeCoachStatus(result.getCoach());
         logger.info(String.format("Coach with id %s correctly edited", coachId));
         return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?edited=true", coachId));
+    }
+
+    @PostMapping("/coaches-edit/delete/{coachId}")
+    public String deleteCoach(Model model, @PathVariable("coachId") String coachId) {
+        try {
+            objectsDeletingService.deleteCoach(Long.parseLong(coachId));
+            logger.info("Coach correctly deleted");
+            return UrlCleaner.redirectWithCleaning(model, "/admin/coaches-list");
+        } catch (ManagerWithTeamException e) {
+            logger.error(e);
+            return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?withTeam=true", coachId));
+        } catch (Exception e) {
+            logger.error("Error during deleting coach", e);
+            return UrlCleaner.redirectWithCleaning(model, String.format("/admin/coaches-edit/%s?error=true", coachId));
+        }
     }
 }

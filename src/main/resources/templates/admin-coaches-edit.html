@@ -10,6 +10,7 @@
     <title>FS - admin site</title>
 </head>
 <body>
+<div id="blackout" style="display:none;"></div>
 <nav class="sidebar" id="sidebarId">
     <div class="logo-container">
         <h3>Football School</h3>
@@ -34,6 +35,12 @@
     </div>
     <div class="alert alert-danger" th:if="${param.wrongNumber}">
         Maximum number of teams is too small
+    </div>
+    <div class="alert alert-danger" th:if="${param.withTeam}">
+        Cannot delete account - coach is a team manager
+    </div>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Error during coach editing
     </div>
     <header class="header">
         <div style="float:right;margin-bottom:16px;">
@@ -87,6 +94,17 @@
                 </tbody>
             </table>
         </div>
+        <div id="confirmation-modal">
+            <span class="close" onclick="modalOff()">&times;</span>
+            <form th:action="'/admin/coaches-edit/delete/' + ${coach.id}" method="post" style="width: 100%;">
+                <legend>Are you sure you want to delete this account?</legend>
+                <div class="form-btn-wrapper">
+                    <div style="width: inherit;">
+                        <button class="form-btn" style="width:150px;">Remove</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div style="display:flex; width:50%; margin:auto;margin-top: 50px;">
             <form th:action="'/admin/coaches-edit/' + ${coach.id}" method="post" style="width: 100%;">
                 <div class="form-btn-wrapper">
@@ -98,10 +116,12 @@
                     </div>
                 </div>
             </form>
+            <button class="form-btn" onclick="modalOn()" style="width:50%;">Remove</button>
         </div>
     </div>
 </div>
 <script src="/js/user-menu.js"></script>
 <script src="/js/clickable-row.js"></script>
+<script src="/js/modal.js"></script>
 </body>
 </html>
