@@ -26,6 +26,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         if (!userOptional.isPresent()) {
             throw new IllegalArgumentException(String.format("User with mail %s doesn't exist", mail));
         }
+        if (!userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
+            throw new IllegalArgumentException("Provided passwords are not equal");
+        }
         User newUser = userOptional.get();
         setRegistrationAttributes(userRegistrationDTO, newUser);
         userRepository.saveCompleteUser(newUser);

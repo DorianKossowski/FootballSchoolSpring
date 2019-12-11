@@ -12,11 +12,11 @@
     <div class="alert alert-danger" th:if="${param.error}">
         Invalid data! Please fill form correctly
     </div>
-    <div class="index-container" style="margin-top:20px;">
+    <div class="index-container" style="margin-top:20px; height: 700px;">
         <div class="index-title-img" style="background-image: url(/images/login-theme.png);">
             <span class="index-title">Football School</span>
         </div>
-        <div class="welcome-container" style="margin: auto; width:450px;">
+        <div class="welcome-container" style="margin: auto; width:550px;">
             <form action="#" style="margin-top: 30px;" th:action="@{/register?token=} + ${param.token}"
                   th:object="${newUser}" method="post">
                 <fieldset>
@@ -55,6 +55,14 @@
                             <div class="input-wrapper" style="width:70%">
                                 <input type="password" placeholder="password" class="input" required=""
                                        th:field="*{password}" autocomplete="off" readonly
+                                       onfocus="this.removeAttribute('readonly');">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label">Confirm password</label>
+                            <div class="input-wrapper" style="width:70%">
+                                <input type="password" placeholder="password" class="input" required=""
+                                       th:field="*{confirmPassword}" autocomplete="off" readonly
                                        onfocus="this.removeAttribute('readonly');">
                             </div>
                         </div>

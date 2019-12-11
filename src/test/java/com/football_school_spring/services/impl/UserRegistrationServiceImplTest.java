@@ -31,6 +31,7 @@ class UserRegistrationServiceImplTest extends ServicesTests {
         String surname = "surname";
         String phone = "111222333";
         String password = "password";
+        String confirmPassword = "password";
 
         User user = new User();
         user.setMail(mail);
@@ -41,7 +42,7 @@ class UserRegistrationServiceImplTest extends ServicesTests {
         verificationTokenRepository.save(token);
 
         // When
-        underTest.registerUser(mail, new UserRegistrationDTO(name, surname, phone, password));
+        underTest.registerUser(mail, new UserRegistrationDTO(name, surname, phone, password, confirmPassword));
 
         // Then
         User registeredUser = userRepository.findById(1L).orElseThrow(RuntimeException::new);
@@ -52,7 +53,20 @@ class UserRegistrationServiceImplTest extends ServicesTests {
     }
 
     @Test
-    void shouldThrowDuringRegistrationUser() {
+    void shouldThrowDuringRegistrationUserWhenLackOfUser() {
         assertThrows(IllegalArgumentException.class, () -> underTest.registerUser("mail", new UserRegistrationDTO()));
+    }
+
+    @Test
+    void shouldThrowDuringRegistrationUserWhenWrongPasswords() {
+        String mail = "user@mail.com";
+        String password = "password";
+        String confirmPassword = "NOTpassword";
+        User user = new User();
+        user.setMail(mail);
+        userRepository.save(user);
+
+        assertThrows(IllegalArgumentException.class, () -> underTest.registerUser("mail",
+                new UserRegistrationDTO("name", "surname", "phone", password, confirmPassword)));
     }
 }
